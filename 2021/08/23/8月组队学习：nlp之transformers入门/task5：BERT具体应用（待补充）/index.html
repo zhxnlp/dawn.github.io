@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="task5：BERT具体应用"><meta name="keywords" content="nlp,transformer"><meta name="author" content="zhxnlp"><meta name="copyright" content="zhxnlp"><title>task5：BERT具体应用 | zhxnlpのBlog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"JU6VFRRZVF","apiKey":"ca17f8e20c4dc91dfe1214d03173a8be","indexName":"github-io","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.0.0'
+} </script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="zhxnlpのBlog" type="application/atom+xml">
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BA%94%E7%94%A8-BERT"><span class="toc-number">1.</span> <span class="toc-text">如何应用 BERT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-BERT%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">1.BERT代码总结：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-BertTokenizer%EF%BC%88Tokenization%E5%88%86%E8%AF%8D%EF%BC%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 BertTokenizer（Tokenization分词）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-BertModel"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 BertModel</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-BertEmbeddings"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.3 BertEmbeddings</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-BertEncoder"><span class="toc-number">1.2.</span> <span class="toc-text">1.4 BertEncoder</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-4-1-BertAttention"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">1.4.1 BertAttention</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-4-2-BertIntermediate"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">1.4.2 BertIntermediate</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-4-3-BertOutput"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">1.4.3 BertOutput</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5BertPooler"><span class="toc-number">1.3.</span> <span class="toc-text">1.5BertPooler</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.6 总结</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-blog.csdnimg.cn/92202ef591744a55a05a1fc7e108f4d6.png"></div><div class="author-info__name text-center">zhxnlp</div><div class="author-info__description text-center">nlp</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/zhxnlp">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">47</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">39</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">9</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://relph1119.github.io/my-team-learning">relph</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://ifwind.github.io/">ifwind</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://chuxiaoyu.cn/nlp-transformer-summary/">chuxiaoyu</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">zhxnlpのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">task5：BERT具体应用</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-08-23</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers/">8月组队学习：nlp之transformers</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1.7k</span><span class="post-meta__separator">|</span><span>阅读时长: 5 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="如何应用-BERT"><a href="#如何应用-BERT" class="headerlink" title="如何应用 BERT"></a>如何应用 BERT</h2><p>@[toc]<br>&#8195;&#8195;尝试 BERT 的最佳方式是通过托管在 Google Colab 上的 BERT FineTuning with Cloud TPUs。 BERT 代码可以运行在 TPU、CPU 和 GPU。</p>
+<p>上一章我们查看 了BERT 仓库 中的代码：</p>
+<h3 id="1-BERT代码总结："><a href="#1-BERT代码总结：" class="headerlink" title="1.BERT代码总结："></a>1.BERT代码总结：</h3><h4 id="1-1-BertTokenizer（Tokenization分词）"><a href="#1-1-BertTokenizer（Tokenization分词）" class="headerlink" title="1.1 BertTokenizer（Tokenization分词）"></a>1.1 BertTokenizer（Tokenization分词）</h4><ul>
+<li>组成结构：BasicTokenizer和WordPieceTokenizer</li>
+<li>BasicTokenizer主要作用：<ol>
+<li>按标点、空格分割句子，对于中文字符，通过预处理（加空格方式）进行按字分割</li>
+<li>通过never_split指定对某些词不进行分割</li>
+<li>处理是否统一小写</li>
+<li>清理非法字符</li>
+</ol>
+</li>
+<li>WordPieceTokenizer主要作用：<ol>
+<li>进一步将词分解为子词(subword)，例如，tokenizer 这个词就可以拆解为“token”和“##izer”两部分，注意后面一个词的“##”表示接在前一个词后面</li>
+<li>subword介于char和word之间，保留了词的含义，又能够解决英文中单复数、时态导致的词表爆炸和未登录词的OOV问题</li>
+<li>将词根和时态词缀分割，减小词表，降低训练难度  <span id="more"></span></li>
+</ol>
+</li>
+<li>BertTokenizer常用方法：<ol>
+<li>from_pretrained：从包含词表文件（vocab.txt）的目录中初始化一个分词器；</li>
+<li>tokenize：将文本（词或者句子）分解为子词列表；</li>
+<li>convert_tokens_to_ids：将子词列表转化为子词对应的下标列表；</li>
+<li>convert_ids_to_tokens ：与上一个相反；</li>
+<li>convert_tokens_to_string：将subword列表按“##”拼接回词或者句子；</li>
+<li>encode：<ul>
+<li>对于单个句子输入，分解词，同时加入特殊词形成“[CLS], x, [SEP]”的结构，并转换为词表对应的下标列表；</li>
+<li>对于两个句子输入（多个句子只取前两个），分解词并加入特殊词形成“[CLS], x1, [SEP], x2, [SEP]”的结构并转换为下标列表；</li>
+</ul>
+</li>
+<li>decode：可以将encode方法的输出变为完整句子。</li>
+</ol>
+</li>
+</ul>
+<h4 id="1-2-BertModel"><a href="#1-2-BertModel" class="headerlink" title="1.2 BertModel"></a>1.2 BertModel</h4><p>BERT 模型有关的代码主要写在/models/bert/modeling_bert.py中，包含 BERT 模型的基本结构和基于它的微调模型等。</p>
+<p>BertModel 主要为 transformer encoder 结构，包含三个部分：</p>
+<ul>
+<li>embeddings，即BertEmbeddings类的实体，根据单词符号获取对应的向量表示；</li>
+<li>encoder，即BertEncoder类的实体；</li>
+<li>pooler，即BertPooler类的实体，这一部分是可选的。</li>
+</ul>
+<p>BertModel可以作为编码器（只有自我注意）也可以作为解码器，作为解码器的时候，只需要在自注意力层之间添加了交叉注意力（应该还要加masked机制，屏蔽未来信息）</p>
+<ul>
+<li>BertModel常用方法：<ol>
+<li>get_input_embeddings：提取 embedding 中的 word_embeddings，即词向量部分；</li>
+<li>set_input_embeddings：为 embedding 中的 word_embeddings 赋值；</li>
+<li>_prune_heads：提供了将注意力头剪枝的函数，输入为{layer_num: list of heads to prune in this layer}的字典，可以将指定层的某些注意力头剪枝。<h4 id="1-3-BertEmbeddings"><a href="#1-3-BertEmbeddings" class="headerlink" title="1.3 BertEmbeddings"></a>1.3 BertEmbeddings</h4></li>
+</ol>
+</li>
+<li>输出结果：通过word_embeddings、token_type_embeddings、position_embeddings三个部分求和，并通过一层 LayerNorm+Dropout 后输出得到，其大小为(batch_size, sequence_length, hidden_size)</li>
+<li>word_embeddings：子词(subword)对应的embeddings</li>
+<li>token_type_embeddings：用于表示当前词所在的句子，区别句子与 padding、句子对之间的差异</li>
+<li>position_embeddings：表示句子中每个词的位置嵌入，用于区别词的顺序</li>
+</ul>
+<blockquote>
+<p>使用 LayerNorm+Dropout 的必要性：<br>&emsp;&emsp;通过layer normalization得到的embedding的分布，是以坐标原点为中心，1为标准差，越往外越稀疏的球体空间中</p>
+</blockquote>
+<p>&emsp;&emsp;词嵌入在torch里基于torch.nn.Embedding实现，实例化时需要设置的参数为词表的大小和被映射的向量的维度比如embed = nn.Embedding(10,8)。向量的维度通俗来说就是向量里面有多少个数。注意，第一个参数是词表的大小，如果你目前最多有8个词，通常填写10（多一个位置留给unk和pad），你后面万一进入与这8个词不同的词就映射到unk上，序列padding的部分就映射到pad上。<br>&emsp;&emsp;假如我们打算映射到8维（num_features或者embed_dim），那么，整个文本的形状变为100 x 128 x 8。接下来举个小例子解释一下：假设我们词表一共有10个词(算上unk和pad)，文本里有2个句子，每个句子有4个词，我们想要把每个词映射到8维的向量。于是2，4，8对应于batch_size, seq_length, embed_dim（如果batch在第一维的话）。<br>&emsp;&emsp;另外，一般深度学习任务只改变num_features，所以讲维度一般是针对最后特征所在的维度</p>
+<h3 id="1-4-BertEncoder"><a href="#1-4-BertEncoder" class="headerlink" title="1.4 BertEncoder"></a>1.4 BertEncoder</h3><ul>
+<li>技术拓展：梯度检查点（gradient checkpointing），通过减少保存的计算图节点压缩模型占用空间</li>
+</ul>
+<h5 id="1-4-1-BertAttention"><a href="#1-4-1-BertAttention" class="headerlink" title="1.4.1 BertAttention"></a>1.4.1 BertAttention</h5><p>分为BertSelfAttention+BertSelfOutput。后一个是Add+LayerNorm。</p>
+<ul>
+<li>BertSelfAttention<ol>
+<li>初始化部分：检查隐藏层和注意力头的参数配置倍率、进行各参数的赋值</li>
+<li>前向传播部分：<ul>
+<li>multi-head self-attention的基本公式：<br>$$<br>\text{MHA}(Q, K, V) = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)W^O \<br>\text{head}_i = \text{SDPA}(\text{QW}_i^Q, \text{KW}_i^K, \text{VW}_i^V) \<br>\text{SDPA}(Q, K, V) = \text{softmax}(\frac{Q \cdot K^T}{\sqrt{d_k}}) \cdot V$$</li>
+<li>transpose_for_scores：用于将 hidden_size 拆成多个头输出的形状，并且将中间两维转置进行矩阵相乘</li>
+<li>torch.einsum：根据下标表示形式，对矩阵中输入元素的乘积求和</li>
+<li>positional_embedding_type：  <ul>
+<li>absolute：默认值，不用进行处理</li>
+<li>relative_key：对key layer处理</li>
+<li>relative_key_query：对 key 和 value 都进行相乘以作为位置编码</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>BertSelfOutput：<br>&emsp;&emsp;前向传播部分使用LayerNorm+Dropout组合，残差连接用于降低网络层数过深，带来的训练难度，对原始输入更加敏感。<h5 id="1-4-2-BertIntermediate"><a href="#1-4-2-BertIntermediate" class="headerlink" title="1.4.2 BertIntermediate"></a>1.4.2 BertIntermediate</h5>self-attention输出Z全连接3072个神经元（以small是768词向量举例），得到一个扩维4倍的结果。</li>
+<li>主要结构：全连接和激活操作</li>
+<li>全连接：将原始维度进行扩展，参数intermediate_size</li>
+<li>激活：激活函数默认为 gelu，使用一个包含tanh的表达式进行近似求解<h5 id="1-4-3-BertOutput"><a href="#1-4-3-BertOutput" class="headerlink" title="1.4.3 BertOutput"></a>1.4.3 BertOutput</h5>全连接768个神经元，映射回768维向量。之后Add+LayerNorm。<br>主要结构：全连接、dropout+LayerNorm、残差连接（residual connect）<h3 id="1-5BertPooler"><a href="#1-5BertPooler" class="headerlink" title="1.5BertPooler"></a>1.5BertPooler</h3>&#8195;&#8195;主要作用：取出句子的第一个token，即[CLS]对应的向量，然后通过一个全连接层和一个激活函数后输出结果。<h4 id="1-6-总结"><a href="#1-6-总结" class="headerlink" title="1.6 总结"></a>1.6 总结</h4></li>
+<li>BERT 不会将单词作为 token。相反，它关注的是 WordPiece。 tokenizer（就是tokenization.py）会将你的单词转换为适合 BERT 的 wordPiece；</li>
+<li>模型是在 modeling.py（class BertModel）中定义的，和普通的 Transformer encoder 完全相同；</li>
+<li>run_classifier.py 是微调网络的一个示例。它还构建了监督模型分类层。如果你想构建自己的- 分类器，请查看这个文件中的 create_model() 方法；</li>
+<li>可以下载一些预训练好的模型。这些模型包括 BERT Base、BERT Large，以及英语、中文和包括 102 种语言的多语言模型，这些模型都是在维基百科的数据上进行训练的。</li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">zhxnlp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zhxnlp.github.io/2021/08/23/8月组队学习：nlp之transformers入门/task5：BERT具体应用（待补充）/">https://zhxnlp.github.io/2021/08/23/8月组队学习：nlp之transformers入门/task5：BERT具体应用（待补充）/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zhxnlp.github.io">zhxnlpのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/nlp/">nlp</a><a class="post-meta__tags" href="/tags/transformer/">transformer</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/08/24/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers%E5%85%A5%E9%97%A8/%E9%80%89%E8%AF%BB1%EF%BC%9ATransformer%E4%BB%A3%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%88Pytorch%EF%BC%89/"><i class="fa fa-chevron-left">  </i><span>选读1：Transformer代码解读（Pytorch）</span></a></div><div class="next-post pull-right"><a href="/2021/08/22/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers%E5%85%A5%E9%97%A8/task4%EF%BC%9ABERT%E4%BB%A3%E7%A0%81%E8%AE%B2%E8%A7%A3/"><span>task4：BERT代码讲解</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By zhxnlp</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>

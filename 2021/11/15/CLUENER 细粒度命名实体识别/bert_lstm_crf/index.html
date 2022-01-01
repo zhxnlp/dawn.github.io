@@ -1,0 +1,989 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="命名实体识别——bert_lstm_crf模型"><meta name="keywords" content="NER,nlp,CRF"><meta name="author" content="zhxnlp"><meta name="copyright" content="zhxnlp"><title>命名实体识别——bert_lstm_crf模型 | zhxnlpのBlog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"JU6VFRRZVF","apiKey":"ca17f8e20c4dc91dfe1214d03173a8be","indexName":"github-io","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.0.0'
+} </script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="zhxnlpのBlog" type="application/atom+xml">
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pandas%E6%95%B0%E6%8D%AE%E8%A3%85%E5%85%A5datasets%E8%BF%9B%E8%A1%8C%E8%A7%A3%E7%A0%81%EF%BC%8C%E4%B9%8B%E5%90%8E%E6%96%B9%E4%BE%BF%E7%9B%B4%E6%8E%A5pad-labels%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">pandas数据装入datasets进行解码，之后方便直接pad labels。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#labels%E5%9C%A8%E5%90%8E%E9%9D%A2%E8%A3%85%E5%85%A5dataloader%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E4%B8%8D%E5%A4%84%E7%90%86%E7%9A%84%E8%AF%9D%E9%95%BF%E5%BA%A6%E4%B8%8D%E4%B8%80%E8%87%B4%EF%BC%8C%E5%A4%84%E7%90%86%E7%9A%84%E8%AF%9D%E6%95%B4%E7%90%86%E5%87%BD%E6%95%B0%E5%A4%AA%E9%BA%BB%E7%83%A6%E3%80%82"><span class="toc-number">2.</span> <span class="toc-text">labels在后面装入dataloader的时候，不处理的话长度不一致，处理的话整理函数太麻烦。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94bert%E7%9A%84token%E5%88%86%E7%B1%BB%E4%BB%BB%E5%8A%A1%E5%A4%B4"><span class="toc-number">3.</span> <span class="toc-text">对比bert的token分类任务头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B%E9%AA%8C%E8%AF%81%E9%9B%86%E7%BB%93%E6%9E%9C%EF%BC%8C%E4%B8%8E%E5%8E%9F%E6%A0%87%E7%AD%BE%E5%AF%B9%E6%AF%94"><span class="toc-number">4.</span> <span class="toc-text">用模型预测验证集结果，与原标签对比</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-blog.csdnimg.cn/92202ef591744a55a05a1fc7e108f4d6.png"></div><div class="author-info__name text-center">zhxnlp</div><div class="author-info__description text-center">nlp</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/zhxnlp">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">47</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">39</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">9</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://relph1119.github.io/my-team-learning">relph</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://ifwind.github.io/">ifwind</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://chuxiaoyu.cn/nlp-transformer-summary/">chuxiaoyu</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">zhxnlpのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">命名实体识别——bert_lstm_crf模型</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-11-15</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/CLUENER-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/">CLUENER 命名实体识别</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">6.5k</span><span class="post-meta__separator">|</span><span>阅读时长: 36 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount(&quot;/content/drive&quot;, force_remount=True).
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.chdir(<span class="string">&#x27;/content/drive/MyDrive/chinese task/CLUENER2020&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#安装</span></span><br><span class="line">!pip install transformers datasets pytorch-crf seqeval</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> config</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#加载处理完的npz数据集</span></span><br><span class="line"><span class="comment">#不加allow_pickle=True会报错Object arrays cannot be loaded when allow_pickle=False，numpy新版本中默认为False。</span></span><br><span class="line">train_data=np.load(<span class="string">&#x27;./data/train.npz&#x27;</span>,allow_pickle=<span class="literal">True</span>)</span><br><span class="line">val_data=np.load(<span class="string">&#x27;./data/dev.npz&#x27;</span>,allow_pickle=<span class="literal">True</span>)</span><br><span class="line">test_data=np.load(<span class="string">&#x27;./data/test.npz&#x27;</span>,allow_pickle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">test_data.files</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>[&#39;words&#39;, &#39;labels&#39;]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#转换为dataframe格式</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment">#补个随机frac</span></span><br><span class="line">train_df=pd.concat([pd.DataFrame(train_data[<span class="string">&#x27;words&#x27;</span>],columns=[<span class="string">&#x27;words&#x27;</span>]),</span><br><span class="line">          pd.DataFrame(train_data[<span class="string">&#x27;labels&#x27;</span>],columns=[<span class="string">&#x27;labels&#x27;</span>])],axis=<span class="number">1</span>).sample(frac=<span class="number">1.0</span>)</span><br><span class="line"><span class="comment">#测试集和验证集不需要shuffle</span></span><br><span class="line">val_df=pd.concat([pd.DataFrame(val_data[<span class="string">&#x27;words&#x27;</span>],columns=[<span class="string">&#x27;words&#x27;</span>]),</span><br><span class="line">          pd.DataFrame(val_data[<span class="string">&#x27;labels&#x27;</span>],columns=[<span class="string">&#x27;labels&#x27;</span>])],axis=<span class="number">1</span>)<span class="comment">#后面要进行预测对比标签，不宜shuffle</span></span><br><span class="line"></span><br><span class="line">test_df=pd.concat([pd.DataFrame(test_data[<span class="string">&#x27;words&#x27;</span>],columns=[<span class="string">&#x27;words&#x27;</span>]),</span><br><span class="line">          pd.DataFrame(test_data[<span class="string">&#x27;labels&#x27;</span>],columns=[<span class="string">&#x27;labels&#x27;</span>])],axis=<span class="number">1</span>)</span><br><span class="line"><span class="comment">#小样本测试</span></span><br><span class="line"><span class="comment">#train_df=train_df.iloc[:1000]</span></span><br><span class="line"><span class="comment">#val_df=val_df.iloc[:500]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#将训练验证集的BIOS标签转换为数字索引，此时word和labels已经对齐了</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">trans</span>(<span class="params">labels</span>):</span></span><br><span class="line">  labels=<span class="built_in">list</span>(labels)</span><br><span class="line">  nums=[]</span><br><span class="line">  <span class="keyword">for</span> label <span class="keyword">in</span> labels:</span><br><span class="line">    nums.append(config.label2id[label])</span><br><span class="line">  <span class="keyword">return</span> nums</span><br><span class="line">    </span><br><span class="line">train_df[<span class="string">&#x27;labels&#x27;</span>]=train_df[<span class="string">&#x27;labels&#x27;</span>].<span class="built_in">map</span>(<span class="keyword">lambda</span> x: trans(x))</span><br><span class="line">val_df[<span class="string">&#x27;labels&#x27;</span>]=val_df[<span class="string">&#x27;labels&#x27;</span>].<span class="built_in">map</span>(<span class="keyword">lambda</span> x: trans(x))</span><br><span class="line"></span><br><span class="line">test_df[<span class="string">&#x27;labels&#x27;</span>]=test_df[<span class="string">&#x27;labels&#x27;</span>].<span class="built_in">map</span>(<span class="keyword">lambda</span> x: trans(x))</span><br><span class="line">val_df</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+  <div id="df-9d888820-e48f-440d-9e59-de7bfd5fe6e9">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>words</th>
+      <th>labels</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>[彭, 小, 军, 认, 为, ，, 国, 内, 银, 行, 现, 在, 走, 的, 是, ...</td>
+      <td>[7, 17, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>[温, 格, 的, 球, 队, 终, 于, 又, 踢, 了, 一, 场, 经, 典, 的, ...</td>
+      <td>[7, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>[突, 袭, 黑, 暗, 雅, 典, 娜, 》, 中, R, i, d, d, i, c, ...</td>
+      <td>[4, 14, 14, 14, 14, 14, 14, 14, 0, 7, 17, 17, ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>[郑, 阿, 姨, 就, 赶, 到, 文, 汇, 路, 排, 队, 拿, 钱, ，, 希, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 1, 11, 11, 0, 0, 0, 0, 0, 0...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>[我, 想, 站, 在, 雪, 山, 脚, 下, 你, 会, 被, 那, 巍, 峨, 的, ...</td>
+      <td>[0, 0, 0, 0, 10, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1338</th>
+      <td>[在, 这, 个, 非, 常, 喜, 庆, 的, 日, 子, 里, ，, 我, 们, 首, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...</td>
+    </tr>
+    <tr>
+      <th>1339</th>
+      <td>[姜, 哲, 中, ：, 公, 共, 之, 敌, 1, -, 1, 》, 、, 《, 神, ...</td>
+      <td>[6, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16...</td>
+    </tr>
+    <tr>
+      <th>1340</th>
+      <td>[目, 前, ，, 日, 本, 松, 山, 海, 上, 保, 安, 部, 正, 在, 就, ...</td>
+      <td>[0, 0, 0, 5, 15, 15, 15, 15, 15, 15, 15, 15, 0...</td>
+    </tr>
+    <tr>
+      <th>1341</th>
+      <td>[也, 就, 是, 说, 英, 国, 人, 在, 世, 博, 会, 上, 的, 英, 国, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 0, 0, 10, 20, 20, 0, 0, 0, ...</td>
+    </tr>
+    <tr>
+      <th>1342</th>
+      <td>[另, 外, 意, 大, 利, 的, P, l, a, y, G, e, n, e, r, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 2, 12, 12, 12, 12, 12, 12, ...</td>
+    </tr>
+  </tbody>
+</table>
+<p>1343 rows × 2 columns</p>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-9d888820-e48f-440d-9e59-de7bfd5fe6e9')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+<p>  &lt;svg xmlns=”<a target="_blank" rel="noopener" href="http://www.w3.org/2000/svg&quot;">http://www.w3.org/2000/svg&quot;</a> height=”24px”viewBox=”0 0 24 24”<br>       width=”24px”&gt;<br>    <path d="M0 0h24v24H0V0z" fill="none"/><br>    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/><br>  </svg><br>      </button></p>
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+<pre><code>  &lt;script&gt;
+    const buttonEl =
+      document.querySelector(&#39;#df-9d888820-e48f-440d-9e59-de7bfd5fe6e9 button.colab-df-convert&#39;);
+    buttonEl.style.display =
+      google.colab.kernel.accessAllowed ? &#39;block&#39; : &#39;none&#39;;
+
+    async function convertToInteractive(key) &#123;
+      const element = document.querySelector(&#39;#df-9d888820-e48f-440d-9e59-de7bfd5fe6e9&#39;);
+      const dataTable =
+        await google.colab.kernel.invokeFunction(&#39;convertToInteractive&#39;,
+                                                 [key], &#123;&#125;);
+      if (!dataTable) return;
+
+      const docLinkHtml = &#39;Like what you see? Visit the &#39; +
+        &#39;&lt;a target=&quot;_blank&quot; href=https://colab.research.google.com/notebooks/data_table.ipynb&gt;data table notebook&lt;/a&gt;&#39;
+        + &#39; to learn more about interactive tables.&#39;;
+      element.innerHTML = &#39;&#39;;
+      dataTable[&#39;output_type&#39;] = &#39;display_data&#39;;
+      await google.colab.output.renderOutput(dataTable, element);
+      const docLink = document.createElement(&#39;div&#39;);
+      docLink.innerHTML = docLinkHtml;
+      element.appendChild(docLink);
+    &#125;
+  &lt;/script&gt;
+&lt;/div&gt;
+</code></pre>
+  </div>
+
+
+
+
+<h2 id="pandas数据装入datasets进行解码，之后方便直接pad-labels。"><a href="#pandas数据装入datasets进行解码，之后方便直接pad-labels。" class="headerlink" title="pandas数据装入datasets进行解码，之后方便直接pad labels。"></a>pandas数据装入datasets进行解码，之后方便直接pad labels。</h2><h2 id="labels在后面装入dataloader的时候，不处理的话长度不一致，处理的话整理函数太麻烦。"><a href="#labels在后面装入dataloader的时候，不处理的话长度不一致，处理的话整理函数太麻烦。" class="headerlink" title="labels在后面装入dataloader的时候，不处理的话长度不一致，处理的话整理函数太麻烦。"></a>labels在后面装入dataloader的时候，不处理的话长度不一致，处理的话整理函数太麻烦。</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoTokenizer</span><br><span class="line"><span class="comment">#这里一定要选AutoTokenizer，如果是BertTokenizer，会提示bertbase没有word_ids方法。结果没用到</span></span><br><span class="line">trains_ds=Dataset.from_pandas(train_df)</span><br><span class="line">val_ds=Dataset.from_pandas(val_df)</span><br><span class="line">test_ds=Dataset.from_pandas(test_df)</span><br><span class="line"></span><br><span class="line">tokenizer=AutoTokenizer.from_pretrained(config.roberta_model,do_lower_case=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#tokenized_inputs=tokenizer(trains_ds[&quot;words&quot;],padding=True,truncation=True,is_split_into_words=True)为啥这种是错的</span></span><br><span class="line">tokenized_trains_ds=trains_ds.<span class="built_in">map</span>(<span class="keyword">lambda</span> examples:tokenizer(examples[<span class="string">&#x27;words&#x27;</span>],is_split_into_words=<span class="literal">True</span>,truncation=<span class="literal">True</span>,padding=<span class="literal">True</span>),batched=<span class="literal">True</span>)</span><br><span class="line">tokenized_val_ds=val_ds.<span class="built_in">map</span>(<span class="keyword">lambda</span> examples:tokenizer(examples[<span class="string">&#x27;words&#x27;</span>],is_split_into_words=<span class="literal">True</span>,truncation=<span class="literal">True</span>,padding=<span class="literal">True</span>),batched=<span class="literal">True</span>)</span><br><span class="line">tokenized_test_ds=test_ds.<span class="built_in">map</span>(<span class="keyword">lambda</span> examples:tokenizer(examples[<span class="string">&#x27;words&#x27;</span>],is_split_into_words=<span class="literal">True</span>,truncation=<span class="literal">True</span>,padding=<span class="literal">True</span>),batched=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>  0%|          | 0/11 [00:00&lt;?, ?ba/s]
+
+
+Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+
+
+
+  0%|          | 0/2 [00:00&lt;?, ?ba/s]
+
+
+
+  0%|          | 0/2 [00:00&lt;?, ?ba/s]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在编码之后的datasets里面操作，得到的结果无法写入datasets，所以只好写到pandas文件里。</span></span><br><span class="line"><span class="comment">#将labels填充到和input_ids一样长（最长句子52，所以其实全部都填充到52）</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">padding</span>(<span class="params">data,pad</span>):</span></span><br><span class="line">  pad_labels=[]</span><br><span class="line">  <span class="keyword">for</span> ds <span class="keyword">in</span> data:</span><br><span class="line">    labels=ds[<span class="string">&#x27;labels&#x27;</span>] </span><br><span class="line">    mask=ds[<span class="string">&#x27;attention_mask&#x27;</span>]</span><br><span class="line">    label_ids=[pad]</span><br><span class="line"></span><br><span class="line">    pad_length=<span class="built_in">len</span>(mask)</span><br><span class="line">    label_length=<span class="built_in">len</span>(labels)</span><br><span class="line">    </span><br><span class="line">    label_ids=label_ids+labels+[pad]*(pad_length-label_length-<span class="number">1</span>)</span><br><span class="line">    pad_labels.append(label_ids)</span><br><span class="line">  <span class="keyword">return</span> pad_labels</span><br><span class="line"><span class="comment">#tokenized_trains_ds[&quot;pad_labels&quot;]=pad_labels# Column 2 named labels expected length 10748 but got length 1000</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">train_df[&#x27;mask_labels&#x27;]=padding(tokenized_trains_ds,-100)</span></span><br><span class="line"><span class="string">val_df[&#x27;mask_labels&#x27;]=padding(tokenized_val_ds,-100)</span></span><br><span class="line"><span class="string">test_df[&#x27;mask_labels&#x27;]=padding(tokenized_test_ds,-100)&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">train_df[<span class="string">&#x27;pad_labels&#x27;</span>]=padding(tokenized_trains_ds,-<span class="number">1</span>)</span><br><span class="line">val_df[<span class="string">&#x27;pad_labels&#x27;</span>]=padding(tokenized_val_ds,-<span class="number">1</span>)</span><br><span class="line">test_df[<span class="string">&#x27;pad_labels&#x27;</span>]=padding(tokenized_test_ds,-<span class="number">1</span>)</span><br><span class="line">val_df</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+  <div id="df-5a91e445-286a-4f3f-b684-89084cb68d16">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>words</th>
+      <th>labels</th>
+      <th>pad_labels</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>[彭, 小, 军, 认, 为, ，, 国, 内, 银, 行, 现, 在, 走, 的, 是, ...</td>
+      <td>[7, 17, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...</td>
+      <td>[-1, 7, 17, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>[温, 格, 的, 球, 队, 终, 于, 又, 踢, 了, 一, 场, 经, 典, 的, ...</td>
+      <td>[7, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...</td>
+      <td>[-1, 7, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>[突, 袭, 黑, 暗, 雅, 典, 娜, 》, 中, R, i, d, d, i, c, ...</td>
+      <td>[4, 14, 14, 14, 14, 14, 14, 14, 0, 7, 17, 17, ...</td>
+      <td>[-1, 4, 14, 14, 14, 14, 14, 14, 14, 0, 7, 17, ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>[郑, 阿, 姨, 就, 赶, 到, 文, 汇, 路, 排, 队, 拿, 钱, ，, 希, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 1, 11, 11, 0, 0, 0, 0, 0, 0...</td>
+      <td>[-1, 0, 0, 0, 0, 0, 0, 1, 11, 11, 0, 0, 0, 0, ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>[我, 想, 站, 在, 雪, 山, 脚, 下, 你, 会, 被, 那, 巍, 峨, 的, ...</td>
+      <td>[0, 0, 0, 0, 10, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0...</td>
+      <td>[-1, 0, 0, 0, 0, 10, 20, 0, 0, 0, 0, 0, 0, 0, ...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1338</th>
+      <td>[在, 这, 个, 非, 常, 喜, 庆, 的, 日, 子, 里, ，, 我, 们, 首, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...</td>
+      <td>[-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...</td>
+    </tr>
+    <tr>
+      <th>1339</th>
+      <td>[姜, 哲, 中, ：, 公, 共, 之, 敌, 1, -, 1, 》, 、, 《, 神, ...</td>
+      <td>[6, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16...</td>
+      <td>[-1, 6, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16...</td>
+    </tr>
+    <tr>
+      <th>1340</th>
+      <td>[目, 前, ，, 日, 本, 松, 山, 海, 上, 保, 安, 部, 正, 在, 就, ...</td>
+      <td>[0, 0, 0, 5, 15, 15, 15, 15, 15, 15, 15, 15, 0...</td>
+      <td>[-1, 0, 0, 0, 5, 15, 15, 15, 15, 15, 15, 15, 1...</td>
+    </tr>
+    <tr>
+      <th>1341</th>
+      <td>[也, 就, 是, 说, 英, 国, 人, 在, 世, 博, 会, 上, 的, 英, 国, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 0, 0, 10, 20, 20, 0, 0, 0, ...</td>
+      <td>[-1, 0, 0, 0, 0, 0, 0, 0, 0, 10, 20, 20, 0, 0,...</td>
+    </tr>
+    <tr>
+      <th>1342</th>
+      <td>[另, 外, 意, 大, 利, 的, P, l, a, y, G, e, n, e, r, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 2, 12, 12, 12, 12, 12, 12, ...</td>
+      <td>[-1, 0, 0, 0, 0, 0, 0, 2, 12, 12, 12, 12, 12, ...</td>
+    </tr>
+  </tbody>
+</table>
+<p>1343 rows × 3 columns</p>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-5a91e445-286a-4f3f-b684-89084cb68d16')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+<p>  &lt;svg xmlns=”<a target="_blank" rel="noopener" href="http://www.w3.org/2000/svg&quot;">http://www.w3.org/2000/svg&quot;</a> height=”24px”viewBox=”0 0 24 24”<br>       width=”24px”&gt;<br>    <path d="M0 0h24v24H0V0z" fill="none"/><br>    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/><br>  </svg><br>      </button></p>
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+<pre><code>  &lt;script&gt;
+    const buttonEl =
+      document.querySelector(&#39;#df-5a91e445-286a-4f3f-b684-89084cb68d16 button.colab-df-convert&#39;);
+    buttonEl.style.display =
+      google.colab.kernel.accessAllowed ? &#39;block&#39; : &#39;none&#39;;
+
+    async function convertToInteractive(key) &#123;
+      const element = document.querySelector(&#39;#df-5a91e445-286a-4f3f-b684-89084cb68d16&#39;);
+      const dataTable =
+        await google.colab.kernel.invokeFunction(&#39;convertToInteractive&#39;,
+                                                 [key], &#123;&#125;);
+      if (!dataTable) return;
+
+      const docLinkHtml = &#39;Like what you see? Visit the &#39; +
+        &#39;&lt;a target=&quot;_blank&quot; href=https://colab.research.google.com/notebooks/data_table.ipynb&gt;data table notebook&lt;/a&gt;&#39;
+        + &#39; to learn more about interactive tables.&#39;;
+      element.innerHTML = &#39;&#39;;
+      dataTable[&#39;output_type&#39;] = &#39;display_data&#39;;
+      await google.colab.output.renderOutput(dataTable, element);
+      const docLink = document.createElement(&#39;div&#39;);
+      docLink.innerHTML = docLinkHtml;
+      element.appendChild(docLink);
+    &#125;
+  &lt;/script&gt;
+&lt;/div&gt;
+</code></pre>
+  </div>
+
+
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">batch_size=<span class="number">16</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#划分训练验证集</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="keyword">from</span> torch.nn.utils.rnn <span class="keyword">import</span> pad_sequence</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train_data,train_label,val_data,val_label=train_df[<span class="string">&#x27;words&#x27;</span>].iloc[:],train_df[<span class="string">&#x27;pad_labels&#x27;</span>].iloc[:],val_df[<span class="string">&#x27;words&#x27;</span>].iloc[:],val_df[<span class="string">&#x27;pad_labels&#x27;</span>].iloc[:]</span><br><span class="line"></span><br><span class="line">test_data,test_label=(test_df[<span class="string">&#x27;words&#x27;</span>].iloc[:],test_df[<span class="string">&#x27;pad_labels&#x27;</span>].iloc[:])</span><br><span class="line"></span><br><span class="line"><span class="comment">#stratify=train_df[&#x27;label&#x27;].iloc[:]报错:The least populated class in y has only 1 member,which is too few.</span></span><br><span class="line"><span class="comment">#The minimum number of groups for any class cannot be less than 2.估计是样本太少，分层抽取不可行。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#数据预处理</span></span><br><span class="line"></span><br><span class="line">tokenizer=AutoTokenizer.from_pretrained(config.roberta_model,do_lower_case=<span class="literal">True</span>)</span><br><span class="line">train_encoding=tokenizer(<span class="built_in">list</span>(train_data),is_split_into_words=<span class="literal">True</span>,truncation=<span class="literal">True</span>,padding=<span class="literal">True</span>,return_tensors=<span class="string">&#x27;pt&#x27;</span>)<span class="comment">#训练集中划分的训练集</span></span><br><span class="line">val_encoding=tokenizer(<span class="built_in">list</span>(val_data),is_split_into_words=<span class="literal">True</span>,truncation=<span class="literal">True</span>,padding=<span class="literal">True</span>,return_tensors=<span class="string">&#x27;pt&#x27;</span>)<span class="comment">#训练集中划分的验证集</span></span><br><span class="line">test_encoding=tokenizer(<span class="built_in">list</span>(test_data),is_split_into_words=<span class="literal">True</span>,truncation=<span class="literal">True</span>,padding=<span class="literal">True</span>,return_tensors=<span class="string">&#x27;pt&#x27;</span>)<span class="comment">#测试集</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#加载到datalodar并预处理</span></span><br><span class="line"><span class="comment">#数据集读取</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset, DataLoader,TensorDataset</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">XFeiDataset</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,encodings,pad_labels</span>):</span></span><br><span class="line">    self.encodings=encodings</span><br><span class="line">    self.pad_labels=pad_labels</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 读取单个样本</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self,idx</span>):</span></span><br><span class="line">    item=&#123;key:torch.tensor(val[idx]) <span class="keyword">for</span> key,val <span class="keyword">in</span> self.encodings.items()&#125;</span><br><span class="line">    item[<span class="string">&#x27;pad_labels&#x27;</span>]=torch.tensor((self.pad_labels[idx]))</span><br><span class="line">    item[<span class="string">&#x27;mask&#x27;</span>]=(item[<span class="string">&#x27;pad_labels&#x27;</span>]!=-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> item</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(self.pad_labels)</span><br><span class="line"></span><br><span class="line"><span class="comment">#def collate_fn</span></span><br><span class="line"></span><br><span class="line">train_dataset=XFeiDataset(train_encoding,<span class="built_in">list</span>(train_label))</span><br><span class="line">val_dataset=XFeiDataset(val_encoding,<span class="built_in">list</span>(val_label))</span><br><span class="line">test_dataset=XFeiDataset(test_encoding,<span class="built_in">list</span>(test_label))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset,DataLoader,TensorDataset</span><br><span class="line"></span><br><span class="line">train_loader=DataLoader(train_dataset,batch_size=batch_size,shuffle=<span class="literal">True</span>)</span><br><span class="line">val_loader=DataLoader(val_dataset,batch_size=batch_size,shuffle=<span class="literal">False</span>)</span><br><span class="line">test_loader=DataLoader(test_dataset,batch_size=batch_size,shuffle=<span class="literal">False</span>)<span class="comment">#test数据不能shuffle啊，真坑死我了</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#for i in val_loader:</span></span><br><span class="line">  <span class="comment">#print(i)#输出5元组，input三兄弟和pad_labels和mask矩阵</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> BertModel</span><br><span class="line"><span class="keyword">from</span> torch.nn.utils.rnn <span class="keyword">import</span> pad_sequence</span><br><span class="line"><span class="comment">#初始化bert模型</span></span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> BertConfig</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> LSTM</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> functional <span class="keyword">as</span> F </span><br><span class="line"><span class="keyword">from</span> torchcrf <span class="keyword">import</span> CRF</span><br><span class="line"></span><br><span class="line">num_labels=<span class="number">31</span></span><br><span class="line">dropout=<span class="number">0.1</span></span><br><span class="line"><span class="comment">#取0.1时，epoch=1，precision 0.68|recall 0.72|f1 0.70|acc 0.93</span></span><br><span class="line"><span class="comment">#选0.2训练loss更大。epoch1时precision 0.50|recall 0.60|f1 0.54|acc 0.90</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bert_LSTM</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="built_in">super</span>(Bert_LSTM,self).__init__()</span><br><span class="line">    self.num_labels=num_labels</span><br><span class="line">    self.dropout=nn.Dropout(dropout)</span><br><span class="line">    self.bert=BertModel.from_pretrained(config.roberta_model)</span><br><span class="line">    <span class="keyword">for</span> param <span class="keyword">in</span> self.bert.parameters():</span><br><span class="line">      param.requires_grad=<span class="literal">True</span></span><br><span class="line">    self.classifier=nn.Linear(<span class="number">1024</span>,self.num_labels)</span><br><span class="line">    self.crf=CRF(num_labels,batch_first=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">from</span> torch.nn <span class="keyword">import</span> functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line">    self.bilstm=nn.LSTM(</span><br><span class="line">        input_size=<span class="number">1024</span>, </span><br><span class="line">        hidden_size=<span class="number">512</span>, </span><br><span class="line">        batch_first=<span class="literal">True</span>,</span><br><span class="line">        num_layers=<span class="number">2</span>,</span><br><span class="line">        dropout=<span class="number">0.5</span>,  </span><br><span class="line">        bidirectional=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self,batch_seqs,batch_seq_masks,batch_seq_segments,pad_labels,mask</span>):</span></span><br><span class="line"></span><br><span class="line">    output=self.bert(input_ids=batch_seqs,attention_mask=batch_seq_masks,token_type_ids=batch_seq_segments)</span><br><span class="line">    <span class="comment">#pooler_output=output.pooler_output</span></span><br><span class="line">    last_hidden_state=output.last_hidden_state</span><br><span class="line">    last_hidden_state=self.dropout(last_hidden_state)</span><br><span class="line">    <span class="comment">#只有这种写法不会报错，如果是sequence_output,pooler_output=self.bert(**kwags)这种，sequence_output会报错str没有xxx属性。</span></span><br><span class="line">    <span class="comment">#貌似是bert输出有很多，直接用output.last_hidden_state来调用结果（估计是版本问题，坑），关键是输出要打印出来</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    lstm_output,(hn,cn)=self.bilstm(last_hidden_state)</span><br><span class="line">    <span class="comment">#output为输出序列的隐藏层，hn为最后一个时刻的隐藏层，cn为最后一个时刻的隐藏细胞</span></span><br><span class="line">    lstm_output=self.dropout(lstm_output)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 得到判别值</span></span><br><span class="line">    logits=self.classifier(lstm_output)</span><br><span class="line">    logits,pad_labels,mask=logits[:,<span class="number">1</span>:,:],pad_labels[:,<span class="number">1</span>:],mask[:,<span class="number">1</span>:]<span class="comment">#首个值不能是false，否则crf报错</span></span><br><span class="line">    loss=self.crf(logits,pad_labels,mask)*(-<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> logits,loss</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#加载模型</span></span><br><span class="line">model=Bert_LSTM()</span><br><span class="line"><span class="comment">#model.load_state_dict(torch.load(&quot;/content/drive/MyDrive/chinese task/CLUENER2020/model/bert_lstm_crf_model&quot;))</span></span><br><span class="line">device=torch.device(<span class="string">&quot;cuda&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>)</span><br><span class="line">model.to(device)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#定义优化器</span></span><br><span class="line">epoch=<span class="number">10</span></span><br><span class="line">lr=<span class="number">3e-5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AdamW,get_scheduler</span><br><span class="line"></span><br><span class="line">train_steps_per_epoch=<span class="built_in">len</span>(train_loader)</span><br><span class="line">num_training_steps=train_steps_per_epoch*epoch</span><br><span class="line"></span><br><span class="line"><span class="comment">#定义各模块参数</span></span><br><span class="line">bert_parameters=<span class="built_in">list</span>(model.bert.named_parameters())</span><br><span class="line">lstm_parameters=<span class="built_in">list</span>(model.bilstm.named_parameters())</span><br><span class="line">classifier_parameters=<span class="built_in">list</span>(model.classifier.named_parameters())</span><br><span class="line">no_decay=[<span class="string">&#x27;bias&#x27;</span>,<span class="string">&#x27;LayerNorm.weight&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#bert模型、lstm模型、nn.linear的学习率分离，后两个是bert的3倍</span></span><br><span class="line">optimizer_grouped_parameters=[</span><br><span class="line">    &#123;<span class="string">&#x27;params&#x27;</span>:[p <span class="keyword">for</span> n,p <span class="keyword">in</span> bert_parameters <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">any</span>(nd <span class="keyword">in</span> n <span class="keyword">for</span> nd <span class="keyword">in</span> no_decay)],</span><br><span class="line">      <span class="string">&#x27;lr&#x27;</span>:lr,<span class="string">&#x27;weight_decay&#x27;</span>:<span class="number">0.01</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&#x27;params&#x27;</span>:[p <span class="keyword">for</span> n,p <span class="keyword">in</span> bert_parameters <span class="keyword">if</span> <span class="built_in">any</span>(nd <span class="keyword">in</span> n <span class="keyword">for</span> nd <span class="keyword">in</span> no_decay)],</span><br><span class="line">      <span class="string">&#x27;lr&#x27;</span>:lr,<span class="string">&#x27;weight_decay&#x27;</span>:<span class="number">0.0</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&#x27;params&#x27;</span>:[p <span class="keyword">for</span> n,p <span class="keyword">in</span> lstm_parameters <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">any</span>(nd <span class="keyword">in</span> n <span class="keyword">for</span> nd <span class="keyword">in</span> no_decay)],</span><br><span class="line">      <span class="string">&#x27;lr&#x27;</span>:lr*<span class="number">3</span>,<span class="string">&#x27;weight_decay&#x27;</span>:<span class="number">0.01</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&#x27;params&#x27;</span>:[p <span class="keyword">for</span> n,p <span class="keyword">in</span> lstm_parameters <span class="keyword">if</span> <span class="built_in">any</span>(nd <span class="keyword">in</span> n <span class="keyword">for</span> nd <span class="keyword">in</span> no_decay)],</span><br><span class="line">      <span class="string">&#x27;lr&#x27;</span>:lr*<span class="number">3</span>,<span class="string">&#x27;weight_decay&#x27;</span>: <span class="number">0.0</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&#x27;params&#x27;</span>:[p <span class="keyword">for</span> n,p <span class="keyword">in</span> classifier_parameters <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">any</span>(nd <span class="keyword">in</span> n <span class="keyword">for</span> nd <span class="keyword">in</span> no_decay)],</span><br><span class="line">      <span class="string">&#x27;lr&#x27;</span>:lr*<span class="number">3</span>,<span class="string">&#x27;weight_decay&#x27;</span>:<span class="number">0.01</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&#x27;params&#x27;</span>:[p <span class="keyword">for</span> n,p <span class="keyword">in</span> classifier_parameters <span class="keyword">if</span> <span class="built_in">any</span>(nd <span class="keyword">in</span> n <span class="keyword">for</span> nd <span class="keyword">in</span> no_decay)],</span><br><span class="line">      <span class="string">&#x27;lr&#x27;</span>:lr*<span class="number">3</span>,<span class="string">&#x27;weight_decay&#x27;</span>:<span class="number">0.0</span>&#125;]</span><br><span class="line"></span><br><span class="line">optimizer=AdamW(optimizer_grouped_parameters,lr=lr,eps=<span class="number">1e-8</span>)</span><br><span class="line"><span class="comment">#使用线性衰减学习率</span></span><br><span class="line">lr_scheduler=get_scheduler(</span><br><span class="line">    <span class="string">&quot;linear&quot;</span>,</span><br><span class="line">    optimizer=optimizer,</span><br><span class="line">    num_warmup_steps=<span class="number">0</span>,</span><br><span class="line">    num_training_steps=num_training_steps)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将crf.decode预测值用0进行pad之后转为tensor</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pad_result</span>(<span class="params">data,pad_labels</span>):</span></span><br><span class="line">  pad_pred=[]</span><br><span class="line">  max_len=pad_labels.shape[<span class="number">1</span>]</span><br><span class="line">  <span class="keyword">for</span> pred <span class="keyword">in</span> data:</span><br><span class="line">    pad_length=max_len-<span class="built_in">len</span>(pred)</span><br><span class="line"></span><br><span class="line">    label_ids=pred+[<span class="number">0</span>]*(pad_length)</span><br><span class="line">    pad_pred.append(label_ids)</span><br><span class="line">    </span><br><span class="line">  <span class="keyword">return</span> pad_pred</span><br><span class="line"></span><br><span class="line"><span class="comment">#pred=torch.tensor(pred)必须在函数外，否则报错tensor没有append</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#编写评价方法</span></span><br><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> load_metric</span><br><span class="line">metric=load_metric(<span class="string">&quot;seqeval&quot;</span>)</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">label_list= [label <span class="keyword">for</span> label,<span class="built_in">id</span> <span class="keyword">in</span> <span class="built_in">list</span>(config.label2id.items())]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_metrics</span>(<span class="params">y_pred,y_true</span>):</span></span><br><span class="line">  predictions,labels=y_pred,y_true</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 掉特殊字符处的值，不作比较。</span></span><br><span class="line">  true_predictions=[</span><br><span class="line">    [label_list[p] <span class="keyword">for</span> (p,l) <span class="keyword">in</span> <span class="built_in">zip</span>(prediction, label) <span class="keyword">if</span> l !=-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">for</span> prediction,label <span class="keyword">in</span> <span class="built_in">zip</span>(predictions, labels)</span><br><span class="line">  ]</span><br><span class="line">  true_labels=[</span><br><span class="line">    [label_list[l] <span class="keyword">for</span> (p,l) <span class="keyword">in</span> <span class="built_in">zip</span>(prediction, label) <span class="keyword">if</span> l !=-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">for</span> prediction,label <span class="keyword">in</span> <span class="built_in">zip</span>(predictions, labels)</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  results = metric.compute(predictions=true_predictions,references=true_labels)</span><br><span class="line">  <span class="keyword">return</span> results</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编写训练和验证循环</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> f1_score,precision_score,recall_score,accuracy_score</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">from</span> torchcrf <span class="keyword">import</span> CRF</span><br><span class="line"><span class="comment">#加载进度条</span></span><br><span class="line"><span class="keyword">from</span> tqdm.auto <span class="keyword">import</span> tqdm</span><br><span class="line"></span><br><span class="line">num_training_steps=train_steps_per_epoch*epoch</span><br><span class="line"></span><br><span class="line">progress_bar=tqdm(<span class="built_in">range</span>(num_training_steps))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train_and_eval</span>(<span class="params">epoch</span>):</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(epoch):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;训练模型&quot;&quot;&quot;</span></span><br><span class="line">    start=time.time()</span><br><span class="line">    model.train()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;***** Running training epoch &#123;&#125; *****&quot;</span>.<span class="built_in">format</span>(i+<span class="number">1</span>))</span><br><span class="line">    train_loss_sum=<span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> idx,batch <span class="keyword">in</span> <span class="built_in">enumerate</span>(train_loader):</span><br><span class="line">      input_ids=batch[<span class="string">&#x27;input_ids&#x27;</span>].to(device)</span><br><span class="line">      attention_mask=batch[<span class="string">&#x27;attention_mask&#x27;</span>].to(device)</span><br><span class="line">      token_type_ids=batch[<span class="string">&#x27;token_type_ids&#x27;</span>].to(device)</span><br><span class="line">      pad_labels=batch[<span class="string">&#x27;pad_labels&#x27;</span>].to(device)</span><br><span class="line">      mask=batch[<span class="string">&#x27;mask&#x27;</span>].to(device)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="comment">#计算输出和loss</span></span><br><span class="line">      logits,loss=model(input_ids,attention_mask,token_type_ids,pad_labels,mask)</span><br><span class="line">      loss.backward()</span><br><span class="line"></span><br><span class="line">      optimizer.step()</span><br><span class="line">      lr_scheduler.step()</span><br><span class="line">      optimizer.zero_grad()  </span><br><span class="line">      progress_bar.update(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">      train_loss_sum+=loss.item()</span><br><span class="line">      <span class="keyword">if</span> (idx+<span class="number">1</span>)%(<span class="built_in">len</span>(train_loader)//<span class="number">5</span>)==<span class="number">0</span>: <span class="comment"># 只打印五次结果</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Epoch &#123;:03d&#125; | Step &#123;:04d&#125;/&#123;:04d&#125; | Loss &#123;:.4f&#125; | Time &#123;:.4f&#125; | Learning rate = &#123;&#125; \n&quot;</span>.<span class="built_in">format</span>(</span><br><span class="line">                  i+<span class="number">1</span>,idx+<span class="number">1</span>,<span class="built_in">len</span>(train_loader),train_loss_sum/(idx+<span class="number">1</span>),time.time()-start,optimizer.state_dict()[<span class="string">&#x27;param_groups&#x27;</span>][<span class="number">0</span>][<span class="string">&#x27;lr&#x27;</span>]))</span><br><span class="line">      </span><br><span class="line">      <span class="comment">#验证模型</span></span><br><span class="line">    model.<span class="built_in">eval</span>()</span><br><span class="line">    y_pred,y_true=[],[]</span><br><span class="line">    best_f1,total_eval_loss=<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    total_eval_accuracy,total,acc=<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> batch <span class="keyword">in</span> val_loader:</span><br><span class="line">      <span class="keyword">with</span> torch.no_grad():<span class="comment">#只有这一块是不需要求导的</span></span><br><span class="line">      </span><br><span class="line">        input_ids=batch[<span class="string">&#x27;input_ids&#x27;</span>].to(device)</span><br><span class="line">        attention_mask=batch[<span class="string">&#x27;attention_mask&#x27;</span>].to(device)</span><br><span class="line">        token_type_ids=batch[<span class="string">&#x27;token_type_ids&#x27;</span>].to(device)</span><br><span class="line">        pad_labels=batch[<span class="string">&#x27;pad_labels&#x27;</span>].to(device)</span><br><span class="line">        mask=batch[<span class="string">&#x27;mask&#x27;</span>].to(device)</span><br><span class="line">        logits,loss=model(input_ids,attention_mask,token_type_ids,pad_labels,mask)<span class="comment">#都是去掉首个-100的结果                      </span></span><br><span class="line">           </span><br><span class="line">      total_eval_loss+=loss.item()</span><br><span class="line">      </span><br><span class="line"></span><br><span class="line">      pad_labels,mask=pad_labels[:,<span class="number">1</span>:].to(device),mask[:,<span class="number">1</span>:].to(device)</span><br><span class="line">      pred=model.crf.decode(logits,mask)</span><br><span class="line">      pred=torch.tensor(pad_result(pred,pad_labels)).to(device)<span class="comment">#预测值经过pad_pred函数pad成batch_size*max_length-1，再转为tensor</span></span><br><span class="line">      acc+=(pred[mask]==pad_labels[mask]).<span class="built_in">sum</span>().item()<span class="comment">#只计算没有mask的单词的准确率,mask在外面似乎accs0.93不准。</span></span><br><span class="line">      total+=mask.<span class="built_in">sum</span>().item()</span><br><span class="line">      total_eval_accuracy=acc/total</span><br><span class="line"></span><br><span class="line">      y_pred.extend(pred.cpu().numpy().tolist())<span class="comment">#将每个把batch结果依次加入总列表</span></span><br><span class="line">      y_true.extend(pad_labels.cpu().numpy().tolist())</span><br><span class="line">    results=compute_metrics(y_pred,y_true)</span><br><span class="line">    f1=results[<span class="string">&quot;overall_f1&quot;</span>]    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> f1&gt;best_f1:</span><br><span class="line">      best_f1=f1</span><br><span class="line">      torch.save(model.state_dict(),<span class="string">&quot;./bert_lstm_crf/blf_model&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;precision &#123;:.2f&#125;|recall &#123;:.2f&#125;|f1 &#123;:.4f&#125;|acc &#123;:.2f&#125;&quot;</span>.<span class="built_in">format</span>(results[<span class="string">&quot;overall_precision&quot;</span>],results[<span class="string">&quot;overall_recall&quot;</span>],results[<span class="string">&quot;overall_f1&quot;</span>],results[<span class="string">&quot;overall_accuracy&quot;</span>]))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Average val loss:%.2f&quot;</span>%(total_eval_loss),<span class="string">&quot;sklearn_acc:%.2f&quot;</span>%(total_eval_accuracy))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;time costed=&#123;&#125;s \n&quot;</span>.<span class="built_in">format</span>(<span class="built_in">round</span>(time.time()-start,<span class="number">5</span>)))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;-------------------------------&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>  0%|          | 0/6720 [00:00&lt;?, ?it/s]
+</code></pre>
+<h2 id="对比bert的token分类任务头"><a href="#对比bert的token分类任务头" class="headerlink" title="对比bert的token分类任务头"></a>对比bert的token分类任务头</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_and_eval(epoch)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">预测值不包括实际值会报错</span></span><br><span class="line"><span class="string">UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.</span></span><br><span class="line"><span class="string">  _warn_prf(average, modifier, msg_start, len(result))&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>***** Running training epoch 1 *****
+
+
+/usr/local/lib/python3.7/dist-packages/ipykernel_launcher.py:13: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  del sys.path[0]
+
+
+Epoch 001 | Step 0134/0672 | Loss 850.4533 | Time 160.0524 | Learning rate = 2.9401785714285713e-05 
+
+Epoch 001 | Step 0268/0672 | Loss 755.6008 | Time 321.1079 | Learning rate = 2.880357142857143e-05 
+
+Epoch 001 | Step 0402/0672 | Loss 693.5408 | Time 482.2713 | Learning rate = 2.8205357142857143e-05 
+
+Epoch 001 | Step 0536/0672 | Loss 626.1115 | Time 643.2802 | Learning rate = 2.7607142857142855e-05 
+
+Epoch 001 | Step 0670/0672 | Loss 554.6280 | Time 804.1686 | Learning rate = 2.7008928571428574e-05 
+
+precision 0.55|recall 0.65|f1 0.59|acc 0.90
+Average val loss:16898.68 sklearn_acc:0.90
+time costed=847.54825s 
+
+-------------------------------
+***** Running training epoch 2 *****
+Epoch 002 | Step 0134/0672 | Loss 189.6032 | Time 161.3824 | Learning rate = 2.6401785714285714e-05 
+
+Epoch 002 | Step 0268/0672 | Loss 174.3528 | Time 321.8987 | Learning rate = 2.580357142857143e-05 
+
+Epoch 002 | Step 0402/0672 | Loss 166.6937 | Time 482.3897 | Learning rate = 2.5205357142857145e-05 
+
+Epoch 002 | Step 0536/0672 | Loss 160.9221 | Time 643.1670 | Learning rate = 2.4607142857142857e-05 
+
+Epoch 002 | Step 0670/0672 | Loss 155.2287 | Time 803.8956 | Learning rate = 2.4008928571428572e-05 
+
+precision 0.70|recall 0.78|f1 0.73|acc 0.94
+Average val loss:10865.32 sklearn_acc:0.94
+time costed=846.85732s 
+
+-------------------------------
+***** Running training epoch 3 *****
+Epoch 003 | Step 0134/0672 | Loss 104.7770 | Time 161.5656 | Learning rate = 2.3401785714285716e-05 
+
+Epoch 003 | Step 0268/0672 | Loss 104.1795 | Time 322.5888 | Learning rate = 2.2803571428571428e-05 
+
+Epoch 003 | Step 0402/0672 | Loss 102.1001 | Time 483.3302 | Learning rate = 2.2205357142857143e-05 
+
+Epoch 003 | Step 0536/0672 | Loss 100.6387 | Time 644.2039 | Learning rate = 2.1607142857142858e-05 
+
+Epoch 003 | Step 0670/0672 | Loss 100.2379 | Time 804.9622 | Learning rate = 2.100892857142857e-05 
+
+precision 0.71|recall 0.79|f1 0.75|acc 0.94
+Average val loss:10455.55 sklearn_acc:0.94
+time costed=847.52307s 
+
+-------------------------------
+***** Running training epoch 4 *****
+Epoch 004 | Step 0134/0672 | Loss 65.6758 | Time 161.4387 | Learning rate = 2.0401785714285714e-05 
+
+Epoch 004 | Step 0268/0672 | Loss 70.1131 | Time 321.9805 | Learning rate = 1.980357142857143e-05 
+
+Epoch 004 | Step 0402/0672 | Loss 74.5657 | Time 482.5696 | Learning rate = 1.920535714285714e-05 
+
+Epoch 004 | Step 0536/0672 | Loss 77.0551 | Time 643.0697 | Learning rate = 1.860714285714286e-05 
+
+Epoch 004 | Step 0670/0672 | Loss 77.2134 | Time 803.5144 | Learning rate = 1.800892857142857e-05 
+
+precision 0.72|recall 0.79|f1 0.75|acc 0.94
+Average val loss:10545.26 sklearn_acc:0.94
+time costed=846.01025s 
+
+-------------------------------
+***** Running training epoch 5 *****
+Epoch 005 | Step 0134/0672 | Loss 62.8429 | Time 161.6965 | Learning rate = 1.7401785714285716e-05 
+
+Epoch 005 | Step 0268/0672 | Loss 61.3453 | Time 322.8604 | Learning rate = 1.680357142857143e-05 
+
+Epoch 005 | Step 0402/0672 | Loss 59.3090 | Time 484.0892 | Learning rate = 1.6205357142857143e-05 
+
+Epoch 005 | Step 0536/0672 | Loss 58.5966 | Time 645.2598 | Learning rate = 1.5607142857142858e-05 
+
+Epoch 005 | Step 0670/0672 | Loss 57.8091 | Time 806.5770 | Learning rate = 1.5008928571428572e-05 
+
+precision 0.73|recall 0.81|f1 0.76|acc 0.94
+Average val loss:11918.01 sklearn_acc:0.94
+time costed=849.09279s 
+
+-------------------------------
+***** Running training epoch 6 *****
+Epoch 006 | Step 0134/0672 | Loss 40.8853 | Time 161.7673 | Learning rate = 1.4401785714285716e-05 
+
+Epoch 006 | Step 0268/0672 | Loss 40.4048 | Time 322.7583 | Learning rate = 1.3803571428571427e-05 
+
+Epoch 006 | Step 0402/0672 | Loss 40.0783 | Time 483.8099 | Learning rate = 1.3205357142857143e-05 
+
+Epoch 006 | Step 0536/0672 | Loss 39.7375 | Time 644.7180 | Learning rate = 1.2607142857142858e-05 
+
+Epoch 006 | Step 0670/0672 | Loss 40.0972 | Time 805.9105 | Learning rate = 1.2008928571428573e-05 
+
+precision 0.74|recall 0.81|f1 0.78|acc 0.94
+Average val loss:11576.13 sklearn_acc:0.94
+time costed=848.65729s 
+
+-------------------------------
+***** Running training epoch 7 *****
+Epoch 007 | Step 0134/0672 | Loss 28.1865 | Time 161.6997 | Learning rate = 1.1401785714285714e-05 
+
+Epoch 007 | Step 0268/0672 | Loss 29.4536 | Time 322.6295 | Learning rate = 1.0803571428571429e-05 
+
+Epoch 007 | Step 0402/0672 | Loss 29.7340 | Time 483.5822 | Learning rate = 1.0205357142857144e-05 
+
+Epoch 007 | Step 0536/0672 | Loss 30.0218 | Time 644.7393 | Learning rate = 9.607142857142856e-06 
+
+Epoch 007 | Step 0670/0672 | Loss 29.1320 | Time 805.7908 | Learning rate = 9.008928571428571e-06 
+
+precision 0.75|recall 0.80|f1 0.78|acc 0.94
+Average val loss:13548.30 sklearn_acc:0.94
+time costed=848.7225s 
+
+-------------------------------
+***** Running training epoch 8 *****
+Epoch 008 | Step 0134/0672 | Loss 19.5674 | Time 162.0373 | Learning rate = 8.401785714285715e-06 
+
+Epoch 008 | Step 0268/0672 | Loss 20.5346 | Time 323.2465 | Learning rate = 7.803571428571429e-06 
+
+Epoch 008 | Step 0402/0672 | Loss 20.5707 | Time 484.4724 | Learning rate = 7.205357142857143e-06 
+
+Epoch 008 | Step 0536/0672 | Loss 21.3377 | Time 645.7742 | Learning rate = 6.607142857142857e-06 
+
+Epoch 008 | Step 0670/0672 | Loss 21.3365 | Time 806.9678 | Learning rate = 6.008928571428572e-06 
+
+precision 0.75|recall 0.80|f1 0.78|acc 0.94
+Average val loss:14625.68 sklearn_acc:0.94
+time costed=850.00101s 
+
+-------------------------------
+***** Running training epoch 9 *****
+Epoch 009 | Step 0134/0672 | Loss 15.8689 | Time 162.2782 | Learning rate = 5.4017857142857145e-06 
+
+Epoch 009 | Step 0268/0672 | Loss 15.7494 | Time 323.9999 | Learning rate = 4.803571428571428e-06 
+
+Epoch 009 | Step 0402/0672 | Loss 16.1067 | Time 485.5929 | Learning rate = 4.205357142857143e-06 
+
+Epoch 009 | Step 0536/0672 | Loss 15.9825 | Time 647.0968 | Learning rate = 3.6071428571428573e-06 
+
+Epoch 009 | Step 0670/0672 | Loss 15.6784 | Time 808.7016 | Learning rate = 3.0089285714285717e-06 
+
+precision 0.74|recall 0.81|f1 0.77|acc 0.94
+Average val loss:15238.61 sklearn_acc:0.94
+time costed=851.86068s 
+
+-------------------------------
+***** Running training epoch 10 *****
+Epoch 010 | Step 0134/0672 | Loss 12.5352 | Time 162.6241 | Learning rate = 2.401785714285714e-06 
+
+Epoch 010 | Step 0268/0672 | Loss 12.0666 | Time 327.8486 | Learning rate = 1.8035714285714286e-06 
+
+Epoch 010 | Step 0402/0672 | Loss 12.0815 | Time 492.9378 | Learning rate = 1.205357142857143e-06 
+
+Epoch 010 | Step 0536/0672 | Loss 12.2230 | Time 658.1718 | Learning rate = 6.071428571428572e-07 
+
+Epoch 010 | Step 0670/0672 | Loss 11.8025 | Time 823.4604 | Learning rate = 8.92857142857143e-09 
+
+precision 0.75|recall 0.80|f1 0.77|acc 0.94
+Average val loss:15777.25 sklearn_acc:0.94
+time costed=868.35004s 
+
+-------------------------------
+
+
+
+
+
+&#39;\n预测值不包括实际值会报错\nUndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.\n  _warn_prf(average, modifier, msg_start, len(result))&#39;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#torch.save(model.state_dict(),&quot;./bert_lstm_crf/finall_blf_model&quot;)</span></span><br><span class="line">model.load_state_dict(torch.load(<span class="string">&quot;./bert_lstm_crf/blf_model&quot;</span>))</span><br><span class="line">model.to(device)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编写predict函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span>(<span class="params">model,data_loader</span>):</span><span class="comment">#参数名为data时加载训练好的模型来预测报错，原模型不报错</span></span><br><span class="line">  model.<span class="built_in">eval</span>()</span><br><span class="line">  y_pred,y_true,predictions= [],[],[]<span class="comment">#pad后的预测结果、真实标签和没有pad的标签list</span></span><br><span class="line">  <span class="keyword">for</span> batch <span class="keyword">in</span> data_loader:</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():<span class="comment">#只有这一块是不需要求导的</span></span><br><span class="line">      </span><br><span class="line">      input_ids=batch[<span class="string">&#x27;input_ids&#x27;</span>].to(device)</span><br><span class="line">      attention_mask=batch[<span class="string">&#x27;attention_mask&#x27;</span>].to(device)</span><br><span class="line">      token_type_ids=batch[<span class="string">&#x27;token_type_ids&#x27;</span>].to(device)</span><br><span class="line">      pad_labels=batch[<span class="string">&#x27;pad_labels&#x27;</span>].to(device)<span class="comment">#用1填充的标签，用来计算logits和loss</span></span><br><span class="line">      mask=batch[<span class="string">&#x27;mask&#x27;</span>].to(device)<span class="comment">#mask矩阵，用来计算logits和loss、crf解码结果</span></span><br><span class="line">      logits,loss=model(input_ids,attention_mask,token_type_ids,pad_labels,mask)                      </span><br><span class="line">    </span><br><span class="line">    pad_labels,mask=pad_labels[:,<span class="number">1</span>:].to(device),mask[:,<span class="number">1</span>:].to(device)</span><br><span class="line">    prediction=model.crf.decode(logits,mask)<span class="comment">#解码后得出真实tokens的预测结果list</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#预测值只是列表，pad之后加入总的预测列表，用于评价compute_metrics</span></span><br><span class="line">    pad_pred=torch.tensor(pad_result(prediction,pad_labels)).to(device)</span><br><span class="line">    y_pred.extend(pad_pred.cpu().numpy().tolist())</span><br><span class="line">    y_true.extend(pad_labels.cpu().numpy().tolist())<span class="comment">#pad_labels为真实标签</span></span><br><span class="line"></span><br><span class="line">    predictions.extend(prediction)<span class="comment">#这个是不用pad的预测结果，用于最终提交结果</span></span><br><span class="line">      </span><br><span class="line">  <span class="keyword">return</span> y_pred,y_true,predictions</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#预测验证集结果，查看各个tokens类别的指标</span></span><br><span class="line">y_pred,y_true,predictions=predict(model,val_loader)</span><br><span class="line">results=compute_metrics(y_pred,y_true)</span><br><span class="line"><span class="comment">#将结果排序查看</span></span><br><span class="line">result_df=pd.DataFrame(results)</span><br><span class="line">result_df.stack().unstack(<span class="number">0</span>).sort_values(by=[<span class="string">&#x27;f1&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+<pre><code>/usr/local/lib/python3.7/dist-packages/ipykernel_launcher.py:13: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  del sys.path[0]
+</code></pre>
+  <div id="df-696db27c-5ac8-495c-aa6f-406fba9a1c0b">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1</th>
+      <th>number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>address</th>
+      <td>0.555288</td>
+      <td>0.619303</td>
+      <td>0.585551</td>
+      <td>373.000000</td>
+    </tr>
+    <tr>
+      <th>scene</th>
+      <td>0.697115</td>
+      <td>0.693780</td>
+      <td>0.695444</td>
+      <td>209.000000</td>
+    </tr>
+    <tr>
+      <th>overall_precision</th>
+      <td>0.747256</td>
+      <td>0.747256</td>
+      <td>0.747256</td>
+      <td>0.747256</td>
+    </tr>
+    <tr>
+      <th>organization</th>
+      <td>0.721805</td>
+      <td>0.784741</td>
+      <td>0.751958</td>
+      <td>367.000000</td>
+    </tr>
+    <tr>
+      <th>overall_f1</th>
+      <td>0.771725</td>
+      <td>0.771725</td>
+      <td>0.771725</td>
+      <td>0.771725</td>
+    </tr>
+    <tr>
+      <th>government</th>
+      <td>0.739130</td>
+      <td>0.825911</td>
+      <td>0.780115</td>
+      <td>247.000000</td>
+    </tr>
+    <tr>
+      <th>position</th>
+      <td>0.774554</td>
+      <td>0.801386</td>
+      <td>0.787741</td>
+      <td>433.000000</td>
+    </tr>
+    <tr>
+      <th>book</th>
+      <td>0.775000</td>
+      <td>0.805195</td>
+      <td>0.789809</td>
+      <td>154.000000</td>
+    </tr>
+    <tr>
+      <th>company</th>
+      <td>0.759124</td>
+      <td>0.825397</td>
+      <td>0.790875</td>
+      <td>378.000000</td>
+    </tr>
+    <tr>
+      <th>overall_recall</th>
+      <td>0.797852</td>
+      <td>0.797852</td>
+      <td>0.797852</td>
+      <td>0.797852</td>
+    </tr>
+    <tr>
+      <th>movie</th>
+      <td>0.807947</td>
+      <td>0.807947</td>
+      <td>0.807947</td>
+      <td>151.000000</td>
+    </tr>
+    <tr>
+      <th>game</th>
+      <td>0.791925</td>
+      <td>0.864407</td>
+      <td>0.826580</td>
+      <td>295.000000</td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td>0.865031</td>
+      <td>0.909677</td>
+      <td>0.886792</td>
+      <td>465.000000</td>
+    </tr>
+    <tr>
+      <th>overall_accuracy</th>
+      <td>0.938997</td>
+      <td>0.938997</td>
+      <td>0.938997</td>
+      <td>0.938997</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-696db27c-5ac8-495c-aa6f-406fba9a1c0b')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+<p>  &lt;svg xmlns=”<a target="_blank" rel="noopener" href="http://www.w3.org/2000/svg&quot;">http://www.w3.org/2000/svg&quot;</a> height=”24px”viewBox=”0 0 24 24”<br>       width=”24px”&gt;<br>    <path d="M0 0h24v24H0V0z" fill="none"/><br>    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/><br>  </svg><br>      </button></p>
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+<pre><code>  &lt;script&gt;
+    const buttonEl =
+      document.querySelector(&#39;#df-696db27c-5ac8-495c-aa6f-406fba9a1c0b button.colab-df-convert&#39;);
+    buttonEl.style.display =
+      google.colab.kernel.accessAllowed ? &#39;block&#39; : &#39;none&#39;;
+
+    async function convertToInteractive(key) &#123;
+      const element = document.querySelector(&#39;#df-696db27c-5ac8-495c-aa6f-406fba9a1c0b&#39;);
+      const dataTable =
+        await google.colab.kernel.invokeFunction(&#39;convertToInteractive&#39;,
+                                                 [key], &#123;&#125;);
+      if (!dataTable) return;
+
+      const docLinkHtml = &#39;Like what you see? Visit the &#39; +
+        &#39;&lt;a target=&quot;_blank&quot; href=https://colab.research.google.com/notebooks/data_table.ipynb&gt;data table notebook&lt;/a&gt;&#39;
+        + &#39; to learn more about interactive tables.&#39;;
+      element.innerHTML = &#39;&#39;;
+      dataTable[&#39;output_type&#39;] = &#39;display_data&#39;;
+      await google.colab.output.renderOutput(dataTable, element);
+      const docLink = document.createElement(&#39;div&#39;);
+      docLink.innerHTML = docLinkHtml;
+      element.appendChild(docLink);
+    &#125;
+  &lt;/script&gt;
+&lt;/div&gt;
+</code></pre>
+  </div>
+
+
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将验证集真实标签和预测结果进行对比展示</span></span><br><span class="line">val_df[<span class="string">&#x27;preds&#x27;</span>]=pd.Series(predictions)</span><br><span class="line">val_df.to_csv(<span class="string">&#x27;./bert_lstm_crf/val_1221.csv&#x27;</span>)</span><br><span class="line">val_df=val_df.drop([<span class="string">&quot;pad_labels&quot;</span>],axis=<span class="number">1</span>)</span><br><span class="line">val_df</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+  <div id="df-6aa13505-0f0b-488b-b8ff-b87a0df15790">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>words</th>
+      <th>labels</th>
+      <th>preds</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>[彭, 小, 军, 认, 为, ，, 国, 内, 银, 行, 现, 在, 走, 的, 是, ...</td>
+      <td>[7, 17, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...</td>
+      <td>[7, 17, 17, 0, 0, 0, 3, 13, 13, 13, 0, 0, 0, 0...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>[温, 格, 的, 球, 队, 终, 于, 又, 踢, 了, 一, 场, 经, 典, 的, ...</td>
+      <td>[7, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...</td>
+      <td>[7, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>[突, 袭, 黑, 暗, 雅, 典, 娜, 》, 中, R, i, d, d, i, c, ...</td>
+      <td>[4, 14, 14, 14, 14, 14, 14, 14, 0, 7, 17, 17, ...</td>
+      <td>[6, 16, 16, 16, 16, 16, 16, 16, 0, 7, 17, 17, ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>[郑, 阿, 姨, 就, 赶, 到, 文, 汇, 路, 排, 队, 拿, 钱, ，, 希, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 1, 11, 11, 0, 0, 0, 0, 0, 0...</td>
+      <td>[0, 0, 0, 0, 0, 0, 1, 11, 11, 0, 0, 0, 0, 0, 0...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>[我, 想, 站, 在, 雪, 山, 脚, 下, 你, 会, 被, 那, 巍, 峨, 的, ...</td>
+      <td>[0, 0, 0, 0, 10, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0...</td>
+      <td>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1338</th>
+      <td>[在, 这, 个, 非, 常, 喜, 庆, 的, 日, 子, 里, ，, 我, 们, 首, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...</td>
+    </tr>
+    <tr>
+      <th>1339</th>
+      <td>[姜, 哲, 中, ：, 公, 共, 之, 敌, 1, -, 1, 》, 、, 《, 神, ...</td>
+      <td>[6, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16...</td>
+      <td>[6, 17, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16...</td>
+    </tr>
+    <tr>
+      <th>1340</th>
+      <td>[目, 前, ，, 日, 本, 松, 山, 海, 上, 保, 安, 部, 正, 在, 就, ...</td>
+      <td>[0, 0, 0, 5, 15, 15, 15, 15, 15, 15, 15, 15, 0...</td>
+      <td>[0, 0, 0, 5, 15, 15, 15, 15, 15, 15, 15, 15, 0...</td>
+    </tr>
+    <tr>
+      <th>1341</th>
+      <td>[也, 就, 是, 说, 英, 国, 人, 在, 世, 博, 会, 上, 的, 英, 国, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 0, 0, 10, 20, 20, 0, 0, 0, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 20...</td>
+    </tr>
+    <tr>
+      <th>1342</th>
+      <td>[另, 外, 意, 大, 利, 的, P, l, a, y, G, e, n, e, r, ...</td>
+      <td>[0, 0, 0, 0, 0, 0, 2, 12, 12, 12, 12, 12, 12, ...</td>
+      <td>[0, 0, 1, 11, 11, 0, 2, 12, 12, 12, 12, 12, 12...</td>
+    </tr>
+  </tbody>
+</table>
+<p>1343 rows × 3 columns</p>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-6aa13505-0f0b-488b-b8ff-b87a0df15790')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+<p>  &lt;svg xmlns=”<a target="_blank" rel="noopener" href="http://www.w3.org/2000/svg&quot;">http://www.w3.org/2000/svg&quot;</a> height=”24px”viewBox=”0 0 24 24”<br>       width=”24px”&gt;<br>    <path d="M0 0h24v24H0V0z" fill="none"/><br>    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/><br>  </svg><br>      </button></p>
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+<pre><code>  &lt;script&gt;
+    const buttonEl =
+      document.querySelector(&#39;#df-6aa13505-0f0b-488b-b8ff-b87a0df15790 button.colab-df-convert&#39;);
+    buttonEl.style.display =
+      google.colab.kernel.accessAllowed ? &#39;block&#39; : &#39;none&#39;;
+
+    async function convertToInteractive(key) &#123;
+      const element = document.querySelector(&#39;#df-6aa13505-0f0b-488b-b8ff-b87a0df15790&#39;);
+      const dataTable =
+        await google.colab.kernel.invokeFunction(&#39;convertToInteractive&#39;,
+                                                 [key], &#123;&#125;);
+      if (!dataTable) return;
+
+      const docLinkHtml = &#39;Like what you see? Visit the &#39; +
+        &#39;&lt;a target=&quot;_blank&quot; href=https://colab.research.google.com/notebooks/data_table.ipynb&gt;data table notebook&lt;/a&gt;&#39;
+        + &#39; to learn more about interactive tables.&#39;;
+      element.innerHTML = &#39;&#39;;
+      dataTable[&#39;output_type&#39;] = &#39;display_data&#39;;
+      await google.colab.output.renderOutput(dataTable, element);
+      const docLink = document.createElement(&#39;div&#39;);
+      docLink.innerHTML = docLinkHtml;
+      element.appendChild(docLink);
+    &#125;
+  &lt;/script&gt;
+&lt;/div&gt;
+</code></pre>
+  </div>
+
+
+
+
+<h2 id="用模型预测验证集结果，与原标签对比"><a href="#用模型预测验证集结果，与原标签对比" class="headerlink" title="用模型预测验证集结果，与原标签对比"></a>用模型预测验证集结果，与原标签对比</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y_pred,y_true,predictions=predict(model,test_loader)</span><br><span class="line">pd.DataFrame(&#123;<span class="string">&#x27;label&#x27;</span>:predictions&#125;).to_csv(<span class="string">&#x27;./bert_lstm_crf/submit1222.csv&#x27;</span>,index=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">zhxnlp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zhxnlp.github.io/2021/11/15/CLUENER 细粒度命名实体识别/bert_lstm_crf/">https://zhxnlp.github.io/2021/11/15/CLUENER 细粒度命名实体识别/bert_lstm_crf/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zhxnlp.github.io">zhxnlpのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NER/">NER</a><a class="post-meta__tags" href="/tags/nlp/">nlp</a><a class="post-meta__tags" href="/tags/CRF/">CRF</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/11/17/10%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94Pytorch/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E3%80%81%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"><i class="fa fa-chevron-left">  </i><span>python类与对象</span></a></div><div class="next-post pull-right"><a href="/2021/11/10/CLUENER%20%E7%BB%86%E7%B2%92%E5%BA%A6%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/bert_softmax/"><span>命名实体识别——bert_softmax模型</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By zhxnlp</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
