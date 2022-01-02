@@ -608,9 +608,9 @@ print(model.intercept_)#打印w0 就是线性方程中的截距b
     <category term="CLUENER 命名实体识别" scheme="https://zhxnlp.github.io/categories/CLUENER-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/"/>
     
     
-    <category term="nlp" scheme="https://zhxnlp.github.io/tags/nlp/"/>
-    
     <category term="NER" scheme="https://zhxnlp.github.io/tags/NER/"/>
+    
+    <category term="nlp" scheme="https://zhxnlp.github.io/tags/nlp/"/>
     
     <category term="CRF" scheme="https://zhxnlp.github.io/tags/CRF/"/>
     
