@@ -524,41 +524,6 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/TF-IDF/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/fasttext/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/transformers/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/tags/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -636,6 +601,13 @@
   </url>
   
   <url>
+    <loc>https://zhxnlp.github.io/tags/transformers/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhxnlp.github.io/tags/Hugging-Face/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -643,7 +615,28 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
+    <loc>https://zhxnlp.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/TF-IDF/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/fasttext/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -651,6 +644,13 @@
   
   <url>
     <loc>https://zhxnlp.github.io/tags/Word2vec/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -699,14 +699,14 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/CNN/</loc>
+    <loc>https://zhxnlp.github.io/tags/LSTM/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/LSTM/</loc>
+    <loc>https://zhxnlp.github.io/tags/CNN/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -764,13 +764,6 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/categories/%E5%A4%A9%E6%B1%A0-%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/categories/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -779,6 +772,13 @@
   
   <url>
     <loc>https://zhxnlp.github.io/categories/HuggingFace/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/categories/%E5%A4%A9%E6%B1%A0-%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
