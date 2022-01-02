@@ -1,26 +1,29 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="2021使用hexo+github搭建个人博客"><meta name="keywords" content="前端开发,github,hexo"><meta name="author" content="zhxnlp"><meta name="copyright" content="zhxnlp"><title>2021使用hexo+github搭建个人博客 | zhxnlpのBlog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="2021使用hexo+github搭建个人博客"><meta name="keywords" content="前端开发,github,hexo"><meta name="author" content="zhxnlp"><meta name="copyright" content="zhxnlp"><title>2021使用hexo+github搭建个人博客 | zhxnlpのBlog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
   root: '/',
-  algolia: {"appId":"JU6VFRRZVF","apiKey":"ca17f8e20c4dc91dfe1214d03173a8be","indexName":"github-io","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  algolia: {"appId":"JU6VFRRZVF","apiKey":"ca17f8e20c4dc91dfe1214d03173a8be","indexName":"github-io","hits":{"per_page":10},"languages":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}.","hits_stats":"${hits} results found in ${time} ms"}},
   localSearch: undefined,
   copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
   },
   hexoVersion: '6.0.0'
 } </script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="zhxnlpのBlog" type="application/atom+xml">
-</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BF%85%E5%A4%87%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">一、必备软件安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-hexo%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2"><span class="toc-number">2.</span> <span class="toc-text">二、 hexo本地搭建博客</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%9C%AC%E5%9C%B0%E7%94%9F%E6%88%90%E5%8D%9A%E5%AE%A2%E5%86%85%E5%AE%B9"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 本地生成博客内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%96%87%E7%AB%A0%E5%86%99%E4%BD%9C"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 文章写作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-front-master"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 front master</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-front-master%E5%8F%82%E6%95%B0"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 front master参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-%E5%B8%83%E5%B1%80"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2  布局</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-3-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%86%E7%B1%BB"><span class="toc-number">2.3.3.</span> <span class="toc-text">2.3.3 标签和分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-4-%E6%A0%87%E7%AD%BE%E6%8F%92%E4%BB%B6%EF%BC%88Tag-Plugins%EF%BC%89"><span class="toc-number">2.3.4.</span> <span class="toc-text">2.3.4 标签插件（Tag Plugins）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-5-%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E5%A4%B9-%E5%9B%BE%E7%89%87%E5%B5%8C%E5%85%A5"><span class="toc-number">2.3.5.</span> <span class="toc-text">2.3.5 资源文件夹&#x2F;图片嵌入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-6-%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">2.3.6.</span> <span class="toc-text">2.3.6 数据文件夹</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-7-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.3.7.</span> <span class="toc-text">2.3.7 服务器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%8D%9A%E5%AE%A2%E5%8F%91%E5%B8%83%E5%88%B0%E7%BD%91%E4%B8%8A"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 博客发布到网上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-1-%E9%85%8D%E7%BD%AE%E4%B8%BB%E9%A2%98%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.5.</span> <span class="toc-text">2.4.1 配置主题模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-2-%E9%85%8D%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%9C%B0%E5%9D%80"><span class="toc-number">2.6.</span> <span class="toc-text">2.4.2 配置自己的远程仓库地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-3-%E5%8F%91%E5%B8%83github%E5%8D%9A%E5%AE%A2"><span class="toc-number">2.7.</span> <span class="toc-text">2.4.3 发布github博客</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">三 、自定义配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%85%8D%E7%BD%AE"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-%E7%BD%91%E7%AB%99%E3%80%81%E7%BD%91%E5%9D%80%E5%8F%82%E6%95%B0"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1 网站、网址参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-%E7%9B%AE%E5%BD%95-amp-%E6%96%87%E7%AB%A0"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2 目录&amp;文章</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-%E5%88%86%E7%B1%BB-amp-%E6%A0%87%E7%AD%BE-amp-%E6%97%A5%E6%9C%9F-%E6%97%B6%E9%97%B4-amp-%E5%88%86%E9%A1%B5%E6%89%A9%E5%B1%95"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.1.3 分类 &amp; 标签&amp;日期 &#x2F; 时间&amp;分页扩展</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-4-include-%E5%92%8C-exclude%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.4.</span> <span class="toc-text">3.1.4 include 和 exclude文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-5%E4%BB%A3%E6%9B%BF%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.5.</span> <span class="toc-text">3.1.5代替配置文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Permalinks%E6%B0%B8%E4%B9%85%E9%93%BE%E6%8E%A5"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 Permalinks永久链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E4%B8%BB%E9%A2%98"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%A8%A1%E7%89%88"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 模版</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-%E6%A8%A1%E6%9D%BF%E5%90%8D%E7%A7%B0"><span class="toc-number">3.4.1.</span> <span class="toc-text">3.4.1 模板名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-%E5%B8%83%E5%B1%80%EF%BC%88Layout%EF%BC%89"><span class="toc-number">3.4.2.</span> <span class="toc-text">3.4.2 布局（Layout）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E5%8F%98%E9%87%8F%E5%92%8C%E5%87%BD%E6%95%B0%E3%80%81%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 变量和函数、代码高亮</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-blog.csdnimg.cn/92202ef591744a55a05a1fc7e108f4d6.png"></div><div class="author-info__name text-center">zhxnlp</div><div class="author-info__description text-center">nlp</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/zhxnlp">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">47</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">39</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">9</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://relph1119.github.io/my-team-learning">relph</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://ifwind.github.io/">ifwind</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://chuxiaoyu.cn/nlp-transformer-summary/">chuxiaoyu</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">zhxnlpのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">2021使用hexo+github搭建个人博客</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-12-31</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/">软件应用</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">6.6k</span><span class="post-meta__separator">|</span><span>阅读时长: 23 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>@[toc]<br>参考资料：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wapchief/article/details/54602515?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164088400916780366527950%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=164088400916780366527950&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-10-54602515.pc_search_insert_es_download_v2&utm_term=github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA&spm=1018.2226.3001.4187">《使用hexo+github免费搭建个人博客网站超详细教程》</a>、hexo文档：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages">将 Hexo 部署到 GitHub Pages</a>。</p>
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BF%85%E5%A4%87%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">一、必备软件安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-hexo%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2"><span class="toc-number">2.</span> <span class="toc-text">二、 hexo本地搭建博客</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%9C%AC%E5%9C%B0%E7%94%9F%E6%88%90%E5%8D%9A%E5%AE%A2%E5%86%85%E5%AE%B9"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 本地生成博客内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%96%87%E7%AB%A0%E5%86%99%E4%BD%9C%E3%80%81%E8%87%AA%E5%8A%A8%E6%91%98%E5%BD%95"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 文章写作、自动摘录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%8D%9A%E5%AE%A2%E5%8F%91%E5%B8%83%E5%88%B0%E7%BD%91%E4%B8%8A"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 博客发布到网上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-%E9%85%8D%E7%BD%AE%E4%B8%BB%E9%A2%98%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.4.</span> <span class="toc-text">2.3.1 配置主题模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-%E9%85%8D%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%9C%B0%E5%9D%80"><span class="toc-number">2.5.</span> <span class="toc-text">2.3.2 配置自己的远程仓库地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-3-%E5%8F%91%E5%B8%83github%E5%8D%9A%E5%AE%A2"><span class="toc-number">2.6.</span> <span class="toc-text">2.3.3 发布github博客</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE"><span class="toc-number">2.7.</span> <span class="toc-text">2.4 主题配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-1-front-master%E5%8F%82%E6%95%B0"><span class="toc-number">2.7.1.</span> <span class="toc-text">2.4.1 front master参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-2-%E5%B8%83%E5%B1%80"><span class="toc-number">2.7.2.</span> <span class="toc-text">2.4.2  布局</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-3-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%86%E7%B1%BB"><span class="toc-number">2.7.3.</span> <span class="toc-text">2.4.3 标签和分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-4-%E6%A0%87%E7%AD%BE%E6%8F%92%E4%BB%B6%EF%BC%88Tag-Plugins%EF%BC%89"><span class="toc-number">2.7.4.</span> <span class="toc-text">2.4.4 标签插件（Tag Plugins）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-5-%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E5%A4%B9-%E5%9B%BE%E7%89%87%E5%B5%8C%E5%85%A5"><span class="toc-number">2.7.5.</span> <span class="toc-text">2.4.5 资源文件夹&#x2F;图片嵌入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-6-%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">2.7.6.</span> <span class="toc-text">2.4.6 数据文件夹</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-7-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.7.7.</span> <span class="toc-text">2.4.7 服务器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">三 、自定义配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%85%8D%E7%BD%AE"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-%E7%BD%91%E7%AB%99%E3%80%81%E7%BD%91%E5%9D%80%E5%8F%82%E6%95%B0"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1 网站、网址参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-%E7%9B%AE%E5%BD%95-amp-%E6%96%87%E7%AB%A0"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2 目录&amp;文章</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-%E5%88%86%E7%B1%BB-amp-%E6%A0%87%E7%AD%BE-amp-%E6%97%A5%E6%9C%9F-%E6%97%B6%E9%97%B4-amp-%E5%88%86%E9%A1%B5%E6%89%A9%E5%B1%95"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.1.3 分类 &amp; 标签&amp;日期 &#x2F; 时间&amp;分页扩展</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-4-include-%E5%92%8C-exclude%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.4.</span> <span class="toc-text">3.1.4 include 和 exclude文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-5%E4%BB%A3%E6%9B%BF%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.5.</span> <span class="toc-text">3.1.5代替配置文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Permalinks%E6%B0%B8%E4%B9%85%E9%93%BE%E6%8E%A5"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 Permalinks永久链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E4%B8%BB%E9%A2%98"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%A8%A1%E7%89%88"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 模版</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-%E6%A8%A1%E6%9D%BF%E5%90%8D%E7%A7%B0"><span class="toc-number">3.4.1.</span> <span class="toc-text">3.4.1 模板名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-%E5%B8%83%E5%B1%80%EF%BC%88Layout%EF%BC%89"><span class="toc-number">3.4.2.</span> <span class="toc-text">3.4.2 布局（Layout）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E5%8F%98%E9%87%8F%E5%92%8C%E5%87%BD%E6%95%B0%E3%80%81%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 变量和函数、代码高亮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E5%AE%89%E8%A3%85%E6%90%9C%E7%B4%A2"><span class="toc-number">3.6.</span> <span class="toc-text">3.6 安装搜索</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-blog.csdnimg.cn/92202ef591744a55a05a1fc7e108f4d6.png"></div><div class="author-info__name text-center">zhxnlp</div><div class="author-info__description text-center">nlp</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/zhxnlp">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">47</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">39</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">9</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://relph1119.github.io/my-team-learning">relph</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://ifwind.github.io/">ifwind</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://chuxiaoyu.cn/nlp-transformer-summary/">chuxiaoyu</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">zhxnlpのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">2021使用hexo+github搭建个人博客</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-12-31</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/">软件应用</a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">7k</span><span class="post-meta__separator">|</span><span>Reading time: 25 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>参考资料：</p>
 <ul>
+<li>主要参考文档：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">hexo文档</a>、<a target="_blank" rel="noopener" href="https://molunerfinn.com/hexo-theme-melody-doc/#features">melody主题文档</a>、<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=xvIRGmKWpFM">youtube教学视频</a>、<a target="_blank" rel="noopener" href="https://space.bilibili.com/362224537/channel/series">bilibili的hexo教学视频</a>、<a target="_blank" rel="noopener" href="https://hexo.io/themes/">hexo主题网站</a>。</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wapchief/article/details/54602515?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164088400916780366527950%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&amp;request_id=164088400916780366527950&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-10-54602515.pc_search_insert_es_download_v2&amp;utm_term=github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA&amp;spm=1018.2226.3001.4187">《使用hexo+github免费搭建个人博客网站超详细教程》</a>、hexo文档：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages">将 Hexo 部署到 GitHub Pages</a>。</li>
 <li>bilibili搭建博客视频资料<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mU4y1j72n?p=5">《【2021最新版】保姆级Hexo+github搭建个人博客》</a></li>
-<li><a target="_blank" rel="noopener" href="https://yarn.bootcss.com/">yarn1中文文档</a>、<a target="_blank" rel="noopener" href="https://www.yarnpkg.cn/">yarn2文档</a>、<a target="_blank" rel="noopener" href="https://www.npmjs.cn/">npm中文文档</a>。</li>
-<li><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">hexo文档</a>、<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=xvIRGmKWpFM">youtube教学视频</a>、<a target="_blank" rel="noopener" href="https://space.bilibili.com/362224537/channel/series">bilibili的hexo教学视频</a>、<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">Hexo Github</a> 、<a target="_blank" rel="noopener" href="https://github.com/hexojs/awesome-hexo">Hexo Awesome文档</a></li>
-<li><a target="_blank" rel="noopener" href="http://bit.ly/2QhJTNaYaml">Yaml官网</a>、<a target="_blank" rel="noopener" href="http://bit.ly/2zxeDCC">Yaml教程</a></li>
-<li><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/commands">hexo常用命令</a>、<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">配置方式</a><h2 id="一、必备软件安装"><a href="#一、必备软件安装" class="headerlink" title="一、必备软件安装"></a>一、必备软件安装</h2>首先安装Node.js、git，再安装hexo-cli（cli是命令行接口，即commend  line interface。本身也会装hexo，且可以通过命令操作hexo）。<br>安装nodejs参考帖子《》<br>安装git工具，以及github注册创建仓库，参考我另一篇帖子<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_56591814/article/details/119841785?spm=1001.2014.3001.5501">《GitHub 详细教程》</a>。<br>hexo支持yaml和json。凡是使用Yaml的地方也可以使用json替代。但是json相较yaml更加烦琐而功能相同，且各大网站基本都支持Yaml，所以推荐大家使用Yaml。<span id="more"></span>
-<h2 id="二、-hexo本地搭建博客"><a href="#二、-hexo本地搭建博客" class="headerlink" title="二、 hexo本地搭建博客"></a>二、 hexo本地搭建博客</h2>常用命令：</li>
+<li><a target="_blank" rel="noopener" href="https://yarn.bootcss.com/">yarn1中文文档</a>、<a target="_blank" rel="noopener" href="https://www.yarnpkg.cn/">yarn2文档</a>、<a target="_blank" rel="noopener" href="https://www.npmjs.cn/">npm中文文档</a>、<a target="_blank" rel="noopener" href="http://bit.ly/2QhJTNaYaml">Yaml官网</a>、<a target="_blank" rel="noopener" href="http://bit.ly/2zxeDCC">Yaml教程</a> </li>
+<li><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/commands">hexo常用命令</a>、<a target="_blank" rel="noopener" href="https://github.com/hexojs/awesome-hexo">Hexo Awesome文档</a>、<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">Hexo Github</a><span id="more"></span> 
+<h2 id="一、必备软件安装"><a href="#一、必备软件安装" class="headerlink" title="一、必备软件安装"></a>一、必备软件安装</h2>首先安装Node.js、git，再安装hexo-cli（cli是命令行接口，即commend  line interface。本身也会装hexo，且可以通过命令操作hexo）。<br>安装nodejs参考帖子<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_56591814/article/details/121980469?spm=1001.2014.3001.5501">《Datawhale第32期组队学习——task0：新闻推荐系统项目搭建：centos下前端配置》</a><br>安装git工具，以及github注册创建仓库，参考我另一篇帖子<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_56591814/article/details/119841785?spm=1001.2014.3001.5501">《GitHub 详细教程》</a>。<br>hexo支持yaml和json。凡是使用Yaml的地方也可以使用json替代。但是json相较yaml更加烦琐而功能相同，且各大网站基本都支持Yaml，所以推荐大家使用Yaml。</li>
+</ul>
+<h2 id="二、-hexo本地搭建博客"><a href="#二、-hexo本地搭建博客" class="headerlink" title="二、 hexo本地搭建博客"></a>二、 hexo本地搭建博客</h2><p>常用命令：</p>
+<ul>
 <li>hexo clean：清除缓存文件 (db.json) 和已生成的静态文件 (public)。在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如何也不生效，您可能需要运行该命令</li>
 <li>hexo g -d :Hexo 在生成完毕后自动部署网站</li>
 <li>hexo s：本地部署网站</li>
-<li>hexo –draft：显示草稿</li>
+<li>hexo —draft：显示草稿</li>
 <li><h3 id="2-1-本地生成博客内容"><a href="#2-1-本地生成博客内容" class="headerlink" title="2.1 本地生成博客内容"></a>2.1 本地生成博客内容</h3>新建blog文件夹，运行<code>hexo init [folder]</code>。如果没有设置 folder ，Hexo 默认在目前的文件夹建立网站。<br>本命令相当于执行了以下几步：</li>
 </ul>
 <ol>
@@ -32,43 +35,59 @@
 <ul>
 <li>_config.yml：网站的 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">配置</a> 信息，您可以在此配置大部分的参数。配置文件遵循yaml语法。</li>
 <li>package.json：应用程序的信息。EJS, Stylus 和 Markdown renderer 已默认安装，您可以自由移除。</li>
-<li>scaffolds：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/writing">模版</a> 文件夹。当您新建文章时，Hexo 会根据 scaffold 来建立文件。<br>Hexo的模板是指在新建的文章文件中默认填充的内容。例如，如果您<font color='red'>修改scaffold/post.md中的Front-matter内容，那么每次新建一篇文章时都会包含这个修改。</li>
-<li>source：资源文件夹。除 _posts 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。</li>
+<li>scaffolds：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/writing">模版</a> 文件夹。当您新建文章时，Hexo 会根据 scaffold 来建立文件。<br>Hexo的模板是指在新建的文章文件中默认填充的内容。例如，如果您修改scaffold/post.md中的Front-matter内容，那么每次新建一篇文章时都会包含这个修改。</li>
+<li>source：资源文件夹。除 <em>posts 文件夹之外，开头命名为 </em> (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。</li>
 <li>themes：主题 文件夹，Hexo 会根据主题来生成静态页面。</li>
 </ul>
-<p>输入<code>hexo g</code>静态生成本地网页。（g就是generate生成的缩写）<br><img src="https://img-blog.csdnimg.cn/3480ea39bd374d73816019e2e6afe7cf.png" alt="在这里插入图片描述"><br>此时会发现根目录下多了一个<code>public</code>的文件夹，里面就是生成的网页文件。<br>再次运行<code>hexo s</code>启动网站（s就是server的意思）。此时就可以在<a target="_blank" rel="noopener" href="http://localhost:4000/%E4%B8%AD%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E7%94%9F%E6%88%90%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%E3%80%82">http://localhost:4000/中查看本地生成的博客网站。</a></p>
+<p>输入<code>hexo g</code>静态生成本地网页。（g就是generate生成的缩写）<br><img src="https://img-blog.csdnimg.cn/3480ea39bd374d73816019e2e6afe7cf.png" alt="在这里插入图片描述"><br>此时会发现根目录下多了一个<code>public</code>的文件夹，里面就是生成的网页文件。<br>再次运行<code>hexo s</code>启动网站（s就是server的意思）。此时就可以在<a target="_blank" rel="noopener" href="http://localhost:4000/中查看本地生成的博客网站。">http://localhost:4000/中查看本地生成的博客网站。</a></p>
 <p>您可执行下列的其中一个命令，让 Hexo 在生成完毕后自动部署网站，两个命令的作用是相同的：<code>hexo g -d hexo d -g</code>。</p>
-<h3 id="2-2-文章写作"><a href="#2-2-文章写作" class="headerlink" title="2.2 文章写作"></a>2.2 文章写作</h3><ul>
-<li>实现博客主页只显示部分文章内容，只需要在md文件某一行插入<code>&lt;!--more--&gt;</code>。首页只会显示标记以前的内容，标记后的内容可以通过阅读更多查阅</li>
-<li>ipynb转md文件，在文件目录下打开cmd运行：<code>jupyter nbconvert --to markdown bert.ipynb</code>就行。</li>
-</ul>
-<blockquote>
+<h3 id="2-2-文章写作、自动摘录"><a href="#2-2-文章写作、自动摘录" class="headerlink" title="2.2 文章写作、自动摘录"></a>2.2 文章写作、自动摘录</h3><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=HLJ9jJy7CMg">youtube视频</a></p>
+<ul>
+<li>实现博客主页只显示部分文章内容，只需要在md文件某一行插入<code>&lt;!--more--&gt;</code>。首页只会显示标记以前的内容，标记后的内容可以通过阅读更多查阅，也可以设置自动摘录。</li>
+<li>ipynb转md文件，在文件目录下打开cmd运行：<code>jupyter nbconvert --to markdown bert.ipynb</code>就行。<br>注意：使用自动摘录可能会导致代码区出错。所以如果你想在索引页中显示代码，那么你最好不要使用这个功能！</li>
+</ul>
 </blockquote>
+<p>自动摘录，设置melody.yml：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">auto_excerpt:</span><br><span class="line">  enable: true</span><br><span class="line">  length: <span class="number">150</span></span><br></pre></td></tr></table></figure></p>
 <ol>
-<li> <code>hexo new [layout] &lt;title&gt;</code>新建文章，生成一个标题为post title的md文件<br>如果没有设置 layout 的话，默认使用 _config.yml 中的 default_layout 参数代替。如果标题包含空格的话，请使用引号括起来。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;post title&quot;</span></span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Created: E:\Git Bash\blog\source\_posts\post-title.md</span><br></pre></td></tr></table></figure>
+<li><code>hexo new [layout] &lt;title&gt;</code>新建文章，生成一个标题为post title的md文件<br>如果没有设置 layout 的话，默认使用 _config.yml 中的 default_layout 参数代替。如果标题包含空格的话，请使用引号括起来。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;post title&quot;</span></span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Created: E:\Git Bash\blog\source\_posts\post-title.md</span><br></pre></td></tr></table></figure>
 打开md文件发现开头已经写了front-master（开头这部分自动生成的就是front master）：<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: post title</span><br><span class="line">date: <span class="number">2021</span>-<span class="number">12</span>-<span class="number">31</span> <span class="number">22</span>:07:<span class="number">24</span></span><br><span class="line">tags:</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
 </ol>
 <ul>
-<li>-p, –path    自定义新文章的路径</li>
-<li>-r, –replace    如果存在同名文章，将其替换</li>
-<li>-s, –slug    文章的 Slug，作为新文章的文件名和发布后的 URL</li>
+<li>-p, —path    自定义新文章的路径</li>
+<li>-r, —replace    如果存在同名文章，将其替换</li>
+<li>-s, —slug    文章的 Slug，作为新文章的文件名和发布后的 URL</li>
 </ul>
-<p>默认情况下，Hexo 会使用文章的标题来决定文章文件的路径。对于独立页面来说，Hexo 会创建一个以标题为名字的目录，并在目录中放置一个 index.md 文件。你可以使用 –path 参数来覆盖上述行为、自行决定文件的目录：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">hexo new page --path about/me <span class="string">&quot;About me&quot;</span></span><br></pre></td></tr></table></figure>
-
+<p>默认情况下，Hexo 会使用文章的标题来决定文章文件的路径。对于独立页面来说，Hexo 会创建一个以标题为名字的目录，并在目录中放置一个 index.md 文件。你可以使用 —path 参数来覆盖上述行为、自行决定文件的目录：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">hexo new page --path about/me <span class="string">&quot;About me&quot;</span></span><br></pre></td></tr></table></figure></p>
 <p>以上命令会创建一个 source/about/me.md 文件，同时 Front Matter 中的 title 为 “About me”</p>
-<ol start="2">
+<ol>
 <li>运行<code>hexo new draft &quot;draft title&quot;</code>可以生成草稿。草稿可以预览其效果，但是不会被hexo渲染生成，即网站不会存在草稿文章。</li>
 <li>运行<code>hexo new page &quot;page title&quot;</code>可以生成纯网页html。</li>
 </ol>
 <p>这三种类型的默认模板在scaffolds文件夹下面。即post.md，draft.md，page.md。模板使用nonjunks访问系统变量和函数。</p>
-<h3 id="2-3-front-master"><a href="#2-3-front-master" class="headerlink" title="2.3 front master"></a>2.3 front master</h3><h4 id="2-3-1-front-master参数"><a href="#2-3-1-front-master参数" class="headerlink" title="2.3.1 front master参数"></a>2.3.1 front master参数</h4><blockquote>
+<h3 id="2-3-博客发布到网上"><a href="#2-3-博客发布到网上" class="headerlink" title="2.3 博客发布到网上"></a>2.3 博客发布到网上</h3><h3 id="2-3-1-配置主题模板"><a href="#2-3-1-配置主题模板" class="headerlink" title="2.3.1 配置主题模板"></a>2.3.1 配置主题模板</h3><p>下载next主题：<code>git clone git://github.com/theme-next/hexo-theme-next themes/next</code>。这句代码表示创建themes/next文件夹，并下载github.com/theme-next/hexo-theme-next仓库的文件。</p>
+<p>回到hexo根目录下用记事本打开_config.yml文件。<br>配置模板，参考<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next">themes/next仓库文档</a>和<a target="_blank" rel="noopener" href="http://theme-next.iissnan.com/getting-started.html">配置文档</a>。<br><img src="https://img-blog.csdnimg.cn/e181732eb6cc4a4a98cb664d9cca716e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA56We5rSb5Y2O,size_17,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>更改主题参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42419856/article/details/81141546?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164090083216780265493528%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164090083216780265493528&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-4-81141546.pc_search_insert_es_download_v2&amp;utm_term=github%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98&amp;spm=1018.2226.3001.4187">《如何更改使用hexo-github搭建博客的主题 theme》</a>。<br>hexo主题在这：<a target="_blank" rel="noopener" href="https://hexo.io/themes/">Themes</a>。我安装的主题是<a target="_blank" rel="noopener" href="https://molunerfinn.com/">melody</a>，<a target="_blank" rel="noopener" href="https://molunerfinn.com/hexo-theme-melody-doc/quick-start.html#installation">说明文档</a>很详细。<br>安装后网页打开显示：<code>extends includes/layout.pug block content #recent-posts.recent-posts include includes/rec</code>。</p>
+<p>运行<code>npm install --save hexo-renderer-jade hexo-generator-feed hexo-generator-sitemap hexo-browsersync hexo-generator-archive</code><br>提示有些包版本低，升级就行。npm查看本地安装的包的版本号<code>npm ls &lt;packageName&gt;</code>。<br>npm install —save constantinople jstransformer hexo-renderer-pug pug debug</p>
+<h3 id="2-3-2-配置自己的远程仓库地址"><a href="#2-3-2-配置自己的远程仓库地址" class="headerlink" title="2.3.2 配置自己的远程仓库地址"></a>2.3.2 配置自己的远程仓库地址</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38225558/article/details/90765491?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164088400916780366557862%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164088400916780366557862&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-8-90765491.pc_search_insert_es_download_v2&amp;utm_term=github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA&amp;spm=1018.2226.3001.4187"><GitHub搭建个人博客教程></a><br>在开始之前，必须先在 _config.yml 中修改部署配置参数，可同时使用多个 deployer，Hexo 会依照顺序执行每个 deployer：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">- <span class="built_in">type</span>: git</span><br><span class="line">  repo:</span><br><span class="line">- <span class="built_in">type</span>: heroku</span><br><span class="line">  repo:</span><br></pre></td></tr></table></figure>
+<p>我配置的是：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git<span class="comment">#英文：接一个空格，下同</span></span><br><span class="line">  repo: https://github.com/zhxnlp/zhxnlp.github.io<span class="comment">#自己的仓库地址</span></span><br><span class="line">  branch: mian<span class="comment">#github在今年默认展示main分支，而不是master。</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-3-3-发布github博客"><a href="#2-3-3-发布github博客" class="headerlink" title="2.3.3 发布github博客"></a>2.3.3 发布github博客</h3><p>继续在本目录命令行，安装部署工具<code>npm install hexo-deployer-git -save</code>（方便以后更新）。<br>在blog目录（hexo项目根目录）运行<code>git init</code>本地仓库初始化。然后绑定仓库：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">git branch -M main<span class="comment">#将本地仓库默认改为mian分支</span></span><br><span class="line">git remote add origin git@github.com:zhxnlp/zhxnlp.github.io.git</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+<p>已有仓库估计出错。新建仓库名为<code>zhxnlp.github.io</code>，绑定好仓库后，运行<code>hexo g</code>生成页面。<br>运行<code>hexo d</code>即deployee，将本地仓库文件上传到网上。也可直接输入 <code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code>。</p>
+<p>打开博客网址<code>https://zhxnlp.github.io/</code>，网页界面报错：<br>extends includes/layout.pug block content include includes/recent-posts.pug include includes/pagination.pug。<br>这是确少hexo插件，安装插件见上一节内容。</p>
+<p>hexo g报错：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ERROR TypeError: E:\Git Bash\blog\node_modules\hexo-theme-melody\layout\includes</span><br><span class="line">\layout.pug:<span class="number">11</span></span><br><span class="line">    <span class="number">9</span>|</span><br><span class="line">    <span class="number">10</span>| - var pageDescription = page.description || page.title || config.descrip</span><br><span class="line">tion || <span class="string">&#x27;&#x27;</span></span><br><span class="line">  &gt; <span class="number">11</span>| - var pageKeywords = (config.keywords || []).join(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    <span class="number">12</span>| - <span class="keyword">if</span> (page.tags &amp;&amp; page.tags.data) pageKeywords = page.tags.data.<span class="built_in">map</span>(fun</span><br><span class="line">ction(tag) &#123;<span class="keyword">return</span> tag.name;&#125;).join(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    <span class="number">13</span>| - <span class="keyword">if</span> (page.keywords) pageKeywords = page.keywords.join(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    <span class="number">14</span>| - var pageAuthor = config.email ? config.author + <span class="string">&#x27;,&#x27;</span> + config.email : c</span><br><span class="line">onfig.author</span><br><span class="line"></span><br><span class="line">(config.keywords || []).join <span class="keyword">is</span> <span class="keyword">not</span> a function</span><br><span class="line">    at <span class="built_in">eval</span> (<span class="built_in">eval</span> at wrap (E:\Git Bash\blog\node_modules\pug-runtime\wrap.js:<span class="number">6</span>:<span class="number">1</span></span><br><span class="line"><span class="number">0</span>), &lt;anonymous&gt;:<span class="number">24</span>:<span class="number">44</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这是因为根目录下<code>keyword</code>报错（估计是格式不对），导致hexo-theme-melody\layout\includes<br>\layout.pug文件第11行执行错误，改了就好了。</p>
+<p>又报错10054，</p>
+<blockquote>
+<p>我是已经有仓库了，但是为了搭建博客改了域名为<code>https://github.com/zhxnlp/zhxnlp.github.io</code>，但是本地没有改，结果pull时出错。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ git pull origin mian</span><br><span class="line">starting fsmonitor-daemon <span class="keyword">in</span> <span class="string">&#x27;E:/Git Bash/bert2&#x27;</span></span><br><span class="line">fatal: couldn<span class="string">&#x27;t find remote ref mian</span></span><br></pre></td></tr></table></figure><br><code>fatal: couldn&#39;t find remote ref mian</code>表示仓库没有文件（域名被我改了，原来的仓库地址啥也没有）<br>git隐藏文件夹下：将 .git/cofig 文件中的 url 进行修改：<code>url = git@github.com:zhxnlp/zhxnlp.github.io</code>。</p>
+</blockquote>
+<h3 id="2-4-主题配置"><a href="#2-4-主题配置" class="headerlink" title="2.4 主题配置"></a>2.4 主题配置</h3><p>==从这里开始都是配置主题的内容，可以在前面部分搭好之后再慢慢弄。==<br>2.4这一节都是<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/front-matter">hexo文档内容</a>。</p>
+<h4 id="2-4-1-front-master参数"><a href="#2-4-1-front-master参数" class="headerlink" title="2.4.1 front master参数"></a>2.4.1 front master参数</h4><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Rl48Yk4A_V8">youtube视频</a></p>
 </blockquote>
-<p>Front-matter 是文件最上方以 — 分隔的区域，用于指定个别文件的变量，默认是：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: post title</span><br><span class="line">date: <span class="number">2021</span>-<span class="number">12</span>-<span class="number">31</span> <span class="number">22</span>:07:<span class="number">24</span></span><br><span class="line">tags:</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>可以用以下<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/front-matter">参数设置</a>其它属性：</p>
+<p>Front-matter 是文件最上方以 —- 分隔的区域，用于指定个别文件的变量，默认是：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: post title</span><br><span class="line">date: <span class="number">2021</span>-<span class="number">12</span>-<span class="number">31</span> <span class="number">22</span>:07:<span class="number">24</span></span><br><span class="line">tags:</span><br><span class="line">---</span><br></pre></td></tr></table></figure><br>可以用以下<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/front-matter">参数设置</a>其它属性：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -77,7 +96,8 @@
 <th>默认值</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>layout</td>
 <td>布局</td>
 <td>config.default_layout</td>
@@ -104,50 +124,47 @@
 </tr>
 <tr>
 <td>tags</td>
-<td>标签（不适用于分页）</td>
-<td></td>
+<td>标签（不适用于分页）    </td>
 </tr>
 <tr>
 <td>categories</td>
-<td>分类（不适用于分页）</td>
-<td></td>
+<td>分类（不适用于分页）    </td>
 </tr>
 <tr>
 <td>permalink</td>
-<td>覆盖文章网址</td>
-<td></td>
+<td>覆盖文章网址    </td>
 </tr>
 <tr>
 <td>excerpt</td>
-<td>纯文本页面摘录。</td>
-<td></td>
+<td>纯文本页面摘录。     </td>
 </tr>
 <tr>
 <td>lang</td>
 <td>设置语言覆盖</td>
 <td>Inherited from _config.yml</td>
 </tr>
-</tbody></table>
-<h4 id="2-3-2-布局"><a href="#2-3-2-布局" class="headerlink" title="2.3.2  布局"></a>2.3.2  布局</h4><p>默认布局为 post，根据 _config.yml 中 default_layout 设置的值。 当文章中禁用布局（设为layout: false时），将不会对其进行主题处理。 但是，它仍然会被任何可用的渲染器渲染：如果一篇文章是用 Markdown 编写的，并且安装了 Markdown 渲染器（如默认的 hexo-renderer-marked），它将被渲染为 HTML。<br>标签插件默认启用，除非设置disableNunjucks禁用或者被渲染器禁用。</p>
-<h4 id="2-3-3-标签和分类"><a href="#2-3-3-标签和分类" class="headerlink" title="2.3.3 标签和分类"></a>2.3.3 标签和分类</h4><p>启用首页显示分类和标签，只需要_config.melody.yml文件设置：</p>
+</tbody>
+</table>
+</div>
+<h4 id="2-4-2-布局"><a href="#2-4-2-布局" class="headerlink" title="2.4.2  布局"></a>2.4.2  布局</h4><p>默认布局为 post，根据 _config.yml 中 default_layout 设置的值。 当文章中禁用布局（设为layout: false时），将不会对其进行主题处理。 但是，它仍然会被任何可用的渲染器渲染：如果一篇文章是用 Markdown 编写的，并且安装了 Markdown 渲染器（如默认的 hexo-renderer-marked），它将被渲染为 HTML。<br>标签插件默认启用，除非设置disableNunjucks禁用或者被渲染器禁用。</p>
+<h4 id="2-4-3-标签和分类"><a href="#2-4-3-标签和分类" class="headerlink" title="2.4.3 标签和分类"></a>2.4.3 标签和分类</h4><p>启用首页显示分类和标签，只需要_config.melody.yml文件设置：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Main menu navigation</span></span><br><span class="line">menu:</span><br><span class="line">  Home: /</span><br><span class="line">  Archives: /archives</span><br><span class="line">  Tags: /tags</span><br><span class="line">  Categories: /categories</span><br><span class="line">  <span class="comment">#about: /about</span></span><br></pre></td></tr></table></figure>
 <p>修改source/tags/index.md文件内容为：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: <span class="number">2018</span>-01-05 <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;tags&quot;</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>修改source/categories/index.md内容为：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: <span class="number">2018</span>-01-05 <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;categories&quot;</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>修改source/categories/index.md内容为：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: <span class="number">2018</span>-01-05 <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;categories&quot;</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>只有md文章支持分类和标签。分类具有顺序性和层次性，而标签没有顺序和层次。一个文章可以有多个标签，多个分类，用中括号[]就可以达到并列效果。</li>
-<li>标签和分类插件使用的是YAML语法，直接categories: 1,2会把1,2作为一个分类。正确是用- 的形式设置分类和多标签：<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line">- Diary</span><br><span class="line">tags:</span><br><span class="line">- PS3</span><br><span class="line">- Games</span><br></pre></td></tr></table></figure></li>
+<li><p>标签和分类插件使用的是YAML语法，直接categories: 1,2会把1,2作为一个分类。正确是用- 的形式设置分类和多标签：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line">- Diary</span><br><span class="line">tags:</span><br><span class="line">- PS3</span><br><span class="line">- Games</span><br></pre></td></tr></table></figure>
+<p>Hexo 不支持指定多个同级分类。下面的指定方法，会使分类Life成为Diary的子分类，而不是并列分类：</p>
+</li>
 </ul>
-<p> Hexo 不支持指定多个同级分类。下面的指定方法，会使分类Life成为Diary的子分类，而不是并列分类：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line"> - Diary</span><br><span class="line"> - Life</span><br></pre></td></tr></table></figure>
-<p>如果想设置并列分类，可以写成：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line"> - [Diary]</span><br><span class="line"> - [Life]</span><br></pre></td></tr></table></figure>
-<p>如果你需要为文章添加多个分类，可以尝试以下 list 中的方法。</p>
+<p>如果想设置并列分类，可以写成：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line"> - [Diary]</span><br><span class="line"> - [Life]</span><br></pre></td></tr></table></figure><br>如果你需要为文章添加多个分类，可以尝试以下 list 中的方法。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line">- [Diary, PlayStation]</span><br><span class="line">- [Diary, Games]</span><br><span class="line">- [Life]</span><br></pre></td></tr></table></figure>
 <p>此时这篇文章同时包括三个分类： PlayStation 和 Games 分别都是父分类 Diary 的并列子分类，同时 Life 是一个没有子分类的分类。</p>
-<h4 id="2-3-4-标签插件（Tag-Plugins）"><a href="#2-3-4-标签插件（Tag-Plugins）" class="headerlink" title="2.3.4 标签插件（Tag Plugins）"></a>2.3.4 标签插件（Tag Plugins）</h4><p>标签插件和 Front-matter 中的标签不同，它们是用于在文章中快速插入特定内容的插件。具体查看<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/tag-plugins">官方文档</a>。感觉这部分内容不重要，我用得少。</p>
-<h4 id="2-3-5-资源文件夹-图片嵌入"><a href="#2-3-5-资源文件夹-图片嵌入" class="headerlink" title="2.3.5 资源文件夹/图片嵌入"></a>2.3.5 资源文件夹/图片嵌入</h4><ol>
+<h4 id="2-4-4-标签插件（Tag-Plugins）"><a href="#2-4-4-标签插件（Tag-Plugins）" class="headerlink" title="2.4.4 标签插件（Tag Plugins）"></a>2.4.4 标签插件（Tag Plugins）</h4><p>标签插件和 Front-matter 中的标签不同，它们是用于在文章中快速插入特定内容的插件。具体查看<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/tag-plugins">官方文档</a>。感觉这部分内容不重要，我用得少。</p>
+<h4 id="2-4-5-资源文件夹-图片嵌入"><a href="#2-4-5-资源文件夹-图片嵌入" class="headerlink" title="2.4.5 资源文件夹/图片嵌入"></a>2.4.5 资源文件夹/图片嵌入</h4><ol>
 <li>资源文件夹</li>
 </ol>
 <ul>
@@ -159,58 +176,39 @@
 <ul>
 <li>当资源文件管理功能打开后，Hexo将会在你每一次通过 <code>hexo new [layout] &lt;title&gt;</code> 命令创建新文章时自动创建一个和文章文件同名的资源文件夹，里面放入所有和文章有关的资源，然后通过相对路径来引用它们，这样你就得到了一个更简单而且方便得多的工作流。</li>
 </ul>
-<ol start="2">
+<ol>
 <li>相对路径引用标签插件：<br>Hexo 3 中，许多新的<a target="_blank" rel="noopener" href="https://hexo.io/docs/tag-plugins#Include-Assets">标签插件</a>被加入到了核心代码中，这使得你可以更简单地在文章中引用你的资源。</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&#123;% asset_path slug %&#125;</span><br><span class="line">&#123;% asset_img slug [title] %&#125;</span><br><span class="line">&#123;% asset_link slug [title] %&#125;</span><br></pre></td></tr></table></figure>
 <p>比如说：当你<code>打开文章资源文件夹功能</code>后，你把一个 example.jpg 图片放在了你的资源文件夹中，如果通过使用相对路径的常规 markdown 语法 <code>![](example.jpg)</code> ，它将 不会 出现在首页上。正确的引用图片方式是使用下列的标签插件而不是 markdown ：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&#123;% asset_img example.jpg This <span class="keyword">is</span> an example image %&#125;</span><br></pre></td></tr></table></figure>
 <p>通过这种方式，图片将会同时出现在文章和主页以及归档页中。</p>
-<ol start="3">
+<ol>
 <li>使用 Markdown 嵌入图像<br>hexo-renderer-marked 3.1.0 引入了一个新选项，允许您在不使用 <code>asset_img</code> 标签插件的情况下在 Markdown 中嵌入图像。</li>
 </ol>
 <p>启用功能：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">_config.yml</span><br><span class="line">post_asset_folder: true</span><br><span class="line">marked:</span><br><span class="line">  prependRoot: true</span><br><span class="line">  postAsset: true</span><br></pre></td></tr></table></figure>
 <p>启用后，asset image将自动解析为其相应帖子的路径。 例如，“image.jpg”位于“/2020/01/02/foo/image.jpg”，表示它是“/2020/01/02/foo/”帖子的asset image ，<code>![](image.jpg)</code>将呈现为 <code>&lt;img src=&quot;/2020/01/02/foo/image.jpg&quot;&gt;</code>。</p>
-<h4 id="2-3-6-数据文件夹"><a href="#2-3-6-数据文件夹" class="headerlink" title="2.3.6 数据文件夹"></a>2.3.6 数据文件夹</h4><p>有时您可能需要在主题中使用某些资料，而这些资料并不在文章内，并且是需要重复使用的，那么您可以考虑使用 Hexo 3.0 新增的「数据文件」功能。此功能会载入 source/_data 内的 YAML 或 JSON 文件，如此一来您便能在网站中复用这些文件了。<br>举例来说，在 source/_data 文件夹中新建 menu.yml 文件：</p>
+<h4 id="2-4-6-数据文件夹"><a href="#2-4-6-数据文件夹" class="headerlink" title="2.4.6 数据文件夹"></a>2.4.6 数据文件夹</h4><p>有时您可能需要在主题中使用某些资料，而这些资料并不在文章内，并且是需要重复使用的，那么您可以考虑使用 Hexo 3.0 新增的「数据文件」功能。此功能会载入 source/_data 内的 YAML 或 JSON 文件，如此一来您便能在网站中复用这些文件了。<br>举例来说，在 source/_data 文件夹中新建 menu.yml 文件：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Home: /</span><br><span class="line">Gallery: /gallery/</span><br><span class="line">Archives: /archives/</span><br></pre></td></tr></table></figure>
 <p>您就能在模板中使用这些资料：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&lt;% <span class="keyword">for</span> (var link <span class="keyword">in</span> site.data.menu) &#123; %&gt;</span><br><span class="line">  &lt;a href=<span class="string">&quot;&lt;%= site.data.menu[link] %&gt;&quot;</span>&gt; &lt;%= link %&gt; &lt;/a&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
 <p>渲染结果如下 :</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;/&quot;</span>&gt; Home &lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">&quot;/gallery/&quot;</span>&gt; Gallery &lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">&quot;/archives/&quot;</span>&gt; Archives &lt;/a&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="2-3-7-服务器"><a href="#2-3-7-服务器" class="headerlink" title="2.3.7 服务器"></a>2.3.7 服务器</h4><p>直接参考<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/server">官方文档</a></p>
-<h3 id="2-4-博客发布到网上"><a href="#2-4-博客发布到网上" class="headerlink" title="2.4 博客发布到网上"></a>2.4 博客发布到网上</h3><h3 id="2-4-1-配置主题模板"><a href="#2-4-1-配置主题模板" class="headerlink" title="2.4.1 配置主题模板"></a>2.4.1 配置主题模板</h3><p>下载next主题：<code>git clone git://github.com/theme-next/hexo-theme-next themes/next</code>。这句代码表示创建themes/next文件夹，并下载github.com/theme-next/hexo-theme-next仓库的文件。</p>
-<p>回到hexo根目录下用记事本打开_config.yml文件。<br>配置模板，参考<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next">themes/next仓库文档</a>和<a target="_blank" rel="noopener" href="http://theme-next.iissnan.com/getting-started.html">配置文档</a>。<br><img src="https://img-blog.csdnimg.cn/e181732eb6cc4a4a98cb664d9cca716e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA56We5rSb5Y2O,size_17,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>更改主题参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42419856/article/details/81141546?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164090083216780265493528%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=164090083216780265493528&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-4-81141546.pc_search_insert_es_download_v2&utm_term=github%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98&spm=1018.2226.3001.4187">《如何更改使用hexo-github搭建博客的主题 theme》</a>。<br>hexo主题在这：<a target="_blank" rel="noopener" href="https://hexo.io/themes/">Themes</a>。我安装的主题是<a target="_blank" rel="noopener" href="https://molunerfinn.com/">melody</a>，<a target="_blank" rel="noopener" href="https://molunerfinn.com/hexo-theme-melody-doc/quick-start.html#installation">说明文档</a>很详细。<br>安装后网页打开显示：<code>extends includes/layout.pug block content #recent-posts.recent-posts include includes/rec</code>。</p>
-<p>运行<code>npm install --save hexo-renderer-jade hexo-generator-feed hexo-generator-sitemap hexo-browsersync hexo-generator-archive</code><br>提示有些包版本低，升级就行。npm查看本地安装的包的版本号<code>npm ls &lt;packageName&gt;</code>。<br>npm install –save constantinople jstransformer hexo-renderer-pug pug debug</p>
-<h3 id="2-4-2-配置自己的远程仓库地址"><a href="#2-4-2-配置自己的远程仓库地址" class="headerlink" title="2.4.2 配置自己的远程仓库地址"></a>2.4.2 配置自己的远程仓库地址</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38225558/article/details/90765491?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164088400916780366557862%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=164088400916780366557862&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-8-90765491.pc_search_insert_es_download_v2&utm_term=github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA&spm=1018.2226.3001.4187">&lt;GitHub搭建个人博客教程&gt;</a><br>在开始之前，必须先在 _config.yml 中修改部署配置参数，可同时使用多个 deployer，Hexo 会依照顺序执行每个 deployer：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">- <span class="built_in">type</span>: git</span><br><span class="line">  repo:</span><br><span class="line">- <span class="built_in">type</span>: heroku</span><br><span class="line">  repo:</span><br></pre></td></tr></table></figure>
-<p>我配置的是：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git<span class="comment">#英文：接一个空格，下同</span></span><br><span class="line">  repo: https://github.com/zhxnlp/zhxnlp.github.io<span class="comment">#自己的仓库地址</span></span><br><span class="line">  branch: mian<span class="comment">#github在今年默认展示main分支，而不是master。</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-4-3-发布github博客"><a href="#2-4-3-发布github博客" class="headerlink" title="2.4.3 发布github博客"></a>2.4.3 发布github博客</h3><p>继续在本目录命令行，安装部署工具<code>npm install hexo-deployer-git -save</code>（方便以后更新）。<br>在blog目录（hexo项目根目录）运行<code>git init</code>本地仓库初始化。然后绑定仓库：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">git branch -M main<span class="comment">#将本地仓库默认改为mian分支</span></span><br><span class="line">git remote add origin git@github.com:zhxnlp/zhxnlp.github.io.git</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
-<p>已有仓库估计出错。新建仓库名为<code>zhxnlp.github.io</code>，绑定好仓库后，运行<code>hexo g</code>生成页面。<br>运行<code>hexo d</code>即deployee，将本地仓库文件上传到网上。也可直接输入 <code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code>。</p>
-<p>打开博客网址<code>https://zhxnlp.github.io/</code>，网页界面报错：<br>extends includes/layout.pug block content include includes/recent-posts.pug include includes/pagination.pug。<br>这是确少hexo插件，安装插件见上一节内容。</p>
-<p>hexo g报错：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ERROR TypeError: E:\Git Bash\blog\node_modules\hexo-theme-melody\layout\includes</span><br><span class="line">\layout.pug:<span class="number">11</span></span><br><span class="line">    <span class="number">9</span>|</span><br><span class="line">    <span class="number">10</span>| - var pageDescription = page.description || page.title || config.descrip</span><br><span class="line">tion || <span class="string">&#x27;&#x27;</span></span><br><span class="line">  &gt; <span class="number">11</span>| - var pageKeywords = (config.keywords || []).join(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    <span class="number">12</span>| - <span class="keyword">if</span> (page.tags &amp;&amp; page.tags.data) pageKeywords = page.tags.data.<span class="built_in">map</span>(fun</span><br><span class="line">ction(tag) &#123;<span class="keyword">return</span> tag.name;&#125;).join(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    <span class="number">13</span>| - <span class="keyword">if</span> (page.keywords) pageKeywords = page.keywords.join(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    <span class="number">14</span>| - var pageAuthor = config.email ? config.author + <span class="string">&#x27;,&#x27;</span> + config.email : c</span><br><span class="line">onfig.author</span><br><span class="line"></span><br><span class="line">(config.keywords || []).join <span class="keyword">is</span> <span class="keyword">not</span> a function</span><br><span class="line">    at <span class="built_in">eval</span> (<span class="built_in">eval</span> at wrap (E:\Git Bash\blog\node_modules\pug-runtime\wrap.js:<span class="number">6</span>:<span class="number">1</span></span><br><span class="line"><span class="number">0</span>), &lt;anonymous&gt;:<span class="number">24</span>:<span class="number">44</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>这是因为根目录下<code>keyword</code>报错（估计是格式不对），导致hexo-theme-melody\layout\includes<br>\layout.pug文件第11行执行错误，改了就好了。</p>
-<p>又报错10054，</p>
-<blockquote>
-<p>我是已经有仓库了，但是为了搭建博客改了域名为<code>https://github.com/zhxnlp/zhxnlp.github.io</code>，但是本地没有改，结果pull时出错。</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ git pull origin mian</span><br><span class="line">starting fsmonitor-daemon <span class="keyword">in</span> <span class="string">&#x27;E:/Git Bash/bert2&#x27;</span></span><br><span class="line">fatal: couldn<span class="string">&#x27;t find remote ref mian</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>fatal: couldn&#39;t find remote ref mian</code>表示仓库没有文件（域名被我改了，原来的仓库地址啥也没有）<br>git隐藏文件夹下：将 .git/cofig 文件中的 url 进行修改：<code>url = git@github.com:zhxnlp/zhxnlp.github.io</code>。</p>
-</blockquote>
-<h2 id="三-、自定义配置"><a href="#三-、自定义配置" class="headerlink" title="三 、自定义配置"></a>三 、自定义配置</h2><h3 id="3-1-配置"><a href="#3-1-配置" class="headerlink" title="3.1 配置"></a>3.1 配置</h3><p>在 网站配置文件_config.yml 中可以修改大部分的配置：</p>
-<h4 id="3-1-1-网站、网址参数"><a href="#3-1-1-网站、网址参数" class="headerlink" title="3.1.1 网站、网址参数"></a>3.1.1 网站、网址参数</h4><table>
+<h4 id="2-4-7-服务器"><a href="#2-4-7-服务器" class="headerlink" title="2.4.7 服务器"></a>2.4.7 服务器</h4><p>直接参考<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/server">官方文档</a></p>
+<h2 id="三-、自定义配置"><a href="#三-、自定义配置" class="headerlink" title="三 、自定义配置"></a>三 、自定义配置</h2><blockquote>
+<p>参考本帖开头给的hexo文档和molody文档。最后一些修改我没写（第三方服务等）。</p>
+<h3 id="3-1-配置"><a href="#3-1-配置" class="headerlink" title="3.1 配置"></a>3.1 配置</h3><p>在 网站配置文件_config.yml 中可以修改大部分的配置：</p>
+<h4 id="3-1-1-网站、网址参数"><a href="#3-1-1-网站、网址参数" class="headerlink" title="3.1.1 网站、网址参数"></a>3.1.1 网站、网址参数</h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>网址参数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>title</td>
 <td>网站标题</td>
 </tr>
@@ -238,105 +236,24 @@
 <td>timezone</td>
 <td>网站时区。Hexo 默认使用您电脑的时区。其它请参考 时区列表 进行设置</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <ul>
 <li>description主要用于SEO，告诉搜索引擎一个关于您站点的简单描述，会显示在网站源代码中而不会显示在网页中。通常建议在其中包含您网站的关键词。</li>
 <li>时区一般不需要改。如果你自动生成网页不在本地，而是海外，会造成时区差异，则可能需要设置。</li>
 </ul>
-<p>网址参数：<br>网址参数    |描述|    默认值<br>——– | —–|———<br>url    |网址, 必须以 http:// 或 https:// 开头<br>root    |网站根目录|    url’s pathname<br>permalink    |文章的 永久链接 格式|    :year/:month/:day/:title/<br>permalink_defaults|    永久链接中各部分的默认值<br>pretty_urls|    改写 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/variables">permalink</a> 的值来美化 URL<br>pretty_urls.trailing_index|    设置为 false 时去除永久链接中尾部的 index.html|    true<br>pretty_urls.trailing_html|    设置为 false 时去除永久链接中尾部的 .html (对尾部的 index.html无效)|true</p>
+</blockquote>
+<p>网址参数：<br>网址参数    |描述|    默认值<br>———— | ——-|————-<br>url    |网址, 必须以 http:// 或 https:// 开头<br>root    |网站根目录|    url’s pathname<br>permalink    |文章的 永久链接 格式|    :year/:month/:day/:title/<br>permalink_defaults|    永久链接中各部分的默认值<br>pretty_urls|    改写 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/variables">permalink</a> 的值来美化 URL<br>pretty_urls.trailing_index|    设置为 false 时去除永久链接中尾部的 index.html|    true<br>pretty_urls.trailing_html|    设置为 false 时去除永久链接中尾部的 .html (对尾部的 index.html无效)|true</p>
 <ul>
 <li>文章链接默认是年月日标题的格式。比如我的hello world文章链接是<code>https://zhxnlp.github.io/2021/12/31/hello-world/</code></li>
-<li>如果您的<code>网站存放在子目录</code>中，例如 <a target="_blank" rel="noopener" href="http://example.com/blog%EF%BC%8C%E5%88%99%E8%AF%B7%E5%B0%86%E6%82%A8%E7%9A%84">http://example.com/blog，则请将您的</a> url 设为 <a target="_blank" rel="noopener" href="http://example.com/blog">http://example.com/blog</a> 并把 root 设为 /blog/。(貌似是私人仓库设置网站在子目录，参见后面文档）</li>
+<li>如果您的<code>网站存放在子目录</code>中，例如 <a target="_blank" rel="noopener" href="http://example.com/blog，则请将您的">http://example.com/blog，则请将您的</a> url 设为 <a target="_blank" rel="noopener" href="http://example.com/blog">http://example.com/blog</a> 并把 root 设为 /blog/。(貌似是私人仓库设置网站在子目录，参见后面文档）</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 比如，一个页面的永久链接是 http://example.com/foo/bar/index.html</span></span><br><span class="line">pretty_urls:</span><br><span class="line">  trailing_index: false</span><br><span class="line"><span class="comment"># 此时页面的永久链接会变为 http://example.com/foo/bar/</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-1-2-目录-amp-文章"><a href="#3-1-2-目录-amp-文章" class="headerlink" title="3.1.2 目录&amp;文章"></a>3.1.2 目录&amp;文章</h4><p>如果您刚刚开始接触 Hexo，通常没有必要修改这一部分的值。<br>目录参数    |描述|    默认值<br>——– | —–|———<br>source_dir    |资源文件夹，这个文件夹用来存放内容。    |source<br>public_dir    |公共文件夹，这个文件夹用于存放生成的站点文件。|    public<br>tag_dir    |标签文件夹|    tags<br>archive_dir|    归档文件夹|    archives<br>category_dir    |分类文件夹|    categories<br>code_dir    |Include code 文件夹，source_dir 下的子目录|    downloads/code<br>i18n_dir    |国际化（i18n）文件夹|    :lang<br>skip_render    |跳过hexo对指定文件的渲染。一般用于发布网站密钥等。匹配到的文件将会被不做改动地复制到 public 目录中。您可使用 glob 表达式来匹配路径。</p>
-<p>例如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">skip_render: <span class="string">&quot;mypage/**/*&quot;</span></span><br><span class="line"><span class="comment"># 将会直接将 `source/mypage/index.html` 和 `source/mypage/code.js` 不做改动地输出到 &#x27;public&#x27; 目录</span></span><br><span class="line"><span class="comment"># 你也可以用这种方法来跳过对指定文章文件的渲染</span></span><br><span class="line">skip_render: <span class="string">&quot;_posts/test-post.md&quot;</span></span><br><span class="line"><span class="comment"># 这将会忽略对 &#x27;test-post.md&#x27; 的渲染</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-1-2-目录-amp-文章"><a href="#3-1-2-目录-amp-文章" class="headerlink" title="3.1.2 目录&amp;文章"></a>3.1.2 目录&amp;文章</h4><p>如果您刚刚开始接触 Hexo，通常没有必要修改这一部分的值。<br>目录参数    |描述|    默认值<br>———— | ——-|————-<br>source_dir    |资源文件夹，这个文件夹用来存放内容。    |source<br>public_dir    |公共文件夹，这个文件夹用于存放生成的站点文件。|    public<br>tag_dir    |标签文件夹|    tags<br>archive_dir|    归档文件夹|    archives<br>category_dir    |分类文件夹|    categories<br>code_dir    |Include code 文件夹，source_dir 下的子目录|    downloads/code<br>i18n_dir    |国际化（i18n）文件夹|    :lang<br>skip_render    |跳过hexo对指定文件的渲染。一般用于发布网站密钥等。匹配到的文件将会被不做改动地复制到 public 目录中。您可使用 glob 表达式来匹配路径。</p>
+<p>例如：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">skip_render: <span class="string">&quot;mypage/**/*&quot;</span></span><br><span class="line"><span class="comment"># 将会直接将 `source/mypage/index.html` 和 `source/mypage/code.js` 不做改动地输出到 &#x27;public&#x27; 目录</span></span><br><span class="line"><span class="comment"># 你也可以用这种方法来跳过对指定文章文件的渲染</span></span><br><span class="line">skip_render: <span class="string">&quot;_posts/test-post.md&quot;</span></span><br><span class="line"><span class="comment"># 这将会忽略对 &#x27;test-post.md&#x27; 的渲染</span></span><br></pre></td></tr></table></figure><br>文章参数|    描述|    默认值<br>———— | ——-|————-<br>new_post_name|    新文章的文件名称|    :title.md<br>default_layout|    预设布局|    post<br>auto_spacing|    在中文和英文之间加入空格|    false<br>titlecase    |把标题转换为 title case|    false<br>external_link    |在新标签中打开链接|    true<br>external_link.enable|    在新标签中打开链接    |true<br>external_link.field    |对整个网站（site）生效或仅对文章（post）生效|    site<br>external_link.exclude|    需要排除的域名。主域名和子域名如 www 需分别配置|    []<br>filename_case    |把文件名称转换为 (1) 小写或 (2) 大写|    0<br>render_drafts|    是否在网站上显示草稿|    false<br>post_asset_folder    |启动 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/asset-folders">Asset 文件夹</a>|    false<br>relative_link    |把链接改为与根目录的相对位置|    false<br>future    |显示未来的文章    |true<br>highlight    |代码高亮设置, 请参考 <a target="_blank" rel="noopener" href="https://hexo.io/docs/syntax-highlight#Highlight-js">Highlight.js</a> 进行设置<br>prismjs    |代码块的设置, 请参考 <a target="_blank" rel="noopener" href="https://hexo.io/docs/syntax-highlight#PrismJS">PrismJS</a> 进行设置</p>
+<h4 id="3-1-3-分类-amp-标签-amp-日期-时间-amp-分页扩展"><a href="#3-1-3-分类-amp-标签-amp-日期-时间-amp-分页扩展" class="headerlink" title="3.1.3 分类 &amp; 标签&amp;日期 / 时间&amp;分页扩展"></a>3.1.3 分类 &amp; 标签&amp;日期 / 时间&amp;分页扩展</h4><div class="table-container">
 <table>
-<thead>
-<tr>
-<th>文章参数</th>
-<th>描述</th>
-<th>默认值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>new_post_name</td>
-<td>新文章的文件名称</td>
-<td>:title.md</td>
-</tr>
-<tr>
-<td>default_layout</td>
-<td>预设布局</td>
-<td>post</td>
-</tr>
-<tr>
-<td>auto_spacing</td>
-<td>在中文和英文之间加入空格</td>
-<td>false</td>
-</tr>
-<tr>
-<td>titlecase</td>
-<td>把标题转换为 title case</td>
-<td>false</td>
-</tr>
-<tr>
-<td>external_link</td>
-<td>在新标签中打开链接</td>
-<td>true</td>
-</tr>
-<tr>
-<td>external_link.enable</td>
-<td>在新标签中打开链接</td>
-<td>true</td>
-</tr>
-<tr>
-<td>external_link.field</td>
-<td>对整个网站（site）生效或仅对文章（post）生效</td>
-<td>site</td>
-</tr>
-<tr>
-<td>external_link.exclude</td>
-<td>需要排除的域名。主域名和子域名如 www 需分别配置</td>
-<td>[]</td>
-</tr>
-<tr>
-<td>filename_case</td>
-<td>把文件名称转换为 (1) 小写或 (2) 大写</td>
-<td>0</td>
-</tr>
-<tr>
-<td>render_drafts</td>
-<td>是否在网站上显示草稿</td>
-<td>false</td>
-</tr>
-<tr>
-<td>post_asset_folder</td>
-<td>启动 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/asset-folders">Asset 文件夹</a></td>
-<td>false</td>
-</tr>
-<tr>
-<td>relative_link</td>
-<td>把链接改为与根目录的相对位置</td>
-<td>false</td>
-</tr>
-<tr>
-<td>future</td>
-<td>显示未来的文章</td>
-<td>true</td>
-</tr>
-<tr>
-<td>highlight</td>
-<td>代码高亮设置, 请参考 <a target="_blank" rel="noopener" href="https://hexo.io/docs/syntax-highlight#Highlight-js">Highlight.js</a> 进行设置</td>
-<td></td>
-</tr>
-<tr>
-<td>prismjs</td>
-<td>代码块的设置, 请参考 <a target="_blank" rel="noopener" href="https://hexo.io/docs/syntax-highlight#PrismJS">PrismJS</a> 进行设置</td>
-<td></td>
-</tr>
-</tbody></table>
-<h4 id="3-1-3-分类-amp-标签-amp-日期-时间-amp-分页扩展"><a href="#3-1-3-分类-amp-标签-amp-日期-时间-amp-分页扩展" class="headerlink" title="3.1.3 分类 &amp; 标签&amp;日期 / 时间&amp;分页扩展"></a>3.1.3 分类 &amp; 标签&amp;日期 / 时间&amp;分页扩展</h4><table>
 <thead>
 <tr>
 <th>分类标签参数</th>
@@ -344,24 +261,26 @@
 <th>默认值</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>default_category</td>
 <td>默认分类</td>
 <td>uncategorized</td>
 </tr>
 <tr>
 <td>category_map</td>
-<td>分类别名</td>
-<td></td>
+<td>分类别名    </td>
 </tr>
 <tr>
 <td>tag_map</td>
 <td>标签别名</td>
-<td></td>
 </tr>
-</tbody></table>
-<p>Hexo 使用 Moment.js 来解析和显示时间<br>时间参数    |描述|    默认值<br>——– | —–|———<br>date_format    |日期格式|    YYYY-MM-DD<br>time_format    |时间格式    |HH:mm:ss<br>updated_option    |当 Front Matter 中没有指定 updated 时 updated 的取值    |mtime</p>
-<p>分页和扩展参数：<br>分页参数|    描述|    默认值<br>——– | —–|———<br>per_page    |每页显示的文章量 (0 = 关闭分页功能)    |10<br>pagination_dir    |分页目录位置|    page</p>
+</tbody>
+</table>
+</div>
+<p>Hexo 使用 Moment.js 来解析和显示时间<br>时间参数    |描述|    默认值<br>———— | ——-|————-<br>date_format    |日期格式|    YYYY-MM-DD<br>time_format    |时间格式    |HH:mm:ss<br>updated_option    |当 Front Matter 中没有指定 updated 时 updated 的取值    |mtime</p>
+<p>分页和扩展参数：<br>分页参数|    描述|    默认值<br>———— | ——-|————-<br>per_page    |每页显示的文章量 (0 = 关闭分页功能)    |10<br>pagination_dir    |分页目录位置|    page</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -369,7 +288,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>theme</td>
 <td>当前3主题名称。值为false时禁用主题</td>
 </tr>
@@ -385,15 +305,17 @@
 <td>meta_generator</td>
 <td>Meta generator标签。 值为 false 时 Hexo 不会在头部插入该标签</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h4 id="3-1-4-include-和-exclude文件"><a href="#3-1-4-include-和-exclude文件" class="headerlink" title="3.1.4 include 和 exclude文件"></a>3.1.4 include 和 exclude文件</h4><ul>
-<li><p>Hexo 默认会不包括 source/ 下的文件和文件夹（包括名称以下划线和 . 开头的文件和文件夹，Hexo 的 _posts 和 _data 等目录除外）</p>
-</li>
+<li>Hexo 默认会不包括 source/ 下的文件和文件夹（包括名称以下划线和 . 开头的文件和文件夹，Hexo 的 _posts 和 _data 等目录除外）</li>
 <li><p>在 Hexo 配置文件中，通过设置 include/exclude 可以让 Hexo 进行处理或忽略某些目录和文件夹。你可以使用 <a target="_blank" rel="noopener" href="https://github.com/isaacs/minimatch">glob 表达式</a> 对目录和文件进行匹配。</p>
 </li>
 <li><p>include 和 exclude 选项只会应用到 source/ ，而 ignore 选项会应用到所有文件夹。</p>
 </li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -401,7 +323,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>include</td>
 <td>如果想发布隐藏文件，需要设置在include里</td>
 </tr>
@@ -413,18 +336,18 @@
 <td>ignore</td>
 <td>Hexo 会忽略整个 Hexo 项目下的这些文件夹或文件</td>
 </tr>
-</tbody></table>
-<p>举例：<br><code>.nojekyll文件</code>告诉github不要使用jekyll引擎渲染，因为会有一些其它操作，比如忽略Vander目录，会造成一些网站的奇怪错误。所以建议github发布博客，把.nojekyll文件放在根目录下，</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 处理或不处理目录或文件</span></span><br><span class="line">include:</span><br><span class="line">  - <span class="string">&quot;.nojekyll&quot;</span> </span><br><span class="line">  - <span class="string">&quot;css/_typing.css&quot;</span><span class="comment"># 处理 &#x27;source/css/_typing.css&#x27;</span></span><br><span class="line">  - <span class="string">&quot;_css/*&quot;</span> <span class="comment"># 处理 &#x27;source/_css/&#x27; 中的任何文件，但不包括子目录及其其中的文件。 </span></span><br><span class="line">  - <span class="string">&quot;_css/**/*&quot;</span> <span class="comment"># 处理 &#x27;source/_css/&#x27; 中的任何文件和子目录下的任何文件</span></span><br><span class="line"></span><br><span class="line">exclude:<span class="comment">#剔除文件，使其不包括在网站发布文件中</span></span><br><span class="line">  - <span class="string">&quot;js/test.js&quot;</span><span class="comment"># 不处理 &#x27;source/js/test.js&#x27;  </span></span><br><span class="line">  - <span class="string">&quot;js/*&quot;</span><span class="comment"># 不处理 &#x27;source/js/&#x27; 中的文件、但包括子目录下的所有目录和文件</span></span><br><span class="line">    </span><br><span class="line">ignore: </span><br><span class="line">  - <span class="string">&quot;**/foo&quot;</span> <span class="comment"># 忽略任何一个名叫 &#x27;foo&#x27; 的文件夹 </span></span><br><span class="line">  - <span class="string">&quot;**/themes/*/foo&quot;</span> <span class="comment"># 只忽略 &#x27;themes/&#x27; 下的 &#x27;foo&#x27; 文件夹 </span></span><br><span class="line">  - <span class="string">&quot;**/themes/**/foo&quot;</span> <span class="comment"># 对 &#x27;themes/&#x27; 目录下的每个文件夹中忽略名叫 &#x27;foo&#x27; 的子文件夹</span></span><br></pre></td></tr></table></figure>
-
+</tbody>
+</table>
+</div>
+<p>举例：<br><code>.nojekyll文件</code>告诉github不要使用jekyll引擎渲染，因为会有一些其它操作，比如忽略Vander目录，会造成一些网站的奇怪错误。所以建议github发布博客，把.nojekyll文件放在根目录下，<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 处理或不处理目录或文件</span></span><br><span class="line">include:</span><br><span class="line">  - <span class="string">&quot;.nojekyll&quot;</span> </span><br><span class="line">  - <span class="string">&quot;css/_typing.css&quot;</span><span class="comment"># 处理 &#x27;source/css/_typing.css&#x27;</span></span><br><span class="line">  - <span class="string">&quot;_css/*&quot;</span> <span class="comment"># 处理 &#x27;source/_css/&#x27; 中的任何文件，但不包括子目录及其其中的文件。 </span></span><br><span class="line">  - <span class="string">&quot;_css/**/*&quot;</span> <span class="comment"># 处理 &#x27;source/_css/&#x27; 中的任何文件和子目录下的任何文件</span></span><br><span class="line"></span><br><span class="line">exclude:<span class="comment">#剔除文件，使其不包括在网站发布文件中</span></span><br><span class="line">  - <span class="string">&quot;js/test.js&quot;</span><span class="comment"># 不处理 &#x27;source/js/test.js&#x27;  </span></span><br><span class="line">  - <span class="string">&quot;js/*&quot;</span><span class="comment"># 不处理 &#x27;source/js/&#x27; 中的文件、但包括子目录下的所有目录和文件</span></span><br><span class="line">    </span><br><span class="line">ignore: </span><br><span class="line">  - <span class="string">&quot;**/foo&quot;</span> <span class="comment"># 忽略任何一个名叫 &#x27;foo&#x27; 的文件夹 </span></span><br><span class="line">  - <span class="string">&quot;**/themes/*/foo&quot;</span> <span class="comment"># 只忽略 &#x27;themes/&#x27; 下的 &#x27;foo&#x27; 文件夹 </span></span><br><span class="line">  - <span class="string">&quot;**/themes/**/foo&quot;</span> <span class="comment"># 对 &#x27;themes/&#x27; 目录下的每个文件夹中忽略名叫 &#x27;foo&#x27; 的子文件夹</span></span><br></pre></td></tr></table></figure></p>
 <p>具体示例<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">参考文档</a></p>
 <h4 id="3-1-5代替配置文件"><a href="#3-1-5代替配置文件" class="headerlink" title="3.1.5代替配置文件"></a>3.1.5代替配置文件</h4><p>这个的好处是：</p>
 <ol>
 <li>测试配置文件时，不需要来回更改主配置文件，只需要把主配置文件复制一份作为测试版就行。</li>
-<li>同一根目录下，可以运行多个网站<br>使用 –config 参数来指定自定义配置文件的路径，例如：<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用 &#x27;custom.yml&#x27; 和 &#x27;custom2.json&#x27;，优先使用 &#x27;_config.yml&#x27;，然后是 &#x27;_config.yml&#x27;</span></span><br><span class="line">$ hexo generate --config custom.yml,custom2.json,_config.yml</span><br></pre></td></tr></table></figure>
+<li>同一根目录下，可以运行多个网站<br>使用 —config 参数来指定自定义配置文件的路径，例如：<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用 &#x27;custom.yml&#x27; 和 &#x27;custom2.json&#x27;，优先使用 &#x27;_config.yml&#x27;，然后是 &#x27;_config.yml&#x27;</span></span><br><span class="line">$ hexo generate --config custom.yml,custom2.json,_config.yml</span><br></pre></td></tr></table></figure>
 当你指定了多个配置文件以后，Hexo 会按顺序将这部分配置文件合并成一个 _multiconfig.yml。如果遇到重复的配置，靠后的配置文件覆盖靠前的配置文件。这个原则适用于任意数量、任意深度的 YAML 和 JSON 文件。</li>
 </ol>
-<p>例如，使用 –options 指定了两个自定义配置文件：</p>
+<p>例如，使用 —options 指定了两个自定义配置文件：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ hexo generate --config custom.yml,custom2.json</span><br></pre></td></tr></table></figure>
 <p>如果 custom.yml 中指定了 foo: bar，在 custom2.json 中指定了 “foo”: “dinosaur”，那么在 _multiconfig.yml 中你会得到 foo: dinosaur。</p>
 <hr>
@@ -435,10 +358,8 @@
 <li>将<code>./node_modules/hexo-theme-melody/_config.yml</code>的内容复制到刚才的<code>_config.melody.yml</code>里面。</li>
 </ol>
 <p>强烈建议你将所有的主题配置集中在一处。<br>Hexo 在合并主题配置时，Hexo 配置文件中的 theme_config 的优先级最高，其次是 _config.[theme].yml 文件，最后是位于主题目录下的 _config.yml 文件。</p>
-<h3 id="3-2-Permalinks永久链接"><a href="#3-2-Permalinks永久链接" class="headerlink" title="3.2 Permalinks永久链接"></a>3.2 Permalinks永久链接</h3><p>可以在 _config.yml 配置中调整网站的永久链接或者在每篇文章的 Front-matter 中指定。<br>变量    |描述<br>——-|——–<br>:year    |文章的发表年份（4 位数）<br>:month    |文章的发表月份（2 位数）<br>:i_month    |文章的发表月份（去掉开头的零）<br>:day    |文章的发表日期 (2 位数)<br>:i_day|    文章的发表日期（去掉开头的零）<br>:hour    |文章发表时的小时 (2 位数)<br>:minute    |文章发表时的分钟 (2 位数)<br>:second|    文章发表时的秒钟 (2 位数)<br>:title    |文件名称 (relative to “source/_posts/“ folder)<br>:name    |文件名称<br>:post_title|    文章标题<br>:id    |文章 ID (not persistent across cache reset)，每次发布id可能会不一样<br>:category|    分类。如果文章没有分类，则是 default_category 配置信息。<br>:hash    |SHA1 hash of filename (same as :title) and date (12-hexadecimal)<br>使用第三方插件，例如disqus管理评论，会在每个网页下面生成对话窗口。如果id不唯一，多个文章评论会揉在一起。如果要生成唯一id，可以使用下面这个插件。<br><img src="https://img-blog.csdnimg.cn/28f3856e48ca437ab6064e06ede56c4d.png"></p>
-<p>可在 permalink_defaults 参数下调整永久链接中各变量的默认值：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">permalink_defaults:</span><br><span class="line">  lang: en</span><br></pre></td></tr></table></figure>
-<p>例如：</p>
+<h3 id="3-2-Permalinks永久链接"><a href="#3-2-Permalinks永久链接" class="headerlink" title="3.2 Permalinks永久链接"></a>3.2 Permalinks永久链接</h3><p>可以在 _config.yml 配置中调整网站的永久链接或者在每篇文章的 Front-matter 中指定。<br>变量    |描述<br>———-|————<br>:year    |文章的发表年份（4 位数）<br>:month    |文章的发表月份（2 位数）<br>:i_month    |文章的发表月份（去掉开头的零）<br>:day    |文章的发表日期 (2 位数)<br>:i_day|    文章的发表日期（去掉开头的零）<br>:hour    |文章发表时的小时 (2 位数)<br>:minute    |文章发表时的分钟 (2 位数)<br>:second|    文章发表时的秒钟 (2 位数)<br>:title    |文件名称 (relative to “source/_posts/“ folder)<br>:name    |文件名称<br>:post_title|    文章标题<br>:id    |文章 ID (not persistent across cache reset)，每次发布id可能会不一样<br>:category|    分类。如果文章没有分类，则是 default_category 配置信息。<br>:hash    |SHA1 hash of filename (same as :title) and date (12-hexadecimal)<br>使用第三方插件，例如disqus管理评论，会在每个网页下面生成对话窗口。如果id不唯一，多个文章评论会揉在一起。如果要生成唯一id，可以使用下面这个插件。<br><img src="https://img-blog.csdnimg.cn/28f3856e48ca437ab6064e06ede56c4d.png" alt=""></p>
+<p>可在 permalink_defaults 参数下调整永久链接中各变量的默认值：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">permalink_defaults:</span><br><span class="line">  lang: en</span><br></pre></td></tr></table></figure><br>例如：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">source/_posts/hello-world.md</span><br><span class="line">title: Hello World</span><br><span class="line">date: <span class="number">2013</span>-07-<span class="number">14</span> <span class="number">17</span>:01:<span class="number">34</span></span><br><span class="line">categories:</span><br><span class="line">- foo</span><br><span class="line">- bar</span><br></pre></td></tr></table></figure>
 <h3 id="3-3-主题"><a href="#3-3-主题" class="headerlink" title="3.3 主题"></a>3.3 主题</h3><p>只要在 themes 文件夹内，新增一个任意名称的文件夹，并修改 _config.yml 内的 theme 设定，即可切换主题。一个主题可能会有以下的结构：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── languages</span><br><span class="line">├── layout</span><br><span class="line">├── scripts</span><br><span class="line">└── source</span><br></pre></td></tr></table></figure>
@@ -457,7 +378,36 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">模板	         用途	      回退</span><br><span class="line">index	     首页	</span><br><span class="line">post	     文章	     index</span><br><span class="line">page	     分页	     index</span><br><span class="line">archive	     归档	     index</span><br><span class="line">category	 分类归档	 archive</span><br><span class="line">tag	         标签归档	 archive</span><br></pre></td></tr></table></figure>
 <h4 id="3-4-2-布局（Layout）"><a href="#3-4-2-布局（Layout）" class="headerlink" title="3.4.2 布局（Layout）"></a>3.4.2 布局（Layout）</h4><p>每个模板都默认使用 layout 布局，您可在 front-matter 指定其他布局，或是设为 false 来关闭布局功能，您甚至可在布局中再使用其他布局来建立嵌套布局。<br>其它内容参考<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/templates">官方文档</a>。</p>
 <h3 id="3-5-变量和函数、代码高亮"><a href="#3-5-变量和函数、代码高亮" class="headerlink" title="3.5 变量和函数、代码高亮"></a>3.5 变量和函数、代码高亮</h3><p>变量包括全局变量和网站变量、page变量等等<br>辅助函数包括取得路径、gravatar根据邮箱地址返回 Gravatar 头像 URL等等。这部分内容参考官网文档。</p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">zhxnlp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zhxnlp.github.io/2021/12/31/软件应用/2021——使用hexo+github搭建个人博客/">https://zhxnlp.github.io/2021/12/31/软件应用/2021——使用hexo+github搭建个人博客/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zhxnlp.github.io">zhxnlpのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a><a class="post-meta__tags" href="/tags/github/">github</a><a class="post-meta__tags" href="/tags/hexo/">hexo</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2021/12/25/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B010%EF%BC%9A%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95_%E2%80%94%E2%80%94HMM%E5%92%8CCRF/"><span>学习笔记10：统计学习方法_——HMM和CRF</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By zhxnlp</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+<h3 id="3-6-安装搜索"><a href="#3-6-安装搜索" class="headerlink" title="3.6 安装搜索"></a>3.6 安装搜索</h3><p>参考帖子：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33826268/article/details/88022470?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164099797316780264072146%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164099797316780264072146&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-1-88022470.pc_search_insert_es_download_v2&amp;utm_term=hexo-algolia&amp;spm=1018.2226.3001.4187">Hexo+Next集成Algolia搜索</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35479468/article/details/107335663?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164099797316780264072146%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=164099797316780264072146&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-5-107335663.pc_search_insert_es_download_v2&amp;utm_term=hexo-algolia&amp;spm=1018.2226.3001.4187">《为Hexo增加algolia搜索功能》</a><br> <a target="_blank" rel="noopener" href="https://www.algolia.com/users/sign_in用github注册登录后，创建index。然后进入API">https://www.algolia.com/users/sign_in用github注册登录后，创建index。然后进入API</a> Keys。点击ALL API Keys-NEW API Keys新建API Keys。<br><img src="https://img-blog.csdnimg.cn/1e019db7a74547a58efa5f41253322a4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA56We5rSb5Y2O,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>创建完后保存好API Keys。<br><img src="https://img-blog.csdnimg.cn/3811cf7a5af34f12b76c03dbce2af133.png" alt="在这里插入图片描述"><br>在Hexo根目录<code>npm install hexo-algolia --save</code>安装，然后在_config.yml中加入algolia的配置，注意改成前面API Keys页面相应配置。这里注意apikey填写刚才你创建的那个有权限的，其余的在your api keys里面可以找到。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">algolia:</span><br><span class="line">  applicationID: <span class="string">&#x27;your applicationID&#x27;</span></span><br><span class="line">  apiKey: <span class="string">&#x27;your apiKey&#x27;</span><span class="comment">#我写的是刚才创建的额那个key</span></span><br><span class="line">  adminApiKey: <span class="string">&#x27;your adminApiKey&#x27;</span></span><br><span class="line">  indexName: <span class="string">&#x27;your indexName&#x27;</span><span class="comment">#github-io</span></span><br><span class="line">  chunkSize: <span class="number">5000</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/c78753e5ff3241429d69ad8d30160838.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA56We5rSb5Y2O,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>设置环境变量：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">export HEXO_ALGOLIA_INDEXING_KEY=your apiKey<span class="comment">#刚才创建那个</span></span><br><span class="line">hexo algolia</span><br></pre></td></tr></table></figure>
+<p>到主题目录下的_config.yml，修改为开启：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">algolia_search:</span><br><span class="line">  enable: true</span><br><span class="line">  hits:</span><br><span class="line">    per_page: <span class="number">10</span> </span><br><span class="line">  labels:</span><br><span class="line">    input_placeholder: Search <span class="keyword">for</span> Posts</span><br><span class="line">    hits_empty: <span class="string">&quot;我们没有找到任何搜索结果: $&#123;query&#125;&quot;</span> </span><br><span class="line">    hits_stats: <span class="string">&quot;找到$&#123;hits&#125;条结果，用时$&#123;time&#125; ms&quot;</span></span><br></pre></td></tr></table></figure>
+<p>然后运行<code>hexo g -d</code>就行。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">zhxnlp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://zhxnlp.github.io/2021/12/31/软件应用/2021——使用hexo+github搭建个人博客/">https://zhxnlp.github.io/2021/12/31/软件应用/2021——使用hexo+github搭建个人博客/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a><a class="post-meta__tags" href="/tags/github/">github</a><a class="post-meta__tags" href="/tags/hexo/">hexo</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2021/12/25/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B010%EF%BC%9A%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95_%E2%80%94%E2%80%94HMM%E5%92%8CCRF/"><span>学习笔记10：统计学习方法_——HMM和CRF</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By zhxnlp</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
   $('#top-container').addClass('is-mobile')

@@ -2,27 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://zhxnlp.github.io/2021/12/06/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B08%EF%BC%9Atransformer%E6%80%BB%E7%BB%93%EF%BC%881%EF%BC%89/</loc>
-    
-    <lastmod>2022-01-01</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/2021/12/04/datawhale%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A03%EF%BC%9A%20XGBoost&LightGBM/</loc>
     
-    <lastmod>2022-01-01</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/12/03/datawhale%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A02%EF%BC%9ABoosting%E7%AE%97%E6%B3%95%EF%BC%9AAdaboost&GBDT/</loc>
-    
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -31,7 +13,241 @@
   <url>
     <loc>https://zhxnlp.github.io/2021/12/17/12%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/task3%EF%BC%9A%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</loc>
     
-    <lastmod>2021-12-31</lastmod>
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/12/02/datawhale%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A01%E2%80%94%E2%80%94voting%E3%80%81bagging&stacking/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/12/03/datawhale%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A02%EF%BC%9ABoosting%E7%AE%97%E6%B3%95%EF%BC%9AAdaboost&GBDT/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/12/25/datawhale%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A04%EF%BC%9A%E6%95%B4%E7%90%86%E6%80%BB%E7%BB%93%20/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/11/09/CLUENER%20%E7%BB%86%E7%B2%92%E5%BA%A6%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/README/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/10/07/%E5%A4%A9%E6%B1%A0-%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/task3%EF%BC%9A%E5%8D%95%E4%B8%AAbert%E6%A8%A1%E5%9E%8B%E5%88%86%E6%95%B00.961/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/10/05/%E5%A4%A9%E6%B1%A0-%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/task2%20%EF%BC%9Afasttext/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/10/04/%E5%A4%A9%E6%B1%A0-%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/task1%EF%BC%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%EF%BC%88%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD%EF%BC%89/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/08/27/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/%E8%8B%8F%E7%A5%9E%E6%96%87%E7%AB%A0%E8%A7%A3%E6%9E%90%EF%BC%886%E7%AF%87%EF%BC%89/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/08/21/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/GitHub%20%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/12/31/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/2021%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8hexo+github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/12/06/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B08%EF%BC%9Atransformer%E6%80%BB%E7%BB%93%EF%BC%881%EF%BC%89/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/11/30/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B07%EF%BC%9A%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/11/27/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B06%EF%BC%9A%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C(CNN)/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/11/27/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B05%EF%BC%9Aword2vec%E5%92%8Cfasttext/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/11/25/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04%EF%BC%9A%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0DNN2/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/11/23/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03%EF%BC%9A%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0DNN/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/12/25/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B010%EF%BC%9A%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95_%E2%80%94%E2%80%94HMM%E5%92%8CCRF/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/11/22/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E3%80%81%E5%86%B3%E7%AD%96%E6%A0%91%E3%80%81%E8%81%9A%E7%B1%BB/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/08/17/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers%E5%85%A5%E9%97%A8/task1%EF%BC%9A%E5%A4%9A%E5%9B%BE%E8%AF%A6%E8%A7%A3attention%E5%92%8Cmask%E3%80%82%E4%BB%8E%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E3%80%81transformer%E5%88%B0GPT2/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/08/21/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers%E5%85%A5%E9%97%A8/task3%EF%BC%9A%E5%9B%BE%E8%A7%A3GPT-2/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/08/18/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers%E5%85%A5%E9%97%A8/task2%EF%BC%9ABERT%E5%85%A5%E9%97%A8/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/11/18/10%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94Pytorch/PyTorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02%EF%BC%9Ann.Module%E3%80%81%E4%BC%98%E5%8C%96%E5%99%A8%E3%80%81%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BF%9D%E5%AD%98%E5%92%8C%E5%8A%A0%E8%BD%BD%E3%80%81TensorBoard/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/09/27/10%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94Pytorch/PyTorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E3%80%81%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%E3%80%81%E5%BC%A0%E9%87%8F%E6%93%8D%E4%BD%9C%E3%80%81%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/11/17/10%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94Pytorch/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E3%80%81%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/12/14/12%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/task1%EF%BC%9A%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/2021/09/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%EF%BC%9A%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</loc>
+    
+    <lastmod>2022-01-02</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -47,25 +263,7 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/2021/12/14/12%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/task1%EF%BC%9A%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/2021/12/13/12%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/task0%EF%BC%9AFun-Rec%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%A7%86%E9%A2%91%E8%AE%B2%E8%A7%A3/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/11/09/CLUENER%20%E7%BB%86%E7%B2%92%E5%BA%A6%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/README/</loc>
     
     <lastmod>2021-12-31</lastmod>
     
@@ -92,43 +290,7 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/2021/12/31/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/2021%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8hexo+github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/10/04/%E5%A4%A9%E6%B1%A0-%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/task1%EF%BC%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%EF%BC%88%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD%EF%BC%89/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/2021/10/09/%E5%A4%A9%E6%B1%A0-%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/textcnn/%E9%98%BF%E9%87%8C%E5%A4%A9%E6%B1%A0%20NLP%20%E5%85%A5%E9%97%A8%E8%B5%9B%20TextCNN%20%E6%96%B9%E6%A1%88%E4%BB%A3%E7%A0%81%E8%AF%A6%E7%BB%86%E6%B3%A8%E9%87%8A%E5%92%8C%E6%B5%81%E7%A8%8B%E8%AE%B2%E8%A7%A3/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/08/27/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/%E8%8B%8F%E7%A5%9E%E6%96%87%E7%AB%A0%E8%A7%A3%E6%9E%90%EF%BC%886%E7%AF%87%EF%BC%89/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/08/21/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/GitHub%20%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/</loc>
     
     <lastmod>2021-12-31</lastmod>
     
@@ -146,97 +308,7 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/2021/10/05/%E5%A4%A9%E6%B1%A0-%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/task2%20%EF%BC%9Afasttext/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/2021/10/01/%E5%A4%A9%E6%B1%A0-%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/README/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/10/07/%E5%A4%A9%E6%B1%A0-%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/task3%EF%BC%9A%E5%8D%95%E4%B8%AAbert%E6%A8%A1%E5%9E%8B%E5%88%86%E6%95%B00.961/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/12/25/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B010%EF%BC%9A%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95_%E2%80%94%E2%80%94HMM%E5%92%8CCRF/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/11/27/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B05%EF%BC%9Aword2vec%E5%92%8Cfasttext/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/11/25/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04%EF%BC%9A%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0DNN2/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/11/23/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03%EF%BC%9A%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0DNN/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/11/22/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E3%80%81%E5%86%B3%E7%AD%96%E6%A0%91%E3%80%81%E8%81%9A%E7%B1%BB/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/11/30/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B07%EF%BC%9A%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/11/27/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B06%EF%BC%9A%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C(CNN)/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/09/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%EF%BC%9A%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</loc>
     
     <lastmod>2021-12-31</lastmod>
     
@@ -299,15 +371,6 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/2021/11/18/10%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94Pytorch/PyTorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02%EF%BC%9Ann.Module%E3%80%81%E4%BC%98%E5%8C%96%E5%99%A8%E3%80%81%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BF%9D%E5%AD%98%E5%92%8C%E5%8A%A0%E8%BD%BD%E3%80%81TensorBoard/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/2021/09/13/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers%E5%85%A5%E9%97%A8/%E9%80%89%E8%AF%BB2%EF%BC%9A%E5%93%88%E4%BD%9B%E3%80%8AThe%20Annotated%20Transformer%E3%80%8B%E7%BF%BB%E8%AF%91%E2%80%94%E2%80%94%E6%B3%A8%E9%87%8A%E5%92%8C%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E3%80%8AAttention%20Is%20All%20You%20Need%E3%80%8B/</loc>
     
     <lastmod>2021-12-31</lastmod>
@@ -362,69 +425,6 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/2021/08/21/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers%E5%85%A5%E9%97%A8/task3%EF%BC%9A%E5%9B%BE%E8%A7%A3GPT-2/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/08/18/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers%E5%85%A5%E9%97%A8/task2%EF%BC%9ABERT%E5%85%A5%E9%97%A8/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/08/17/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers%E5%85%A5%E9%97%A8/task1%EF%BC%9A%E5%A4%9A%E5%9B%BE%E8%AF%A6%E8%A7%A3attention%E5%92%8Cmask%E3%80%82%E4%BB%8E%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E3%80%81transformer%E5%88%B0GPT2/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/09/27/10%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94Pytorch/PyTorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E3%80%81%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%E3%80%81%E5%BC%A0%E9%87%8F%E6%93%8D%E4%BD%9C%E3%80%81%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/11/17/10%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94Pytorch/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E3%80%81%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/12/25/datawhale%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A04%EF%BC%9A%E6%95%B4%E7%90%86%E6%80%BB%E7%BB%93%20/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/2021/12/02/datawhale%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A01%E2%80%94%E2%80%94voting%E3%80%81bagging&stacking/</loc>
-    
-    <lastmod>2021-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/tags/index.html</loc>
     
     <lastmod>2021-12-31</lastmod>
@@ -454,281 +454,281 @@
 
   <url>
     <loc>https://zhxnlp.github.io/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/tags/Pytorch/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/python/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <loc>https://zhxnlp.github.io/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/bagging/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <loc>https://zhxnlp.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/stacking/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/Boosting/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/Adaboost/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/GBDT/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/XGBoost/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/LightGBM/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/Bagging/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/Stacking/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/NER/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <loc>https://zhxnlp.github.io/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/nlp/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/CRF/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/transformer/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/NER/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/CRF/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/Boosting/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/Adaboost/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/GBDT/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/bagging/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/stacking/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/Bagging/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/Stacking/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/XGBoost/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/LightGBM/</loc>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/transformers/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/Hugging-Face/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/fasttext/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/TF-IDF/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/github/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/hexo/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/%E8%BD%AF%E4%BB%B6/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/Word2vec/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <loc>https://zhxnlp.github.io/tags/fasttext/</loc>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/%E5%86%B3%E7%AD%96%E6%A0%91/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/%E8%81%9A%E7%B1%BB/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/Word2vec/</loc>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/DNN/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/CNN/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/tags/LSTM/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/CNN/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/github/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/%E8%BD%AF%E4%BB%B6/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/hexo/</loc>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -736,64 +736,64 @@
 
   
   <url>
-    <loc>https://zhxnlp.github.io/categories/12%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/categories/10%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9APytorch/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/categories/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/categories/CLUENER-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <loc>https://zhxnlp.github.io/categories/12%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/categories/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/categories/CLUENER-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/categories/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/categories/HuggingFace/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/categories/%E5%A4%A9%E6%B1%A0-%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/</loc>
-    <lastmod>2022-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhxnlp.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2022-01-01</lastmod>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

@@ -1,29 +1,22 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="命名实体识别——bert_softmax模型"><meta name="keywords" content="NER,nlp,CRF"><meta name="author" content="zhxnlp"><meta name="copyright" content="zhxnlp"><title>命名实体识别——bert_softmax模型 | zhxnlpのBlog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="命名实体识别——bert_softmax模型"><meta name="keywords" content="nlp,NER,CRF"><meta name="author" content="zhxnlp"><meta name="copyright" content="zhxnlp"><title>命名实体识别——bert_softmax模型 | zhxnlpのBlog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
   root: '/',
-  algolia: {"appId":"JU6VFRRZVF","apiKey":"ca17f8e20c4dc91dfe1214d03173a8be","indexName":"github-io","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  algolia: {"appId":"JU6VFRRZVF","apiKey":"ca17f8e20c4dc91dfe1214d03173a8be","indexName":"github-io","hits":{"per_page":10},"languages":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}.","hits_stats":"${hits} results found in ${time} ms"}},
   localSearch: undefined,
   copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
   },
   hexoVersion: '6.0.0'
 } </script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="zhxnlpのBlog" type="application/atom+xml">
-</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#word-ids%E5%8F%AF%E4%BB%A5%E5%B0%86%E6%AF%8F%E4%B8%80%E4%B8%AAsubtokens%E4%BD%8D%E7%BD%AE%E5%AF%B9%E5%BA%94%E4%B8%80%E4%B8%AAword%E7%9A%84%E4%B8%8B%E6%A0%87%E3%80%82%E5%B9%B6%E4%B8%94%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AF%B9%E5%BA%94%E4%BA%86None%E3%80%82%E6%9C%89%E4%BA%86%E8%BF%99%E4%B8%AAlist%EF%BC%8C%E6%88%91%E4%BB%AC%E5%B0%B1%E8%83%BD%E5%B0%86subtokens%E5%92%8Cwords%E8%BF%98%E6%9C%89%E6%A0%87%E6%B3%A8%E7%9A%84labels%E5%AF%B9%E9%BD%90%E5%95%A6%EF%BC%8C%E5%B9%B6%E5%B0%86-cls-%E5%92%8C-sep-%E4%BD%8D%E7%BD%AE%E7%9A%84%E6%A0%87%E7%AD%BE%E7%94%A8-100%E5%A1%AB%E5%85%85%E3%80%82-100%E7%BB%8F%E8%BF%87softmax%E4%BC%9A%E8%A2%AB%E5%BF%BD%E7%95%A5%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">word_ids可以将每一个subtokens位置对应一个word的下标。并且特殊字符对应了None。有了这个list，我们就能将subtokens和words还有标注的labels对齐啦，并将[cls]和[sep]位置的标签用-100填充。-100经过softmax会被忽略。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E8%AF%BBBertForTokenClassification%E4%BB%BB%E5%8A%A1%E5%A4%B4%EF%BC%88%E8%AF%B4%E6%98%8E%E4%BB%A3%E7%A0%81%EF%BC%8C%E4%B8%8D%E9%9C%80%E8%A6%81%E8%BF%90%E8%A1%8C%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">解读BertForTokenClassification任务头（说明代码，不需要运行）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97loss%E6%97%B6%E5%BF%BD%E7%95%A5padding%E9%83%A8%E5%88%86%EF%BC%88%E5%8D%B3%E5%8F%AA%E7%AE%97attention-mask-1%E9%83%A8%E5%88%86%EF%BC%89%E6%AD%A5%E9%AA%A4%E4%B8%BA%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">计算loss时忽略padding部分（即只算attention_mask&#x3D;&#x3D;1部分）步骤为：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEseqeval%E8%AF%84%E6%B5%8B%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BB%A5%E4%B8%8B%E5%87%A0%E7%82%B9"><span class="toc-number"></span> <span class="toc-text">设置seqeval评测方法，需要注意以下几点</span></a></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-blog.csdnimg.cn/92202ef591744a55a05a1fc7e108f4d6.png"></div><div class="author-info__name text-center">zhxnlp</div><div class="author-info__description text-center">nlp</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/zhxnlp">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">47</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">39</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">9</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://relph1119.github.io/my-team-learning">relph</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://ifwind.github.io/">ifwind</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://chuxiaoyu.cn/nlp-transformer-summary/">chuxiaoyu</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">zhxnlpのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">命名实体识别——bert_softmax模型</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-11-10</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/CLUENER-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/">CLUENER 命名实体识别</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">4.9k</span><span class="post-meta__separator">|</span><span>阅读时长: 26 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#word-ids%E5%8F%AF%E4%BB%A5%E5%B0%86%E6%AF%8F%E4%B8%80%E4%B8%AAsubtokens%E4%BD%8D%E7%BD%AE%E5%AF%B9%E5%BA%94%E4%B8%80%E4%B8%AAword%E7%9A%84%E4%B8%8B%E6%A0%87%E3%80%82%E5%B9%B6%E4%B8%94%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AF%B9%E5%BA%94%E4%BA%86None%E3%80%82%E6%9C%89%E4%BA%86%E8%BF%99%E4%B8%AAlist%EF%BC%8C%E6%88%91%E4%BB%AC%E5%B0%B1%E8%83%BD%E5%B0%86subtokens%E5%92%8Cwords%E8%BF%98%E6%9C%89%E6%A0%87%E6%B3%A8%E7%9A%84labels%E5%AF%B9%E9%BD%90%E5%95%A6%EF%BC%8C%E5%B9%B6%E5%B0%86-cls-%E5%92%8C-sep-%E4%BD%8D%E7%BD%AE%E7%9A%84%E6%A0%87%E7%AD%BE%E7%94%A8-100%E5%A1%AB%E5%85%85%E3%80%82-100%E7%BB%8F%E8%BF%87softmax%E4%BC%9A%E8%A2%AB%E5%BF%BD%E7%95%A5%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">word_ids可以将每一个subtokens位置对应一个word的下标。并且特殊字符对应了None。有了这个list，我们就能将subtokens和words还有标注的labels对齐啦，并将[cls]和[sep]位置的标签用-100填充。-100经过softmax会被忽略。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E8%AF%BBBertForTokenClassification%E4%BB%BB%E5%8A%A1%E5%A4%B4%EF%BC%88%E8%AF%B4%E6%98%8E%E4%BB%A3%E7%A0%81%EF%BC%8C%E4%B8%8D%E9%9C%80%E8%A6%81%E8%BF%90%E8%A1%8C%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">解读BertForTokenClassification任务头（说明代码，不需要运行）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97loss%E6%97%B6%E5%BF%BD%E7%95%A5padding%E9%83%A8%E5%88%86%EF%BC%88%E5%8D%B3%E5%8F%AA%E7%AE%97attention-mask-1%E9%83%A8%E5%88%86%EF%BC%89%E6%AD%A5%E9%AA%A4%E4%B8%BA%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">计算loss时忽略padding部分（即只算attention_mask&#x3D;&#x3D;1部分）步骤为：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEseqeval%E8%AF%84%E6%B5%8B%E6%96%B9%E6%B3%95%EF%BC%8C%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BB%A5%E4%B8%8B%E5%87%A0%E7%82%B9"><span class="toc-number"></span> <span class="toc-text">设置seqeval评测方法，需要注意以下几点</span></a></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-blog.csdnimg.cn/92202ef591744a55a05a1fc7e108f4d6.png"></div><div class="author-info__name text-center">zhxnlp</div><div class="author-info__description text-center">nlp</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/zhxnlp">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">47</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">39</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">9</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://relph1119.github.io/my-team-learning">relph</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://ifwind.github.io/">ifwind</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://chuxiaoyu.cn/nlp-transformer-summary/">chuxiaoyu</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">zhxnlpのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">命名实体识别——bert_softmax模型</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-11-10</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/CLUENER-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/">CLUENER 命名实体识别</a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">4.7k</span><span class="post-meta__separator">|</span><span>Reading time: 25 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <pre><code>Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount(&quot;/content/drive&quot;, force_remount=True).
-</code></pre>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.chdir(<span class="string">&#x27;/content/drive/MyDrive/chinese task/CLUENER2020&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装</span></span><br><span class="line">!pip install transformers datasets seqeval</span><br></pre></td></tr></table></figure>
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.chdir(<span class="string">&#x27;/content/drive/MyDrive/chinese task/CLUENER2020&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装</span></span><br><span class="line">!pip install transformers datasets seqeval</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> config</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#加载处理完的npz数据集</span></span><br><span class="line"><span class="comment">#不加allow_pickle=True会报错Object arrays cannot be loaded when allow_pickle=False，numpy新版本中默认为False。</span></span><br><span class="line">train_data=np.load(<span class="string">&#x27;./data/train.npz&#x27;</span>,allow_pickle=<span class="literal">True</span>)</span><br><span class="line">val_data=np.load(<span class="string">&#x27;./data/dev.npz&#x27;</span>,allow_pickle=<span class="literal">True</span>)</span><br><span class="line">test_data=np.load(<span class="string">&#x27;./data/test.npz&#x27;</span>,allow_pickle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">test_data.files</span><br></pre></td></tr></table></figure>
-
 <p>数据从npz格式加载到pandas，标签用数字替换，以便输入模型</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#转换为dataframe格式</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment">#补个随机frac</span></span><br><span class="line">train_df=pd.concat([pd.DataFrame(train_data[<span class="string">&#x27;words&#x27;</span>],columns=[<span class="string">&#x27;words&#x27;</span>]),</span><br><span class="line">          pd.DataFrame(train_data[<span class="string">&#x27;labels&#x27;</span>],columns=[<span class="string">&#x27;labels&#x27;</span>])],axis=<span class="number">1</span>).sample(frac=<span class="number">1.0</span>).rename(columns=&#123;<span class="string">&#x27;labels&#x27;</span>:<span class="string">&#x27;labels0&#x27;</span>&#125;)</span><br><span class="line"><span class="comment">#测试集和验证集不需要shuffle</span></span><br><span class="line">val_df=pd.concat([pd.DataFrame(val_data[<span class="string">&#x27;words&#x27;</span>],columns=[<span class="string">&#x27;words&#x27;</span>]),</span><br><span class="line">          pd.DataFrame(val_data[<span class="string">&#x27;labels&#x27;</span>],columns=[<span class="string">&#x27;labels&#x27;</span>])],axis=<span class="number">1</span>).rename(columns=&#123;<span class="string">&#x27;labels&#x27;</span>:<span class="string">&#x27;labels0&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line">test_df=pd.concat([pd.DataFrame(test_data[<span class="string">&#x27;words&#x27;</span>],columns=[<span class="string">&#x27;words&#x27;</span>]),</span><br><span class="line">          pd.DataFrame(test_data[<span class="string">&#x27;labels&#x27;</span>],columns=[<span class="string">&#x27;labels&#x27;</span>])],axis=<span class="number">1</span>).rename(columns=&#123;<span class="string">&#x27;labels&#x27;</span>:<span class="string">&#x27;labels0&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#将训练验证集的BIOS标签转换为数字索引，此时word和labels已经对齐了</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">trans</span>(<span class="params">labels</span>):</span></span><br><span class="line">  labels=<span class="built_in">list</span>(labels)</span><br><span class="line">  nums=[]</span><br><span class="line">  <span class="keyword">for</span> label <span class="keyword">in</span> labels:</span><br><span class="line">    nums.append(config.label2id[label])</span><br><span class="line">  <span class="keyword">return</span> nums</span><br><span class="line">    </span><br><span class="line">train_df[<span class="string">&#x27;labels0&#x27;</span>]=train_df[<span class="string">&#x27;labels0&#x27;</span>].<span class="built_in">map</span>(<span class="keyword">lambda</span> x: trans(x))</span><br><span class="line">val_df[<span class="string">&#x27;labels0&#x27;</span>]=val_df[<span class="string">&#x27;labels0&#x27;</span>].<span class="built_in">map</span>(<span class="keyword">lambda</span> x: trans(x))</span><br><span class="line"></span><br><span class="line">test_df[<span class="string">&#x27;labels0&#x27;</span>]=test_df[<span class="string">&#x27;labels0&#x27;</span>].<span class="built_in">map</span>(<span class="keyword">lambda</span> x: trans(x))</span><br><span class="line">val_df</span><br></pre></td></tr></table></figure>
-
-
-
-
-
   <div id="df-5609f3bd-3bca-4575-a382-26b669529129">
     <div class="colab-df-container">
       <div>
@@ -32,15 +25,14 @@
         vertical-align: middle;
     }
 
-<pre><code>.dataframe tbody tr th &#123;
-    vertical-align: top;
-&#125;
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-.dataframe thead th &#123;
-    text-align: right;
-&#125;
-</code></pre>
-<p></style></p>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -113,7 +105,13 @@
               title="Convert this dataframe to an interactive table."
               style="display:none;">
 
-<p>  &lt;svg xmlns=”<a target="_blank" rel="noopener" href="http://www.w3.org/2000/svg&quot;">http://www.w3.org/2000/svg&quot;</a> height=”24px”viewBox=”0 0 24 24”<br>       width=”24px”&gt;<br>    <path d="M0 0h24v24H0V0z" fill="none"/><br>    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/><br>  </svg><br>      </button></p>
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
   <style>
     .colab-df-container {
       display:flex;
@@ -152,50 +150,41 @@
     }
   </style>
 
-<pre><code>  &lt;script&gt;
-    const buttonEl =
-      document.querySelector(&#39;#df-5609f3bd-3bca-4575-a382-26b669529129 button.colab-df-convert&#39;);
-    buttonEl.style.display =
-      google.colab.kernel.accessAllowed ? &#39;block&#39; : &#39;none&#39;;
+      <script>
+        const buttonEl =
+          document.querySelector('#df-5609f3bd-3bca-4575-a382-26b669529129 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
 
-    async function convertToInteractive(key) &#123;
-      const element = document.querySelector(&#39;#df-5609f3bd-3bca-4575-a382-26b669529129&#39;);
-      const dataTable =
-        await google.colab.kernel.invokeFunction(&#39;convertToInteractive&#39;,
-                                                 [key], &#123;&#125;);
-      if (!dataTable) return;
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-5609f3bd-3bca-4575-a382-26b669529129');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
 
-      const docLinkHtml = &#39;Like what you see? Visit the &#39; +
-        &#39;&lt;a target=&quot;_blank&quot; href=https://colab.research.google.com/notebooks/data_table.ipynb&gt;data table notebook&lt;/a&gt;&#39;
-        + &#39; to learn more about interactive tables.&#39;;
-      element.innerHTML = &#39;&#39;;
-      dataTable[&#39;output_type&#39;] = &#39;display_data&#39;;
-      await google.colab.output.renderOutput(dataTable, element);
-      const docLink = document.createElement(&#39;div&#39;);
-      docLink.innerHTML = docLinkHtml;
-      element.appendChild(docLink);
-    &#125;
-  &lt;/script&gt;
-&lt;/div&gt;
-</code></pre>
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
   </div>
 
 
 
 
 <h3 id="word-ids可以将每一个subtokens位置对应一个word的下标。并且特殊字符对应了None。有了这个list，我们就能将subtokens和words还有标注的labels对齐啦，并将-cls-和-sep-位置的标签用-100填充。-100经过softmax会被忽略。"><a href="#word-ids可以将每一个subtokens位置对应一个word的下标。并且特殊字符对应了None。有了这个list，我们就能将subtokens和words还有标注的labels对齐啦，并将-cls-和-sep-位置的标签用-100填充。-100经过softmax会被忽略。" class="headerlink" title="word_ids可以将每一个subtokens位置对应一个word的下标。并且特殊字符对应了None。有了这个list，我们就能将subtokens和words还有标注的labels对齐啦，并将[cls]和[sep]位置的标签用-100填充。-100经过softmax会被忽略。"></a>word_ids可以将每一个subtokens位置对应一个word的下标。并且特殊字符对应了None。有了这个list，我们就能将subtokens和words还有标注的labels对齐啦，并将[cls]和[sep]位置的标签用-100填充。-100经过softmax会被忽略。</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">将word_ids值为none的部分,即特殊符号[cls]和[sep]位置的标签转化为-100。</span></span><br><span class="line"><span class="string">我们有两种对齐label的方式：</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">1.label_all_tokens=True，多个subtokens对齐一个word，对齐一个label</span></span><br><span class="line"><span class="string">2.label_all_tokens=False，多个subtokens的第一个subtoken对齐word，对齐一个label，其他subtokens直接赋予-100.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">label_all_tokens=<span class="literal">True</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tokenize_and_align_labels</span>(<span class="params">examples</span>):</span></span><br><span class="line">  tokenized_inputs=tokenizer(examples[<span class="string">&quot;words&quot;</span>],truncation=<span class="literal">True</span>,is_split_into_words=<span class="literal">True</span>)<span class="comment">#数据分词</span></span><br><span class="line"></span><br><span class="line">  pad_labels = []<span class="comment">#创建labels列表</span></span><br><span class="line">  <span class="keyword">for</span> i,label <span class="keyword">in</span> <span class="built_in">enumerate</span>(examples[<span class="string">&#x27;labels0&#x27;</span>]):</span><br><span class="line">    word_ids=tokenized_inputs.word_ids(batch_index=i)<span class="comment">#取出索引i的编码数据的word_ids属性</span></span><br><span class="line">    previous_word_idx=<span class="literal">None</span></span><br><span class="line">    label_ids=[]</span><br><span class="line">    <span class="keyword">for</span> word_idx <span class="keyword">in</span> word_ids:</span><br><span class="line">      <span class="comment"># 特殊标记的单词word_ids为None。将标签设置为-100，以便它们自动在损失函数中被忽略。</span></span><br><span class="line">      <span class="keyword">if</span> word_idx <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        label_ids.append(-<span class="number">100</span>)</span><br><span class="line">      <span class="comment"># 我们为每个单词的第一个标记设置标签。（这里一个单词多个subword的word_idx只有一个数）</span></span><br><span class="line">      <span class="keyword">elif</span> word_idx != previous_word_idx:</span><br><span class="line">        label_ids.append(label[word_idx])</span><br><span class="line">      <span class="comment"># 对于单词中的其他标记，我们将标签设置为当前标签或-100，具体取决于label_all_tokens标志。</span></span><br><span class="line">      <span class="keyword">else</span>:</span><br><span class="line">        label_ids.append(label[word_idx] <span class="keyword">if</span> label_all_tokens <span class="keyword">else</span> -<span class="number">100</span>)</span><br><span class="line">      <span class="comment">#label_all_tokens = True时，其它子词添加和第一个子词一样的标签，否则全部设为-100</span></span><br><span class="line">      previous_word_idx = word_idx</span><br><span class="line"></span><br><span class="line">    pad_labels.append(label_ids)</span><br><span class="line"></span><br><span class="line">  tokenized_inputs[<span class="string">&quot;labels&quot;</span>] = pad_labels</span><br><span class="line">  <span class="keyword">return</span> tokenized_inputs</span><br><span class="line"></span><br><span class="line"><span class="comment">#如果是中文分词，只需要使用word_ids去除特殊单词就行，比如对应标签设置为-100。</span></span><br></pre></td></tr></table></figure>
-
-
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoTokenizer</span><br><span class="line"><span class="comment">#这里一定要选AutoTokenizer，如果是BertTokenizer，会提示bertbase没有word_ids方法。结果没用到</span></span><br><span class="line"></span><br><span class="line">trains_ds=Dataset.from_pandas(train_df)</span><br><span class="line">val_ds=Dataset.from_pandas(val_df)</span><br><span class="line">test_ds=Dataset.from_pandas(test_df)</span><br><span class="line"></span><br><span class="line">tokenizer=AutoTokenizer.from_pretrained(config.roberta_model,do_lower_case=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tokenized_trains_ds=trains_ds.<span class="built_in">map</span>(tokenize_and_align_labels,batched=<span class="literal">True</span>)</span><br><span class="line">tokenized_val_ds=val_ds.<span class="built_in">map</span>(tokenize_and_align_labels,batched=<span class="literal">True</span>)</span><br><span class="line">tokenized_test_ds=test_ds.<span class="built_in">map</span>(tokenize_and_align_labels,batched=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#加载模型</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoModelForTokenClassification</span><br><span class="line"></span><br><span class="line">model = AutoModelForTokenClassification.from_pretrained(<span class="string">&#x27;hfl/chinese-roberta-wwm-ext-large&#x27;</span>,num_labels=<span class="number">31</span>)</span><br><span class="line"></span><br><span class="line">device=torch.device(<span class="string">&quot;cuda&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>)</span><br><span class="line">model.to(device)</span><br></pre></td></tr></table></figure>
-
 <h3 id="解读BertForTokenClassification任务头（说明代码，不需要运行）"><a href="#解读BertForTokenClassification任务头（说明代码，不需要运行）" class="headerlink" title="解读BertForTokenClassification任务头（说明代码，不需要运行）"></a>解读BertForTokenClassification任务头（说明代码，不需要运行）</h3><h3 id="计算loss时忽略padding部分（即只算attention-mask-1部分）步骤为："><a href="#计算loss时忽略padding部分（即只算attention-mask-1部分）步骤为：" class="headerlink" title="计算loss时忽略padding部分（即只算attention_mask==1部分）步骤为："></a>计算loss时忽略padding部分（即只算attention_mask==1部分）步骤为：</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sequence_output=outputs[<span class="number">0</span>]<span class="comment">#bert输出取第一维，即每个tokens的隐向量   </span></span><br><span class="line">sequence_output=self.dropout(sequence_output)</span><br><span class="line">logits=self.classifier(sequence_output)<span class="comment">#经过线性变换，从torch.Size([3,52,1024])转为torch.Size([3,52,31])</span></span><br><span class="line">loss_fct = CrossEntropyLoss()<span class="comment">#交叉熵损失函数，自带softmax</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> attention_mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">  <span class="comment">#1.先取出mask矩阵压缩为一维，attention_mask==1转为一维真假矩阵。</span></span><br><span class="line">  active_loss=attention_mask.view(-<span class="number">1</span>)==<span class="number">1</span><span class="comment">#torch.Size([156])，只有156个有效tokens。</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">#2.labels压缩，再创建一个同形状的loss ignore_index矩阵</span></span><br><span class="line">  active_logits=logits.view(-<span class="number">1</span>,self.num_labels)<span class="comment">#logits变成一维。即由torch.Size([3,52,31])变成torch.Size([156,31])</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">#3.torch.where取出labels对应mask==1的部分，其余部分为loss忽略索引。即labels为（mask==1和忽略部分）</span></span><br><span class="line">  active_labels=torch.where(active_loss,labels.view(-<span class="number">1</span>),</span><br><span class="line">              torch.tensor(loss_fct.ignore_index).type_as(labels))<span class="comment">#torch.Size([156,31])，labels含有ignore_index。</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;torch.tensor(loss_fct.ignore_index).type_as(labels)就是一个全部为loss忽视索引，形状和labels一样的矩阵。</span></span><br><span class="line"><span class="string">    torch.where的用法就是满足参数1的条件active_loss，就从参数2矩阵取值，否则从参数3矩阵取值&quot;&quot;&quot;</span></span><br><span class="line">  <span class="comment">#4.计算logtis和active_labels的loss。</span></span><br><span class="line">  loss=loss_fct(active_logits,active_labels)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  loss=loss_fct(logits.view(-<span class="number">1</span>,self.num_labels),labels.view(-<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;然而，只有pad部分attention_mask==0,句子首尾部分的cls和sep还是计算loss的。本身这样处理还留有cls和sep。&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
-
-
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">label2id = &#123;</span><br><span class="line">    <span class="string">&quot;O&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&quot;B-address&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&quot;B-book&quot;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&quot;B-company&quot;</span>: <span class="number">3</span>,</span><br><span class="line">    <span class="string">&#x27;B-game&#x27;</span>: <span class="number">4</span>,</span><br><span class="line">    <span class="string">&#x27;B-government&#x27;</span>: <span class="number">5</span>,</span><br><span class="line">    <span class="string">&#x27;B-movie&#x27;</span>: <span class="number">6</span>,</span><br><span class="line">    <span class="string">&#x27;B-name&#x27;</span>: <span class="number">7</span>,</span><br><span class="line">    <span class="string">&#x27;B-organization&#x27;</span>: <span class="number">8</span>,</span><br><span class="line">    <span class="string">&#x27;B-position&#x27;</span>: <span class="number">9</span>,</span><br><span class="line">    <span class="string">&#x27;B-scene&#x27;</span>: <span class="number">10</span>,</span><br><span class="line">    <span class="string">&quot;I-address&quot;</span>: <span class="number">11</span>,</span><br><span class="line">    <span class="string">&quot;I-book&quot;</span>: <span class="number">12</span>,</span><br><span class="line">    <span class="string">&quot;I-company&quot;</span>: <span class="number">13</span>,</span><br><span class="line">    <span class="string">&#x27;I-game&#x27;</span>: <span class="number">14</span>,</span><br><span class="line">    <span class="string">&#x27;I-government&#x27;</span>: <span class="number">15</span>,</span><br><span class="line">    <span class="string">&#x27;I-movie&#x27;</span>: <span class="number">16</span>,</span><br><span class="line">    <span class="string">&#x27;I-name&#x27;</span>: <span class="number">17</span>,</span><br><span class="line">    <span class="string">&#x27;I-organization&#x27;</span>: <span class="number">18</span>,</span><br><span class="line">    <span class="string">&#x27;I-position&#x27;</span>: <span class="number">19</span>,</span><br><span class="line">    <span class="string">&#x27;I-scene&#x27;</span>: <span class="number">20</span>,</span><br><span class="line">    <span class="string">&quot;S-address&quot;</span>: <span class="number">21</span>,</span><br><span class="line">    <span class="string">&quot;S-book&quot;</span>: <span class="number">22</span>,</span><br><span class="line">    <span class="string">&quot;S-company&quot;</span>: <span class="number">23</span>,</span><br><span class="line">    <span class="string">&#x27;S-game&#x27;</span>: <span class="number">24</span>,</span><br><span class="line">    <span class="string">&#x27;S-government&#x27;</span>: <span class="number">25</span>,</span><br><span class="line">    <span class="string">&#x27;S-movie&#x27;</span>: <span class="number">26</span>,</span><br><span class="line">    <span class="string">&#x27;S-name&#x27;</span>: <span class="number">27</span>,</span><br><span class="line">    <span class="string">&#x27;S-organization&#x27;</span>: <span class="number">28</span>,</span><br><span class="line">    <span class="string">&#x27;S-position&#x27;</span>: <span class="number">29</span>,</span><br><span class="line">    <span class="string">&#x27;S-scene&#x27;</span>: <span class="number">30</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">label_list= [label <span class="keyword">for</span> label,<span class="built_in">id</span> <span class="keyword">in</span> <span class="built_in">list</span>(label2id.items())]</span><br><span class="line">label_list</span><br></pre></td></tr></table></figure>
-
 <h2 id="设置seqeval评测方法，需要注意以下几点"><a href="#设置seqeval评测方法，需要注意以下几点" class="headerlink" title="设置seqeval评测方法，需要注意以下几点"></a>设置seqeval评测方法，需要注意以下几点</h2><ul>
 <li>选择预测分类最大概率的下标</li>
 <li>将数字下标转化为BIOS格式的label，因为seqeval除了总的指标，还可以查看各个类别的指标。如果只是数字，运行时会有异常提示（但正常运行）</li>
@@ -203,15 +192,9 @@
 <li>这步和token分类任务头合起来，就将pad部位和特殊tokens部分都忽略loss计算了。</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> load_metric</span><br><span class="line">metric=load_metric(<span class="string">&quot;seqeval&quot;</span>)</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_metrics</span>(<span class="params">p</span>):</span></span><br><span class="line">  predictions,labels = p</span><br><span class="line">  predictions = np.argmax(predictions,axis=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 去掉特殊字符处的值，不作比较。将label由数字转为ner标签31类。</span></span><br><span class="line">  true_predictions = [</span><br><span class="line">    [label_list[p] <span class="keyword">for</span> (p, l) <span class="keyword">in</span> <span class="built_in">zip</span>(prediction, label) <span class="keyword">if</span> l != -<span class="number">100</span>]</span><br><span class="line">    <span class="keyword">for</span> prediction, label <span class="keyword">in</span> <span class="built_in">zip</span>(predictions, labels)</span><br><span class="line">  ]</span><br><span class="line">  true_labels = [</span><br><span class="line">    [label_list[l] <span class="keyword">for</span> (p, l) <span class="keyword">in</span> <span class="built_in">zip</span>(prediction, label) <span class="keyword">if</span> l != -<span class="number">100</span>]</span><br><span class="line">    <span class="keyword">for</span> prediction, label <span class="keyword">in</span> <span class="built_in">zip</span>(predictions, labels)</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  results = metric.compute(predictions=true_predictions,references=true_labels)</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="string">&quot;precision&quot;</span>: results[<span class="string">&quot;overall_precision&quot;</span>],</span><br><span class="line">      <span class="string">&quot;recall&quot;</span>: results[<span class="string">&quot;overall_recall&quot;</span>],</span><br><span class="line">      <span class="string">&quot;f1&quot;</span>: results[<span class="string">&quot;overall_f1&quot;</span>],</span><br><span class="line">      <span class="string">&quot;accuracy&quot;</span>: results[<span class="string">&quot;overall_accuracy&quot;</span>],</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-
 <pre><code>Downloading:   0%|          | 0.00/2.48k [00:00&lt;?, ?B/s]
-</code></pre>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">batch_size=<span class="number">32</span></span><br><span class="line">metric_name=<span class="string">&quot;f1&quot;</span></span><br><span class="line"><span class="comment">#数据整理器,将接收到的输入及标签进行动态填充。估计是不填充的话labels不齐，无法输入模型</span></span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> DataCollatorForTokenClassification</span><br><span class="line">data_collator = DataCollatorForTokenClassification(tokenizer)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> TrainingArguments,Trainer</span><br><span class="line">args=TrainingArguments(</span><br><span class="line">  <span class="string">&quot;bert_softmax&quot;</span>,</span><br><span class="line">  evaluation_strategy=<span class="string">&quot;epoch&quot;</span>,</span><br><span class="line">  <span class="comment">#save_strategy=&quot;epoch&quot;,</span></span><br><span class="line">  learning_rate=<span class="number">2e-5</span>,</span><br><span class="line">  per_device_train_batch_size=batch_size,</span><br><span class="line">  per_device_eval_batch_size=batch_size,</span><br><span class="line">  num_train_epochs=<span class="number">8</span>,</span><br><span class="line">  weight_decay=<span class="number">0.01</span>,</span><br><span class="line">  metric_for_best_model=metric_name<span class="comment">#只是调用最好的模型,)</span></span><br><span class="line"></span><br><span class="line">trainer=Trainer(model,args,</span><br><span class="line">  train_dataset=tokenized_trains_ds,</span><br><span class="line">  eval_dataset=tokenized_val_ds,</span><br><span class="line">  data_collator=data_collator,</span><br><span class="line">  tokenizer=tokenizer,</span><br><span class="line">  compute_metrics=compute_metrics)</span><br></pre></td></tr></table></figure>
-
-
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">batch_size=<span class="number">32</span></span><br><span class="line">metric_name=<span class="string">&quot;f1&quot;</span></span><br><span class="line"><span class="comment">#数据整理器,将接收到的输入及标签进行动态填充。估计是不填充的话labels不齐，无法输入模型</span></span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> DataCollatorForTokenClassification</span><br><span class="line">data_collator = DataCollatorForTokenClassification(tokenizer)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> TrainingArguments,Trainer</span><br><span class="line">args=TrainingArguments(</span><br><span class="line">  <span class="string">&quot;bert_softmax&quot;</span>,</span><br><span class="line">  evaluation_strategy=<span class="string">&quot;epoch&quot;</span>,</span><br><span class="line">  <span class="comment">#save_strategy=&quot;epoch&quot;,</span></span><br><span class="line">  learning_rate=<span class="number">2e-5</span>,</span><br><span class="line">  per_device_train_batch_size=batch_size,</span><br><span class="line">  per_device_eval_batch_size=batch_size,</span><br><span class="line">  num_train_epochs=<span class="number">8</span>,</span><br><span class="line">  weight_decay=<span class="number">0.01</span>,</span><br><span class="line">  metric_for_best_model=metric_name<span class="comment">#只是调用最好的模型,)</span></span><br><span class="line"></span><br><span class="line">trainer=Trainer(model,args,</span><br><span class="line">  train_dataset=tokenized_trains_ds,</span><br><span class="line">  eval_dataset=tokenized_val_ds,</span><br><span class="line">  data_collator=data_collator,</span><br><span class="line">  tokenizer=tokenizer,</span><br><span class="line">  compute_metrics=compute_metrics)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#进行训练</span></span><br><span class="line">trainer.train()</span><br></pre></td></tr></table></figure>
-
 <pre><code>The following columns in the training set  don&#39;t have a corresponding argument in `BertForTokenClassification.forward` and have been ignored: words, labels0, __index_level_0__.
 ***** Running training *****
   Num examples = 10748
@@ -230,8 +213,7 @@
   [2688/2688 1:34:02, Epoch 8/8]
 &lt;/div&gt;
 &lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
-</code></pre>
-  <thead>
+</code></pre><p>  <thead>
     <tr style="text-align: left;">
       <th>Epoch</th>
       <th>Training Loss</th>
@@ -241,8 +223,7 @@
       <th>F1</th>
       <th>Accuracy</th>
     </tr>
-  </thead>
-  <tbody>
+  </thead><br>  <tbody>
     <tr>
       <td>1</td>
       <td>No log</td>
@@ -315,10 +296,7 @@
       <td>0.771585</td>
       <td>0.941882</td>
     </tr>
-  </tbody>
-</table><p>
-
-
+  </tbody><br>&lt;/table&gt;<p></p>
 <pre><code>The following columns in the evaluation set  don&#39;t have a corresponding argument in `BertForTokenClassification.forward` and have been ignored: words, labels0.
 ***** Running Evaluation *****
   Num examples = 1343
@@ -402,23 +380,11 @@ Training completed. Do not forget to share your model on huggingface.co/models =
 
 
 TrainOutput(global_step=2688, training_loss=0.09796489925966376, metrics=&#123;&#39;train_runtime&#39;: 5645.1208, &#39;train_samples_per_second&#39;: 15.232, &#39;train_steps_per_second&#39;: 0.476, &#39;total_flos&#39;: 8072824637823936.0, &#39;train_loss&#39;: 0.09796489925966376, &#39;epoch&#39;: 8.0&#125;)
-</code></pre>
-<p>如果想要得到单个类别的precision/recall/f1，我们直接将结果输入相同的评估函数即可：</p>
+</code></pre><p>如果想要得到单个类别的precision/recall/f1，我们直接将结果输入相同的评估函数即可：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#进行评估</span></span><br><span class="line">trainer.evaluate()</span><br></pre></td></tr></table></figure>
-
-
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">torch.save(model.state_dict(),<span class="string">&quot;./bert_softmax/bert_lstm_softmax_model&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">predictions,labels,loss=trainer.predict(tokenized_val_ds)</span><br><span class="line">predictions=np.argmax(predictions,axis=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove ignored index (special tokens)</span></span><br><span class="line">true_predictions = [</span><br><span class="line">    [label_list[p] <span class="keyword">for</span> (p,l) <span class="keyword">in</span> <span class="built_in">zip</span>(prediction, label) <span class="keyword">if</span> l != -<span class="number">100</span>]</span><br><span class="line">    <span class="keyword">for</span> prediction, label <span class="keyword">in</span> <span class="built_in">zip</span>(predictions, labels)</span><br><span class="line">]</span><br><span class="line">true_labels = [</span><br><span class="line">    [label_list[l] <span class="keyword">for</span> (p, l) <span class="keyword">in</span> <span class="built_in">zip</span>(prediction, label) <span class="keyword">if</span> l != -<span class="number">100</span>]</span><br><span class="line">    <span class="keyword">for</span> prediction, label <span class="keyword">in</span> <span class="built_in">zip</span>(predictions, labels)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">results=metric.compute(predictions=true_predictions,references=true_labels)</span><br><span class="line">results</span><br></pre></td></tr></table></figure>
-
-
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将结果排序查看</span></span><br><span class="line">result_df=pd.DataFrame(results)</span><br><span class="line">result_df.stack().unstack(<span class="number">0</span>).sort_values(by=[<span class="string">&#x27;f1&#x27;</span>])</span><br></pre></td></tr></table></figure>
-
-
-
-
-
   <div id="df-99b1b09b-aed8-4ffa-8e05-43b4b39704bf">
     <div class="colab-df-container">
       <div>
@@ -427,15 +393,14 @@ TrainOutput(global_step=2688, training_loss=0.09796489925966376, metrics=&#123;&
         vertical-align: middle;
     }
 
-<pre><code>.dataframe tbody tr th &#123;
-    vertical-align: top;
-&#125;
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-.dataframe thead th &#123;
-    text-align: right;
-&#125;
-</code></pre>
-<p></style></p>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -552,7 +517,13 @@ TrainOutput(global_step=2688, training_loss=0.09796489925966376, metrics=&#123;&
               title="Convert this dataframe to an interactive table."
               style="display:none;">
 
-<p>  &lt;svg xmlns=”<a target="_blank" rel="noopener" href="http://www.w3.org/2000/svg&quot;">http://www.w3.org/2000/svg&quot;</a> height=”24px”viewBox=”0 0 24 24”<br>       width=”24px”&gt;<br>    <path d="M0 0h24v24H0V0z" fill="none"/><br>    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/><br>  </svg><br>      </button></p>
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
   <style>
     .colab-df-container {
       display:flex;
@@ -591,32 +562,31 @@ TrainOutput(global_step=2688, training_loss=0.09796489925966376, metrics=&#123;&
     }
   </style>
 
-<pre><code>  &lt;script&gt;
-    const buttonEl =
-      document.querySelector(&#39;#df-99b1b09b-aed8-4ffa-8e05-43b4b39704bf button.colab-df-convert&#39;);
-    buttonEl.style.display =
-      google.colab.kernel.accessAllowed ? &#39;block&#39; : &#39;none&#39;;
+      <script>
+        const buttonEl =
+          document.querySelector('#df-99b1b09b-aed8-4ffa-8e05-43b4b39704bf button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
 
-    async function convertToInteractive(key) &#123;
-      const element = document.querySelector(&#39;#df-99b1b09b-aed8-4ffa-8e05-43b4b39704bf&#39;);
-      const dataTable =
-        await google.colab.kernel.invokeFunction(&#39;convertToInteractive&#39;,
-                                                 [key], &#123;&#125;);
-      if (!dataTable) return;
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-99b1b09b-aed8-4ffa-8e05-43b4b39704bf');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
 
-      const docLinkHtml = &#39;Like what you see? Visit the &#39; +
-        &#39;&lt;a target=&quot;_blank&quot; href=https://colab.research.google.com/notebooks/data_table.ipynb&gt;data table notebook&lt;/a&gt;&#39;
-        + &#39; to learn more about interactive tables.&#39;;
-      element.innerHTML = &#39;&#39;;
-      dataTable[&#39;output_type&#39;] = &#39;display_data&#39;;
-      await google.colab.output.renderOutput(dataTable, element);
-      const docLink = document.createElement(&#39;div&#39;);
-      docLink.innerHTML = docLinkHtml;
-      element.appendChild(docLink);
-    &#125;
-  &lt;/script&gt;
-&lt;/div&gt;
-</code></pre>
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
   </div>
 
 
@@ -624,15 +594,14 @@ TrainOutput(global_step=2688, training_loss=0.09796489925966376, metrics=&#123;&
 
 
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#预测验证集结果并对比标签</span></span><br><span class="line">predictions,metrics,Loss=trainer.predict(tokenized_val_ds,metric_key_prefix=<span class="string">&quot;test&quot;</span>)</span><br><span class="line">pred=np.argmax(predictions,axis=<span class="number">2</span>)<span class="comment">#生成的结果是二维数组，所以需要用下一行进行转换。</span></span><br><span class="line">preds=[x <span class="keyword">for</span> x <span class="keyword">in</span> pred]</span><br><span class="line">val_df[<span class="string">&#x27;preds&#x27;</span>]=pd.Series(preds)</span><br><span class="line">val_df.to_csv(<span class="string">&#x27;./bert_softmax/val_1220.csv&#x27;</span>)</span><br><span class="line">val_df</span><br></pre></td></tr></table></figure>
-
 <pre><code>The following columns in the test set  don&#39;t have a corresponding argument in `BertForTokenClassification.forward` and have been ignored: words, labels0.
 ***** Running Prediction *****
   Num examples = 1343
   Batch size = 32
-</code></pre>
-<div>
+</code></pre><div>
 
-<p>  <progress value='212' max='42' style='width:300px; height:20px; vertical-align: middle;'></progress><br>  [42/42 31:38]</p>
+  <progress value='212' max='42' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  [42/42 31:38]
 </div>
 
 
@@ -649,15 +618,14 @@ TrainOutput(global_step=2688, training_loss=0.09796489925966376, metrics=&#123;&
         vertical-align: middle;
     }
 
-<pre><code>.dataframe tbody tr th &#123;
-    vertical-align: top;
-&#125;
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-.dataframe thead th &#123;
-    text-align: right;
-&#125;
-</code></pre>
-<p></style></p>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -742,7 +710,13 @@ TrainOutput(global_step=2688, training_loss=0.09796489925966376, metrics=&#123;&
               title="Convert this dataframe to an interactive table."
               style="display:none;">
 
-<p>  &lt;svg xmlns=”<a target="_blank" rel="noopener" href="http://www.w3.org/2000/svg&quot;">http://www.w3.org/2000/svg&quot;</a> height=”24px”viewBox=”0 0 24 24”<br>       width=”24px”&gt;<br>    <path d="M0 0h24v24H0V0z" fill="none"/><br>    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/><br>  </svg><br>      </button></p>
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
   <style>
     .colab-df-container {
       display:flex;
@@ -781,32 +755,31 @@ TrainOutput(global_step=2688, training_loss=0.09796489925966376, metrics=&#123;&
     }
   </style>
 
-<pre><code>  &lt;script&gt;
-    const buttonEl =
-      document.querySelector(&#39;#df-27a50086-ffda-40dc-a8a2-68519d2488e3 button.colab-df-convert&#39;);
-    buttonEl.style.display =
-      google.colab.kernel.accessAllowed ? &#39;block&#39; : &#39;none&#39;;
+      <script>
+        const buttonEl =
+          document.querySelector('#df-27a50086-ffda-40dc-a8a2-68519d2488e3 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
 
-    async function convertToInteractive(key) &#123;
-      const element = document.querySelector(&#39;#df-27a50086-ffda-40dc-a8a2-68519d2488e3&#39;);
-      const dataTable =
-        await google.colab.kernel.invokeFunction(&#39;convertToInteractive&#39;,
-                                                 [key], &#123;&#125;);
-      if (!dataTable) return;
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-27a50086-ffda-40dc-a8a2-68519d2488e3');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
 
-      const docLinkHtml = &#39;Like what you see? Visit the &#39; +
-        &#39;&lt;a target=&quot;_blank&quot; href=https://colab.research.google.com/notebooks/data_table.ipynb&gt;data table notebook&lt;/a&gt;&#39;
-        + &#39; to learn more about interactive tables.&#39;;
-      element.innerHTML = &#39;&#39;;
-      dataTable[&#39;output_type&#39;] = &#39;display_data&#39;;
-      await google.colab.output.renderOutput(dataTable, element);
-      const docLink = document.createElement(&#39;div&#39;);
-      docLink.innerHTML = docLinkHtml;
-      element.appendChild(docLink);
-    &#125;
-  &lt;/script&gt;
-&lt;/div&gt;
-</code></pre>
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
   </div>
 
 
@@ -814,7 +787,6 @@ TrainOutput(global_step=2688, training_loss=0.09796489925966376, metrics=&#123;&
 
 
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#测试预测的结果，这部分不需要运行。</span></span><br><span class="line"><span class="comment">#预测出来的结果二维数组，不能直接转为Series。如果直接装进DataFrame，每个词是一列，一共52列</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df=pd.Series(a)</span><br><span class="line"><span class="built_in">print</span>(pred)</span><br><span class="line"><span class="built_in">print</span>(df)</span><br></pre></td></tr></table></figure>
-
 <pre><code>[[ 0  8  0 ...  0  0  0]
  [ 0  5 15 ... 15 15  0]
  [ 0  0  0 ...  0 14  0]
@@ -834,9 +806,30 @@ TrainOutput(global_step=2688, training_loss=0.09796489925966376, metrics=&#123;&
 1343    [2, 23, 46, 46, 46, 40, 46, 40, 40, 10, 46, 24...
 1344    [32, 10, 41, 33, 41, 34, 41, 41, 1, 41, 33, 13...
 Length: 1345, dtype: object
-</code></pre>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#用trainer预测结果并保存</span></span><br><span class="line">predictions,metrics,Loss=trainer.predict(tokenized_test_ds,metric_key_prefix=<span class="string">&quot;test&quot;</span>)</span><br><span class="line">pred=np.argmax(predictions,axis=<span class="number">1</span>)</span><br><span class="line">preds=preds=[x <span class="keyword">for</span> x <span class="keyword">in</span> pred]</span><br><span class="line">pd.DataFrame(&#123;<span class="string">&#x27;label&#x27;</span>:preds&#125;).to_csv(<span class="string">&#x27;./bert_softmax/submit1220.csv&#x27;</span>,index=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">zhxnlp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zhxnlp.github.io/2021/11/10/CLUENER 细粒度命名实体识别/bert_softmax/">https://zhxnlp.github.io/2021/11/10/CLUENER 细粒度命名实体识别/bert_softmax/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zhxnlp.github.io">zhxnlpのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NER/">NER</a><a class="post-meta__tags" href="/tags/nlp/">nlp</a><a class="post-meta__tags" href="/tags/CRF/">CRF</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/11/15/CLUENER%20%E7%BB%86%E7%B2%92%E5%BA%A6%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/bert_lstm_crf/"><i class="fa fa-chevron-left">  </i><span>命名实体识别——bert_lstm_crf模型</span></a></div><div class="next-post pull-right"><a href="/2021/11/09/CLUENER%20%E7%BB%86%E7%B2%92%E5%BA%A6%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/README/"><span>CLUENER 命名实体识别任务介绍</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By zhxnlp</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#用trainer预测结果并保存</span></span><br><span class="line">predictions,metrics,Loss=trainer.predict(tokenized_test_ds,metric_key_prefix=<span class="string">&quot;test&quot;</span>)</span><br><span class="line">pred=np.argmax(predictions,axis=<span class="number">1</span>)</span><br><span class="line">preds=preds=[x <span class="keyword">for</span> x <span class="keyword">in</span> pred]</span><br><span class="line">pd.DataFrame(&#123;<span class="string">&#x27;label&#x27;</span>:preds&#125;).to_csv(<span class="string">&#x27;./bert_softmax/submit1220.csv&#x27;</span>,index=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">zhxnlp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://zhxnlp.github.io/2021/11/10/CLUENER 细粒度命名实体识别/bert_softmax/">https://zhxnlp.github.io/2021/11/10/CLUENER 细粒度命名实体识别/bert_softmax/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/nlp/">nlp</a><a class="post-meta__tags" href="/tags/NER/">NER</a><a class="post-meta__tags" href="/tags/CRF/">CRF</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/11/15/CLUENER%20%E7%BB%86%E7%B2%92%E5%BA%A6%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/bert_lstm_crf/"><i class="fa fa-chevron-left">  </i><span>命名实体识别——bert_lstm_crf模型</span></a></div><div class="next-post pull-right"><a href="/2021/11/09/CLUENER%20%E7%BB%86%E7%B2%92%E5%BA%A6%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/README/"><span>CLUENER 命名实体识别任务介绍</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By zhxnlp</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
   $('#top-container').addClass('is-mobile')
