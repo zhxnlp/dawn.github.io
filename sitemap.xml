@@ -496,13 +496,6 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/NER/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/tags/nlp/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -510,14 +503,21 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/CRF/</loc>
+    <loc>https://zhxnlp.github.io/tags/transformer/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/transformer/</loc>
+    <loc>https://zhxnlp.github.io/tags/NER/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/CRF/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -615,27 +615,6 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/github/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/hexo/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/%E8%BD%AF%E4%BB%B6/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -664,6 +643,13 @@
   </url>
   
   <url>
+    <loc>https://zhxnlp.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhxnlp.github.io/tags/Word2vec/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -686,13 +672,6 @@
   
   <url>
     <loc>https://zhxnlp.github.io/tags/%E8%81%9A%E7%B1%BB/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -733,6 +712,27 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://zhxnlp.github.io/tags/github/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/hexo/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/%E8%BD%AF%E4%BB%B6/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -750,14 +750,14 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/categories/CLUENER-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/</loc>
+    <loc>https://zhxnlp.github.io/categories/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/categories/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers/</loc>
+    <loc>https://zhxnlp.github.io/categories/CLUENER-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -778,13 +778,6 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/categories/%E5%A4%A9%E6%B1%A0-%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -793,6 +786,13 @@
   
   <url>
     <loc>https://zhxnlp.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
