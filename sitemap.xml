@@ -531,27 +531,6 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/Boosting/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/Adaboost/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/GBDT/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/tags/bagging/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -573,14 +552,21 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/Bagging/</loc>
+    <loc>https://zhxnlp.github.io/tags/Boosting/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/Stacking/</loc>
+    <loc>https://zhxnlp.github.io/tags/Adaboost/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/GBDT/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -595,6 +581,20 @@
   
   <url>
     <loc>https://zhxnlp.github.io/tags/LightGBM/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/Bagging/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/Stacking/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -643,6 +643,20 @@
   </url>
   
   <url>
+    <loc>https://zhxnlp.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/Word2vec/</loc>
+    <lastmod>2022-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhxnlp.github.io/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -658,20 +672,6 @@
   
   <url>
     <loc>https://zhxnlp.github.io/tags/%E8%81%9A%E7%B1%BB/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
-    <lastmod>2022-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/Word2vec/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -699,14 +699,14 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/LSTM/</loc>
+    <loc>https://zhxnlp.github.io/tags/CNN/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/CNN/</loc>
+    <loc>https://zhxnlp.github.io/tags/LSTM/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -720,14 +720,14 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/%E8%BD%AF%E4%BB%B6/</loc>
+    <loc>https://zhxnlp.github.io/tags/hexo/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/hexo/</loc>
+    <loc>https://zhxnlp.github.io/tags/%E8%BD%AF%E4%BB%B6/</loc>
     <lastmod>2022-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
