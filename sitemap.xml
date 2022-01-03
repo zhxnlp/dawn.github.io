@@ -573,20 +573,6 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/XGBoost/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/LightGBM/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/tags/Bagging/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -595,6 +581,20 @@
   
   <url>
     <loc>https://zhxnlp.github.io/tags/Stacking/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/XGBoost/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/LightGBM/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -622,13 +622,6 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/fasttext/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/tags/TF-IDF/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -643,7 +636,21 @@
   </url>
   
   <url>
+    <loc>https://zhxnlp.github.io/tags/fasttext/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhxnlp.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/Word2vec/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -692,7 +699,7 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/Word2vec/</loc>
+    <loc>https://zhxnlp.github.io/tags/CNN/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -700,13 +707,6 @@
   
   <url>
     <loc>https://zhxnlp.github.io/tags/LSTM/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/CNN/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
