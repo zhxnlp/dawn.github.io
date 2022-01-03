@@ -461,27 +461,6 @@
 
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/tags/Pytorch/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -510,6 +489,27 @@
   </url>
   
   <url>
+    <loc>https://zhxnlp.github.io/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhxnlp.github.io/tags/NER/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -525,41 +525,6 @@
   
   <url>
     <loc>https://zhxnlp.github.io/tags/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/Boosting/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/Adaboost/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/GBDT/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/Bagging/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/Stacking/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -587,6 +552,13 @@
   </url>
   
   <url>
+    <loc>https://zhxnlp.github.io/tags/Boosting/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhxnlp.github.io/tags/XGBoost/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -601,6 +573,20 @@
   </url>
   
   <url>
+    <loc>https://zhxnlp.github.io/tags/Adaboost/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/GBDT/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhxnlp.github.io/tags/transformers/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -609,6 +595,20 @@
   
   <url>
     <loc>https://zhxnlp.github.io/tags/Hugging-Face/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/Bagging/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/tags/Stacking/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -643,14 +643,14 @@
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/Word2vec/</loc>
+    <loc>https://zhxnlp.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhxnlp.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
+    <loc>https://zhxnlp.github.io/tags/Word2vec/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -706,6 +706,13 @@
   </url>
   
   <url>
+    <loc>https://zhxnlp.github.io/tags/CNN/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhxnlp.github.io/tags/github/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -714,13 +721,6 @@
   
   <url>
     <loc>https://zhxnlp.github.io/tags/hexo/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhxnlp.github.io/tags/CNN/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -736,13 +736,6 @@
 
   
   <url>
-    <loc>https://zhxnlp.github.io/categories/12%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2022-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhxnlp.github.io/categories/10%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9APytorch/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -751,6 +744,13 @@
   
   <url>
     <loc>https://zhxnlp.github.io/categories/8%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9Anlp%E4%B9%8Btransformers/</loc>
+    <lastmod>2022-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhxnlp.github.io/categories/12%E6%9C%88%E7%BB%84%E9%98%9F%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2022-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
