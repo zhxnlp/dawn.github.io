@@ -1,0 +1,748 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="leetcode练习五：哈希表"><meta name="keywords" content="leetcode,Stack"><meta name="author" content="zhxnlp"><meta name="copyright" content="zhxnlp"><title>leetcode练习五：哈希表 | zhxnlpのBlog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"JU6VFRRZVF","apiKey":"ca17f8e20c4dc91dfe1214d03173a8be","indexName":"github-io","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.0.0'
+} </script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="zhxnlpのBlog" type="application/atom+xml">
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="toc-text">一、哈希表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%93%88%E5%B8%8C%E8%A1%A8%E7%AE%80%E4%BB%8B"><span class="toc-text">1.1 哈希表简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0"><span class="toc-text">1.2 哈希函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%9D%80%E6%B3%95"><span class="toc-text">1.2.1 直接定址法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-%E9%99%A4%E7%95%99%E4%BD%99%E6%95%B0%E6%B3%95"><span class="toc-text">1.2.2 除留余数法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-%E5%B9%B3%E6%96%B9%E5%8F%96%E4%B8%AD%E6%B3%95"><span class="toc-text">1.2.3 平方取中法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%9F%BA%E6%95%B0%E8%BD%AC%E6%8D%A2%E6%B3%95"><span class="toc-text">2.4 基数转换法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81"><span class="toc-text">1.3 哈希冲突</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-%E5%BC%80%E6%94%BE%E5%9C%B0%E5%9D%80%E6%B3%95"><span class="toc-text">1.3.1 开放地址法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-%E9%93%BE%E5%9C%B0%E5%9D%80%E6%B3%95"><span class="toc-text">1.3.2 链地址法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E5%93%88%E5%B8%8C%E8%A1%A8%E6%80%BB%E7%BB%93"><span class="toc-text">1.4 哈希表总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8%E5%BA%94%E7%94%A8"><span class="toc-text">二、哈希表应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%93%88%E5%B8%8C%E8%A1%A8%E9%A2%98%E7%9B%AE%E5%88%97%E8%A1%A8"><span class="toc-text">2.1 哈希表题目列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88-%E3%80%81%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84"><span class="toc-text">2.2 设计哈希集合 、设计哈希映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0I%E3%80%81II%E3%80%81III"><span class="toc-text">2.3 存在重复元素I、II、III</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0"><span class="toc-text">2.3.1 存在重复元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-II"><span class="toc-text">2.3.2 存在重复元素 II</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-3-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-III"><span class="toc-text">2.3.3 存在重复元素 III</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97"><span class="toc-text">2.4 只出现一次的数字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E6%9C%89%E6%95%88%E7%9A%84%E6%95%B0%E7%8B%AC"><span class="toc-text">2.5 有效的数独</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%E3%80%81%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C%E3%80%81%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C%E3%80%81%E5%9B%9B%E6%95%B0%E7%9B%B8%E5%8A%A0"><span class="toc-text">2.6 两数之和、三数之和、四数之和、四数相加</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="toc-text">2.6.1 两数之和</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-2-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="toc-text">2.6.2 三数之和</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-3-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="toc-text">2.6.3 四数之和</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-4-%E5%9B%9B%E6%95%B0%E7%9B%B8%E5%8A%A0"><span class="toc-text">2.6.4 四数相加</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0"><span class="toc-text">2.7 缺失的第一个正数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97"><span class="toc-text">2.8 最长连续序列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-9-%E6%A0%B9%E6%8D%AE%E5%AD%97%E7%AC%A6%E5%87%BA%E7%8E%B0%E9%A2%91%E7%8E%87%E6%8E%92%E5%BA%8F"><span class="toc-text">2.9 根据字符出现频率排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-10-%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%E5%88%86%E7%BB%84"><span class="toc-text">2.10 字母异位词分组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-11-%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%B4%A2%E5%BC%95%E6%80%BB%E5%92%8C"><span class="toc-text">2.11 两个列表的最小索引总和</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-12-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%94%AF%E4%B8%80%E5%AD%97%E7%AC%A6"><span class="toc-text">2.12 字符串中的第一个唯一字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-13-%E7%9B%B4%E7%BA%BF%E4%B8%8A%E6%9C%80%E5%A4%9A%E7%9A%84%E7%82%B9%E6%95%B0"><span class="toc-text">2.13 直线上最多的点数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-14-%E5%AD%90%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE%E8%AE%A1%E6%95%B0"><span class="toc-text">2.14 子域名访问计数</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-blog.csdnimg.cn/92202ef591744a55a05a1fc7e108f4d6.png"></div><div class="author-info__name text-center">zhxnlp</div><div class="author-info__description text-center">nlp</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/zhxnlp">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">58</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">50</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">10</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://relph1119.github.io/my-team-learning">relph</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://ifwind.github.io/">ifwind</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://chuxiaoyu.cn/nlp-transformer-summary/">chuxiaoyu</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">zhxnlpのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">leetcode练习五：哈希表</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-03-12</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Data-Structure-and-Algorithms/">Data Structure and Algorithms</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">12.6k</span><span class="post-meta__separator">|</span><span>阅读时长: 48 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>@[toc]</p>
+<blockquote>
+<p>参考</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://algo.itcharge.cn/05.Hash-Table/01.Hash-Table/">《算法通关手册》-哈希表篇</a></li>
+<li>【博文】<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/64233">散列表（上）- 数据结构与算法之美 - 极客时间</a><h2 id="一、哈希表"><a href="#一、哈希表" class="headerlink" title="一、哈希表"></a>一、哈希表</h2><h3 id="1-1-哈希表简介"><a href="#1-1-哈希表简介" class="headerlink" title="1.1 哈希表简介"></a>1.1 哈希表简介</h3></li>
+</ul>
+</blockquote>
+<p>&#8195;&#8195; <strong>哈希表（Hash Table）</strong>：也叫做散列表。是根据关键码值（Key Value）直接进行访问的数据结构。<br>&#8195;&#8195; 哈希表通过「键 <code>key</code> 」和「映射函数 <code>Hash(key)</code> 」计算出对应的「值 <code>value</code>」，把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做「哈希函数（散列函数）」，存放记录的数组叫做「哈希表（散列表）」。</p>
+<p>哈希表的关键思想是使用哈希函数，将键 <code>key</code> 映射到对应表的某个区块中。我们可以将算法思想分为两个部分：</p>
+<ul>
+<li><strong>向哈希表中插入一个关键码值</strong>：哈希函数决定该关键字的对应值应该存放到表中的哪个区块，并将对应值存放到该区块中。</li>
+<li><strong>在哈希表中搜索一个关键码值</strong>：使用相同的哈希函数从哈希表中查找对应的区块，并在特定的区块搜索该关键字对应的值。</li>
+</ul>
+<p>哈希表的原理示例图如下所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/130e45ed6844703a636560c67a3bb15a.png" alt=""><br><span id="more"></span><br>&#8195;&#8195;在上图例子中，我们使用 <code>value = Hash(key) =  key // 1000</code> 作为哈希函数。<code>//</code> 符号代表整除。我们以这个例子来说明一下哈希表的插入和查找策略。</p>
+<ul>
+<li><strong>向哈希表中插入一个关键码值</strong>：通过哈希函数解析关键字，并将对应值存放到该区块中。<ul>
+<li>比如：<code>0138</code> 通过哈希函数 <code>Hash(key) = 0138 // 100 = 0</code>，得出应将 <code>0138</code> 分配到<code>0</code> 所在的区块中。</li>
+</ul>
+</li>
+<li><strong>在哈希表中搜索一个关键码值</strong>：通过哈希函数解析关键字，并在特定的区块搜索该关键字对应的值。<ul>
+<li>比如：查找 <code>2321</code>，通过哈希函数，得出 <code>2321</code> 应该在 <code>2</code> 所对应的区块中。然后我们从 <code>2</code> 对应的区块中继续搜索，并在 <code>2</code> 对应的区块中成功找到了 <code>2321</code>。</li>
+<li>比如：查找 <code>3214</code>，通过哈希函数，得出 <code>3214</code> 应该在 <code>3</code> 所对应的区块中。然后我们从 <code>3</code> 对应的区块中继续搜索，但并没有找到对应值，则说明 <code>3214</code> 不在哈希表中。</li>
+</ul>
+</li>
+</ul>
+<p>哈希表在生活中的应用也很广泛，其中一个常见例子就是「查字典」。</p>
+<p>比如为了查找 <code>赞</code> 这个字的具体意思，我们在字典中根据这个字的拼音索引 <code>zan</code>，查找到对应的页码为 <code>599</code>。然后我们就可以翻到字典的第 <code>599</code> 页查看 <code>赞</code> 字相关的解释了。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/a1d771327baf674b4683336facef993b.png" alt=""></p>
+<p>在这个例子中：</p>
+<ul>
+<li>存放所有拼音和对应地址的表可以看做是 <strong>「哈希表」</strong>。</li>
+<li><code>赞</code> 字的拼音索引 <code>zan</code> 可以看做是哈希表中的 <strong>「关键字 <code>key</code>」</strong>。</li>
+<li>根据拼音索引 <code>zan</code> 来确定字对应页码的过程可以看做是哈希表中的 <strong>「哈希函数 <code>Hash(key)</code>」</strong>。</li>
+<li>查找到的对应页码 <code>599</code> 可以看做是哈希表中的 <strong>「哈希地址 <code>value</code>」</strong>。</li>
+</ul>
+<h3 id="1-2-哈希函数"><a href="#1-2-哈希函数" class="headerlink" title="1.2 哈希函数"></a>1.2 哈希函数</h3><blockquote>
+<p><strong>哈希函数（Hash Function）</strong>：将哈希表中元素的关键键值映射为元素存储位置的函数。</p>
+</blockquote>
+<p>哈希函数是哈希表中最重要的部分。一般来说，哈希函数会满足以下几个条件：</p>
+<ul>
+<li>哈希函数应该易于计算，并且尽量使计算出来的索引值均匀分布。</li>
+<li>哈希函数计算得到的哈希值是一个固定长度的输出值。</li>
+<li>如果 <code>Hash(key1)</code> 不等于 <code>Hash(key2)</code>，那么 <code>key1</code>、<code>key2</code> 一定不相等。</li>
+<li>如果 <code>Hash(key1)</code> 等于 <code>Hash(key2)</code>，那么 <code>key1</code>、<code>key2</code> 可能相等，也可能不相等（会发生哈希碰撞）。</li>
+</ul>
+<p>&#8195;&#8195;在哈希表的实际应用中，关键字的类型除了数字类，还有可能是字符串类型、浮点数类型、大整数类型，甚至还有可能是几种类型的组合。一般我们会将各种类型的关键字先转换为整数类型，再通过哈希函数，将其映射到哈希表中。</p>
+<p>&#8195;&#8195;而关于整数类型的关键字，通常用到的哈希函数方法有：直接定址法、除留余数法、平方取中法、基数转换法、数字分析法、折叠法、随机数法、乘积法、点积法等。下面我们介绍几个常用的哈希函数方法。</p>
+<h4 id="1-2-1-直接定址法"><a href="#1-2-1-直接定址法" class="headerlink" title="1.2.1 直接定址法"></a>1.2.1 直接定址法</h4><ul>
+<li><strong>直接定址法</strong>：取关键字本身 / 关键字的某个线性函数值 作为哈希地址。即：<code>Hash(key) = key</code> 或者 <code>Hash(key) = a * key + b</code>，其中 <code>a</code> 和 <code>b</code> 为常数。</li>
+</ul>
+<p>&#8195;&#8195;这种方法计算最简单，且不会产生冲突。适合于关键字分布基本连续的情况，如果关键字分布不连续，空位较多，则会造成存储空间的浪费。</p>
+<p>&#8195;&#8195;举一个例子，假设我们有一个记录了从 <code>1</code> 岁到 <code>100</code> 岁的人口数字统计表。其中年龄为关键字，哈希函数取关键字自身，如下表所示。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">年龄</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">…</th>
+<th style="text-align:center">25</th>
+<th style="text-align:center">26</th>
+<th style="text-align:center">27</th>
+<th style="text-align:center">…</th>
+<th style="text-align:center">100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">人数</td>
+<td style="text-align:center">3000</td>
+<td style="text-align:center">2000</td>
+<td style="text-align:center">5000</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">1050</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">…</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>比如我们想要查询 <code>25</code> 岁的人有多少，则只要查询表中第 <code>25</code> 项即可。</p>
+<h4 id="1-2-2-除留余数法"><a href="#1-2-2-除留余数法" class="headerlink" title="1.2.2 除留余数法"></a>1.2.2 除留余数法</h4><ul>
+<li><strong>除留余数法</strong>：假设哈希表的表长为 <code>m</code>，取一个不大于 <code>m</code> 但接近或等于 <code>m</code> 的质数 <code>p</code>，利用取模运算，将关键字转换为哈希地址。即：<code>Hash(key) = key % p</code>，其中 <code>p</code> 为不大于 <code>m</code> 的质数。</li>
+</ul>
+<p>&#8195;&#8195;这也是一种简单且常用的哈希函数方法。其关键点在于 <code>p</code> 的选择。根据经验而言，一般 <code>p</code> 取素数或者 <code>m</code>，这样可以尽可能的减少冲突。</p>
+<p>&#8195;&#8195;比如我们需要将 <code>7</code> 个数 <code>[432, 5, 128, 193, 92, 111, 88]</code> 存储在 <code>11</code> 个区块中（长度为 <code>11</code> 的数组），通过除留余数法将这 <code>7</code> 个数应分别位于如下地址：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">索引</th>
+<th style="text-align:center">00</th>
+<th style="text-align:center">01</th>
+<th style="text-align:center">02</th>
+<th style="text-align:center">03</th>
+<th style="text-align:center">04</th>
+<th style="text-align:center">05</th>
+<th style="text-align:center">06</th>
+<th style="text-align:center">07</th>
+<th style="text-align:center">08</th>
+<th style="text-align:center">09</th>
+<th style="text-align:center">10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数据</td>
+<td style="text-align:center">88</td>
+<td style="text-align:center">111</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">432</td>
+<td style="text-align:center">92</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">193</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">128</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="1-2-3-平方取中法"><a href="#1-2-3-平方取中法" class="headerlink" title="1.2.3 平方取中法"></a>1.2.3 平方取中法</h4><ul>
+<li><strong>平方取中法</strong>：先通过求关键字平方值的方式扩大相近数之间的差别，然后根据表长度取关键字平方值的中间几位数为哈希地址。<ul>
+<li>比如：<code>Hash(key) = (key * key) // 100 % 1000</code>，先计算平方，去除末尾的 2 位数，再取中间 3 位数作为哈希地址。</li>
+</ul>
+</li>
+</ul>
+<p>&#8195;&#8195;这种方法因为关键字平方值的中间几位数和原关键字的每一位数都相关，所以产生的哈希地址也比较均匀，有利于减少冲突的发生。</p>
+<h3 id="2-4-基数转换法"><a href="#2-4-基数转换法" class="headerlink" title="2.4 基数转换法"></a>2.4 基数转换法</h3><ul>
+<li><strong>基数转换法</strong>：将关键字看成另一种进制的数再转换成原来进制的数，然后选其中几位作为哈希地址。<ul>
+<li>比如，将关键字看做是 <code>13</code> 进制的数，再将其转变为 <code>10</code> 进制的数，将其作为哈希地址。</li>
+</ul>
+</li>
+</ul>
+<p>以 <code>343246</code> 为例，哈希地址计算方式如下：</p>
+<p>$343246<em>{13} = 3 \times 13^5 + 4 \times 13^4 + 3 \times 13^3 + 2 \times 13^2 + 4 \times 13^1 + 6 \times 13^0 = 1235110</em>{10}$</p>
+<h3 id="1-3-哈希冲突"><a href="#1-3-哈希冲突" class="headerlink" title="1.3 哈希冲突"></a>1.3 哈希冲突</h3><blockquote>
+<p><strong>哈希冲突（Hash Collision）</strong>：不同的关键字通过同一个哈希函数可能得到同一哈希地址，即 <code>key1 ≠ key2</code>，而 <code>Hash(key1) = Hash(key2)</code>，这种现象称为哈希冲突。</p>
+</blockquote>
+<p>&#8195;&#8195;理想状态下，我们的哈希函数是完美的一对一映射，即一个关键字（key）对应一个值（value），不需要处理冲突。但是一般情况下，不同的关键字 <code>key</code> 可能对应了同一个值 <code>value</code>，这就发生了哈希冲突。</p>
+<p>&#8195;&#8195;设计再好的哈希函数也无法完全避免哈希冲突。所以就需要通过一定的方法来解决哈希冲突问题。常用的哈希冲突解决方法主要是两类：<strong>「开放地址法（Open Addressing）」</strong> 和 <strong>「链地址法（Chaining）」</strong>。</p>
+<h4 id="1-3-1-开放地址法"><a href="#1-3-1-开放地址法" class="headerlink" title="1.3.1 开放地址法"></a>1.3.1 开放地址法</h4><blockquote>
+<p><strong>开放地址法（Open Addressing）</strong>：指的是将哈希表中的「空地址」向处理冲突开放。当哈希表未满时，处理冲突时需要尝试另外的单元，直到找到空的单元为止。</p>
+</blockquote>
+<p>&#8195;&#8195;当发生冲突时，开放地址法按照下面的方法求得后继哈希地址：<code>H(i) = (Hash(key) + F(i)) % m</code>，<code>i = 1, 2, 3, ..., n (n ≤ m - 1)</code>。</p>
+<ul>
+<li><code>H(i)</code> 是在处理冲突中得到的地址序列。即在第 1 次冲突（<code>i = 1</code>）时经过处理得到一个新地址 <code>H(1)</code>，如果在 <code>H(1)</code> 处仍然发生冲突（<code>i = 2</code>）时经过处理时得到另一个新地址 <code>H(2)</code> …… 如此下去，直到求得的 <code>H(n)</code> 不再发生冲突。</li>
+<li><code>Hash(key)</code> 是哈希函数，<code>m</code> 是哈希表表长，对哈希表长取余的目的是为了使得到的下一个地址一定落在哈希表中。</li>
+<li><code>F(i)</code> 是冲突解决方法，取法可以有以下几种：<ul>
+<li>线性探测法：$F(i) = 1, 2, 3, …, m - 1$。</li>
+<li>二次探测法：$F(i) = 1^2, -1^2, 2^2, -2^2, …, \pm n^2(n \le m / 2)$。</li>
+<li>伪随机数序列：$F(i) = 伪随机数序列$。</li>
+</ul>
+</li>
+</ul>
+<p>&#8195;&#8195;举个例子说说明一下如何用以上三种冲突解决方法处理冲突，并得到新地址 <code>H(i)</code>。例如，在长度为 <code>11</code> 的哈希表中已经填有关键字分别为 <code>28</code>、<code>49</code>、<code>18</code> 的记录（哈希函数为 <code>Hash(key) = key % 11</code>）。现在将插入关键字为 <code>38</code> 的新纪录。根据哈希函数得到的哈希地址为 <code>5</code>，产生冲突。接下来分别使用这三种冲突解决方法处理冲突。</p>
+<ul>
+<li>使用线性探测法：得到下一个地址 <code>H(1) = (5 + 1) % 11 = 6</code>，仍然冲突；继续求出 <code>H(2) = (5 + 2) % 11 = 7</code>，仍然冲突；继续求出 <code>H(3) = (5 + 3) % 11 = 8</code>，<code>8</code> 对应的地址为空，处理冲突过程结束，记录填入哈希表中序号为 <code>8</code> 的位置。</li>
+<li>使用二次探测法：得到下一个地址 <code>H(1) = (5 + 1*1) % 11 = 6</code>，仍然冲突；继续求出 <code>H(2) = (5 - 1*1) % 11 = 4</code>，<code>4</code> 对应的地址为空，处理冲突过程结束，记录填入哈希表中序号为 <code>4</code> 的位置。</li>
+<li>使用伪随机数序列：假设伪随机数为 <code>9</code>，则得到下一个地址 <code>H(1) = (9 + 5) % 11 = 3</code>，<code>3</code> 对应的地址为空，处理冲突过程结束，记录填入哈希表中序号为 <code>3</code> 的位置。</li>
+</ul>
+<p>使用这三种方法处理冲突的结果如下图所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/85955751ce269dfc86480478bf93ad9e.png" alt=""></p>
+<h4 id="1-3-2-链地址法"><a href="#1-3-2-链地址法" class="headerlink" title="1.3.2 链地址法"></a>1.3.2 链地址法</h4><blockquote>
+<p><strong>链地址法（Chaining）</strong>：将具有相同哈希地址的元素（或记录）存储在同一个线性链表中。</p>
+</blockquote>
+<p>链地址法是一种更加常用的哈希冲突解决方法。相比于开放地址法，链地址法更加简单。</p>
+<p>我们假设哈希函数产生的哈希地址区间为 <code>[0, m - 1]</code>，哈希表的表长为 <code>m</code>。则可以将哈希表定义为一个有 <code>m</code> 个头节点组成的链表指针数组 <code>T</code>。</p>
+<ul>
+<li><p>这样在插入关键字的时候，我们只需要通过哈希函数 <code>Hash(key)</code> 计算出对应的哈希地址 <code>i</code>，然后将其以链表节点的形式插入到以 <code>T[i]</code> 为头节点的单链表中。在链表中插入位置可以在表头或表尾，也可以在中间。如果每次插入位置为表头，则插入操作的时间复杂度为 $O(1)$。</p>
+</li>
+<li><p>而在在查询关键字的时候，我们只需要通过哈希函数 <code>Hash(key)</code> 计算出对应的哈希地址 <code>i</code>，然后将对应位置上的链表整个扫描一遍，比较链表中每个链节点的键值与查询的键值是否一致。查询操作的时间复杂度跟链表的长度 <code>k</code> 成正比，也就是 $O(k)$。对于哈希地址比较均匀的哈希函数来说，理论上讲，<code>k = n // m</code>，其中 <code>n</code> 为关键字的个数，<code>m</code> 为哈希表的表长。</p>
+</li>
+</ul>
+<p>&#8195;&#8195;举个例子来说明如何使用链地址法处理冲突。假设现在要存入的关键字集合 <code>keys = [88, 60, 65, 69, 90, 39, 07, 06, 14, 44, 52, 70, 21, 45, 19, 32]</code>。再假定哈希函数为 <code>Hash(key) = key % 13</code>，哈希表的表长 <code>m = 13</code>，哈希地址范围为 <code>[0, m - 1]</code>。将这些关键字使用链地址法处理冲突，并按顺序加入哈希表中（图示为插入链表表尾位置），最终得到的哈希表如下图所示。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/341f1856e9d4ee354ada2888f9a1f9ce.png" alt=""></p>
+<p>&#8195;&#8195;相对于开放地址法，采用链地址法处理冲突要多占用一些存储空间（主要是链节点占用空间）。但它可以<strong>减少在进行插入和查找具有相同哈希地址的关键字的操作过程中的平均查找长度</strong>。这是因为在链地址法中，待比较的关键字都是具有相同哈希地址的元素，而在开放地址法中，待比较的关键字不仅包含具有相同哈希地址的元素，而且还包含哈希地址不相同的元素。</p>
+<h3 id="1-4-哈希表总结"><a href="#1-4-哈希表总结" class="headerlink" title="1.4 哈希表总结"></a>1.4 哈希表总结</h3><p>&#8195;&#8195;本文讲解了一些比较基础、偏理论的哈希表知识。包含哈希表的定义，哈希函数、哈希冲突以及哈希冲突的解决方法。</p>
+<ul>
+<li><strong>哈希表（Hash Table）</strong>：通过键 <code>key</code> 和一个映射函数 <code>Hash(key)</code> 计算出对应的值 <code>value</code>，把关键码值映射到表中一个位置来访问记录，以加快查找的速度。</li>
+<li><strong>哈希函数（Hash Function）</strong>：将哈希表中元素的关键键值映射为元素存储位置的函数。</li>
+<li><strong>哈希冲突（Hash Collision）</strong>：不同的关键字通过同一个哈希函数可能得到同一哈希地址。</li>
+</ul>
+<p>哈希表的两个核心问题是：<strong>「哈希函数的构建」</strong> 和 <strong>「哈希冲突的解决方法」</strong>。</p>
+<ul>
+<li>常用的哈希函数方法有：直接定址法、除留余数法、平方取中法、基数转换法、数字分析法、折叠法、随机数法、乘积法、点积法等。</li>
+<li>常用的哈希冲突的解决方法有两种：开放地址法和链地址法。</li>
+</ul>
+<h2 id="二、哈希表应用"><a href="#二、哈希表应用" class="headerlink" title="二、哈希表应用"></a>二、哈希表应用</h2><h3 id="2-1-哈希表题目列表"><a href="#2-1-哈希表题目列表" class="headerlink" title="2.1 哈希表题目列表"></a>2.1 哈希表题目列表</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">题号</th>
+<th style="text-align:left">标题</th>
+<th style="text-align:left">题解</th>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0705</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/design-hashset/">设计哈希集合</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0705.%20%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88.md">Python</a></td>
+<td style="text-align:left">哈希表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0706</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/design-hashmap/">设计哈希映射</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0706.%20%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84.md">Python</a></td>
+<td style="text-align:left">哈希表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0217</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate/">存在重复元素</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0217.%20%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0.md">Python</a></td>
+<td style="text-align:left">数组、哈希表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0219</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate-ii/">存在重复元素 II</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0219.%20%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%20II.md">Python</a></td>
+<td style="text-align:left">数组、哈希表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0220</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate-iii/">存在重复元素 III</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0220.%20%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%20III.md">Python</a></td>
+<td style="text-align:left">排序、有序集合、哈希表</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">1941</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/check-if-all-characters-have-equal-number-of-occurrences/">检查是否所有字符出现次数相同</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/1941.%20%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E6%89%80%E6%9C%89%E5%AD%97%E7%AC%A6%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E7%9B%B8%E5%90%8C.md">Python</a></td>
+<td style="text-align:left">哈希表、字符串、计数</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0136</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/single-number/">只出现一次的数字</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0136.%20%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97.md">Python</a></td>
+<td style="text-align:left">位运算、数组</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0383</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/ransom-note">赎金信</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0383.%20%E8%B5%8E%E9%87%91%E4%BF%A1.md">Python</a></td>
+<td style="text-align:left">哈希表、字符串、计数</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0349</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/intersection-of-two-arrays/">两个数组的交集</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0349.%20%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86.md">Python</a></td>
+<td style="text-align:left">数组、哈希表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0350</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/intersection-of-two-arrays-ii/">两个数组的交集 II</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0350.%20%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86%20II.md">Python</a></td>
+<td style="text-align:left">数组、哈希表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0036</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-sudoku/">有效的数独</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0036.%20%E6%9C%89%E6%95%88%E7%9A%84%E6%95%B0%E7%8B%AC.md">Python</a></td>
+<td style="text-align:left">哈希表</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0001</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">两数之和</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0001.%20%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.md">Python</a></td>
+<td style="text-align:left">数组、哈希表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0015</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum/">三数之和</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0015.%20%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C.md">Python</a></td>
+<td style="text-align:left">数组、双指针</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0018</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/4sum/">四数之和</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0018.%20%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C.md">Python</a></td>
+<td style="text-align:left">数组、哈希表、双指针</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0454</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/4sum-ii/">四数相加 II</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0454.%20%E5%9B%9B%E6%95%B0%E7%9B%B8%E5%8A%A0%20II.md">Python</a></td>
+<td style="text-align:left">哈希表</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0041</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/first-missing-positive/">缺失的第一个正数</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0041.%20%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0.md">Python</a></td>
+<td style="text-align:left">数组、哈希表</td>
+<td style="text-align:left">困难</td>
+</tr>
+<tr>
+<td style="text-align:left">0128</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-consecutive-sequence/">最长连续序列</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0128.%20%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97.md">Python</a></td>
+<td style="text-align:left">并查集、数组、哈希表</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0202</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/happy-number/">快乐数</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0202.%20%E5%BF%AB%E4%B9%90%E6%95%B0.md">Python</a></td>
+<td style="text-align:left">哈希表、数学</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0242</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-anagram/">有效的字母异位词</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0242.%20%E6%9C%89%E6%95%88%E7%9A%84%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D.md">Python</a></td>
+<td style="text-align:left">字符串、哈希表、排序</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0205</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/isomorphic-strings/">同构字符串</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0205.%20%E5%90%8C%E6%9E%84%E5%AD%97%E7%AC%A6%E4%B8%B2.md">Python</a></td>
+<td style="text-align:left">哈希表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0442</td>
+<td style="text-align:left">数组中重复的数据</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">剑指 Offer 61</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/bu-ke-pai-zhong-de-shun-zi-lcof/">扑克牌中的顺子</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/%E5%89%91%E6%8C%87%20Offer%2061.%20%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90.md">Python</a></td>
+<td style="text-align:left">数组、排序</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0268</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/missing-number/">丢失的数字</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0268.%20%E4%B8%A2%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97.md">Python</a></td>
+<td style="text-align:left">位运算、数组、数学</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">剑指 Offer 03</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">数组中重复的数字</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/%E5%89%91%E6%8C%87%20Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97.md">Python</a></td>
+<td style="text-align:left">数组、哈希表、排序</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0451</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sort-characters-by-frequency/">根据字符出现频率排序</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0451.%20%E6%A0%B9%E6%8D%AE%E5%AD%97%E7%AC%A6%E5%87%BA%E7%8E%B0%E9%A2%91%E7%8E%87%E6%8E%92%E5%BA%8F.md">Python</a></td>
+<td style="text-align:left">哈希表、字符串、桶排序、计数、排序、堆（优先队列）</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0049</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/group-anagrams/">字母异位词分组</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0049.%20%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%E5%88%86%E7%BB%84.md">Python</a></td>
+<td style="text-align:left">字符串、哈希表</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0599</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-index-sum-of-two-lists/">两个列表的最小索引总和</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0599.%20%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%B4%A2%E5%BC%95%E6%80%BB%E5%92%8C.md">Python</a></td>
+<td style="text-align:left">哈希表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0387</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/first-unique-character-in-a-string/">字符串中的第一个唯一字符</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0387.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%94%AF%E4%B8%80%E5%AD%97%E7%AC%A6.md">Python</a></td>
+<td style="text-align:left">字符串、哈希表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0447</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-boomerangs/">回旋镖的数量</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0447.%20%E5%9B%9E%E6%97%8B%E9%95%96%E7%9A%84%E6%95%B0%E9%87%8F.md">Python</a></td>
+<td style="text-align:left">哈希表、数学</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0149</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/max-points-on-a-line/">直线上最多的点数</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0149.%20%E7%9B%B4%E7%BA%BF%E4%B8%8A%E6%9C%80%E5%A4%9A%E7%9A%84%E7%82%B9%E6%95%B0.md">Python</a></td>
+<td style="text-align:left">哈希表、数学</td>
+<td style="text-align:left">困难</td>
+</tr>
+<tr>
+<td style="text-align:left">0359</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/logger-rate-limiter/">日志速率限制器</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0359.%20%E6%97%A5%E5%BF%97%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6%E5%99%A8.md">Python</a></td>
+<td style="text-align:left">设计、哈希表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0811</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subdomain-visit-count/">子域名访问计数</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0811.%20%E5%AD%90%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE%E8%AE%A1%E6%95%B0.md">Python</a></td>
+<td style="text-align:left">数组、哈希表、字符串、计数</td>
+<td style="text-align:left">中等</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-2-设计哈希集合-、设计哈希映射"><a href="#2-2-设计哈希集合-、设计哈希映射" class="headerlink" title="2.2 设计哈希集合 、设计哈希映射"></a>2.2 设计哈希集合 、设计哈希映射</h3><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/design-hashset/">0705. 设计哈希集合</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/design-hashmap/">0706 设计哈希映射</a></li>
+</ul>
+</blockquote>
+<p>要求不使用内建的哈希表库，自行实现一个哈希集合（HashSet），满足以下操作：</p>
+<ul>
+<li>void add(key) 向哈希集合中插入值 key 。</li>
+<li>bool contains(key) 返回哈希集合中是否存在这个值 key 。</li>
+<li>void remove(key) 将给定值 key 从哈希集合中删除。如果哈希集合中没有这个值，什么也不做。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#输入：</span></span><br><span class="line">[<span class="string">&quot;MyHashSet&quot;</span>, <span class="string">&quot;add&quot;</span>, <span class="string">&quot;add&quot;</span>, <span class="string">&quot;contains&quot;</span>, <span class="string">&quot;contains&quot;</span>, <span class="string">&quot;add&quot;</span>, <span class="string">&quot;contains&quot;</span>, <span class="string">&quot;remove&quot;</span>, <span class="string">&quot;contains&quot;</span>]</span><br><span class="line">[[], [<span class="number">1</span>], [<span class="number">2</span>], [<span class="number">1</span>], [<span class="number">3</span>], [<span class="number">2</span>], [<span class="number">2</span>], [<span class="number">2</span>], [<span class="number">2</span>]]</span><br><span class="line"><span class="comment">#输出：</span></span><br><span class="line">[null, null, null, true, false, null, true, null, false]</span><br><span class="line"></span><br><span class="line"><span class="comment">#解释：</span></span><br><span class="line">MyHashSet myHashSet = new MyHashSet();</span><br><span class="line">myHashSet.add(<span class="number">1</span>);      // <span class="built_in">set</span> = [<span class="number">1</span>]</span><br><span class="line">myHashSet.add(<span class="number">2</span>);      // <span class="built_in">set</span> = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">myHashSet.contains(<span class="number">1</span>); // 返回 <span class="literal">True</span></span><br><span class="line">myHashSet.contains(<span class="number">3</span>); // 返回 <span class="literal">False</span> ，（未找到）</span><br><span class="line">myHashSet.add(<span class="number">2</span>);      // <span class="built_in">set</span> = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">myHashSet.contains(<span class="number">2</span>); // 返回 <span class="literal">True</span></span><br><span class="line">myHashSet.remove(<span class="number">2</span>);   // <span class="built_in">set</span> = [<span class="number">1</span>]</span><br><span class="line">myHashSet.contains(<span class="number">2</span>); // 返回 <span class="literal">False</span> ，（已移除）</span><br></pre></td></tr></table></figure>
+<p>思路：利用「数组+链表」的方式实现哈希集合<br>&#8195;&#8195;定义一个一维长度为 buckets 的二维数组 table。第一维度用于计算哈希函数，为 key 分桶。第二个维度用于寻找 key 存放的具体位置。第二维度的数组会根据 key 值动态增长，模拟真正的链表。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHashSet</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.buckets = <span class="number">1003</span></span><br><span class="line">        self.table = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(self.buckets)]</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hash</span>(<span class="params">self, key</span>):</span></span><br><span class="line">        <span class="keyword">return</span> key % self.buckets</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        hash_key = self.<span class="built_in">hash</span>(key)</span><br><span class="line">        <span class="keyword">if</span> key <span class="keyword">in</span> self.table[hash_key]:</span><br><span class="line">            <span class="keyword">return</span> self.table[hash_key].append(key)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        hash_key = self.<span class="built_in">hash</span>(key)</span><br><span class="line">        <span class="keyword">if</span> key <span class="keyword">not</span> <span class="keyword">in</span> self.table[hash_key]:</span><br><span class="line">            <span class="keyword">return</span> self.table[hash_key].remove(key)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">contains</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        hash_key = self.<span class="built_in">hash</span>(key)</span><br><span class="line">        <span class="keyword">return</span> key <span class="keyword">in</span> self.table[hash_key]</span><br></pre></td></tr></table></figure>
+<p>设计哈希映射和上一题其实是一样的，可以直接套用代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHashMap</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.buckets=<span class="number">1003</span> <span class="comment"># 使用质数</span></span><br><span class="line">        self.table=[[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(self.buckets)]</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span>(<span class="params">self, key: <span class="built_in">int</span>, value: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        hash_key,pos=self.<span class="built_in">hash</span>(key)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.table[hash_key]:</span><br><span class="line">                self.table[hash_key]=[-<span class="number">1</span>]*self.buckets</span><br><span class="line">        self.table[hash_key][pos]=value</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hash</span>(<span class="params">self,key</span>):</span></span><br><span class="line">        <span class="comment">#哈希函数，等同于将数字分为1000个桶</span></span><br><span class="line">        <span class="keyword">return</span> key%self.buckets,key//self.buckets</span><br><span class="line">     </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        hash_key,pos=self.<span class="built_in">hash</span>(key)</span><br><span class="line">        <span class="keyword">if</span> self.table[hash_key]:        </span><br><span class="line">            self.table[hash_key][pos]=-<span class="number">1</span></span><br><span class="line">            </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span>(<span class="params">self, key: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        hash_key,pos=self.<span class="built_in">hash</span>(key)</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span> <span class="keyword">if</span> self.table[hash_key]==[] <span class="keyword">else</span> self.table[hash_key][pos]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Your MyHashSet object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"># obj = MyHashSet()</span></span><br><span class="line"><span class="comment"># obj.add(key)</span></span><br><span class="line"><span class="comment"># obj.remove(key)</span></span><br><span class="line"><span class="comment"># param_3 = obj.contains(key)</span></span><br><span class="line"><span class="comment"># Your MyHashMap object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"># obj = MyHashMap()</span></span><br><span class="line"><span class="comment"># obj.put(key,value)</span></span><br><span class="line"><span class="comment"># param_2 = obj.get(key)</span></span><br><span class="line"><span class="comment"># obj.remove(key)</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3-存在重复元素I、II、III"><a href="#2-3-存在重复元素I、II、III" class="headerlink" title="2.3 存在重复元素I、II、III"></a>2.3 存在重复元素I、II、III</h3><blockquote>
+<ul>
+<li>0217  <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate/">存在重复元素</a></li>
+<li>0219   <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate-ii/">存在重复元素 II</a> </li>
+<li>0220 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate-iii/">存在重复元素 III</a> </li>
+</ul>
+</blockquote>
+<h4 id="2-3-1-存在重复元素"><a href="#2-3-1-存在重复元素" class="headerlink" title="2.3.1 存在重复元素"></a>2.3.1 存在重复元素</h4><p>&#8195;&#8195;给你一个整数数组 nums 。如果任一值在数组中出现 至少两次 ，返回 true ；如果数组中每个元素互不相同，返回 false</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="literal">False</span> <span class="keyword">if</span> <span class="built_in">len</span>(nums)==<span class="built_in">len</span>(<span class="built_in">set</span>(nums)) <span class="keyword">else</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-3-2-存在重复元素-II"><a href="#2-3-2-存在重复元素-II" class="headerlink" title="2.3.2 存在重复元素 II"></a>2.3.2 存在重复元素 II</h4><p>&#8195;&#8195;给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code> ，判断数组中是否存在两个 不同的索引 <code>i</code> 和 <code>j</code> ，满足 <code>nums[i] == nums[j]</code> 且 <code>abs(i - j) &lt;= k</code> 。如果存在，返回 true ；否则，返回 false 。<br><strong>解法一：</strong><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">containsNearbyDuplicate</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        d=<span class="built_in">set</span>()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] <span class="keyword">in</span> d:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            d.add(nums[i])</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(d)&gt;k:</span><br><span class="line">                d.remove(nums[i-k])</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure><br><strong>解法二：</strong><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">containsNearbyDuplicate</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        d=<span class="built_in">dict</span>()</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 如果k值超过数组长度，将其赋值为数组长度-1，然后统计前k个数字的出现此数。</span></span><br><span class="line">        <span class="comment"># 如果某个元素已经出现在字典中，直接返回True</span></span><br><span class="line">        <span class="keyword">if</span> k&gt;<span class="built_in">len</span>(nums)-<span class="number">1</span>:</span><br><span class="line">            k=<span class="built_in">len</span>(nums)-<span class="number">1</span></span><br><span class="line">        l,r=<span class="number">0</span>,k</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k+<span class="number">1</span>):                        </span><br><span class="line">            <span class="keyword">if</span> nums[i] <span class="keyword">not</span> <span class="keyword">in</span> d:</span><br><span class="line">                d[nums[i]]=d.get(nums[i],<span class="number">0</span>)+<span class="number">1</span>                    </span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 依次往右滑动窗口，每次删除左边界元素，加入右边界元素（次数+1）</span></span><br><span class="line">        <span class="keyword">while</span> r&lt;<span class="built_in">len</span>(nums)-<span class="number">1</span>:</span><br><span class="line">            l+=<span class="number">1</span></span><br><span class="line">            r+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">del</span> d[nums[l-<span class="number">1</span>]]</span><br><span class="line">            <span class="keyword">if</span> nums[r] <span class="keyword">not</span> <span class="keyword">in</span> d:</span><br><span class="line">                d[nums[r]]=d.get(nums[r],<span class="number">0</span>)+<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="2-3-3-存在重复元素-III"><a href="#2-3-3-存在重复元素-III" class="headerlink" title="2.3.3 存在重复元素 III"></a>2.3.3 存在重复元素 III</h4><p>&#8195;&#8195;给你一个整数数组 <code>nums</code> 和两个整数 <code>k</code> 和 <code>t</code> 。请你判断是否存在 两个不同下标 <code>i</code> 和 <code>j</code>，使得 <code>abs(nums[i] - nums[j]) &lt;= t</code> ，同时又满足 <code>abs(i - j) &lt;= k</code> 。</p>
+<p><strong>思路 1：滑动窗口（固定长度）</strong></p>
+<ol>
+<li>使用一个长度为 <code>k</code> ，右指针为<code>i</code>的滑动窗口，每次遍历到 <code>nums[i]</code> 时，只需要检查前 <code>k</code> 个元素是否有某个元素在 <code>[nums[i] - t, nums[i + t]</code> 区间内即可。</li>
+<li>检查 <code>k</code> 个元素是否在 <code>[nums[i] - t, nums[i + t]</code> 区间，可以借助有序数组（比如 <code>SortedList</code>）+ 二分查找来解决，从而减少时间复杂度。<blockquote>
+<p>&#8195;&#8195;如果是无序数组，则滑动窗口内只能对于每个元素都遍历一次队列来检查是否有元素符合条件。如果数组的长度为 <code>n</code>，则使用队列的时间复杂度为 <code>O(nk)</code>，会超出时间限制。</p>
+</blockquote>
+</li>
+</ol>
+<p>具体步骤如下：</p>
+<ol>
+<li>使用有序数组类 <code>window</code> 维护一个长度为 <code>k</code> 的窗口，满足数组内元素有序，且支持增加和删除操作。</li>
+<li>将当前元素填入窗口中，即 <code>window.add(nums[i])</code>。</li>
+<li>当窗口元素大于 <code>k</code> 个时，移除窗口最左侧元素。</li>
+<li><p>当窗口元素小于等于 <code>k</code> 个时（即i&lt;k时窗口才移动，不到k个元素，后面固定有k个元素）：</p>
+<ol>
+<li>使用二分查找算法<code>windows.bisect_left</code>，查找 <code>nums[i]</code> 在 <code>window</code> 中的位置 <code>idx</code>（windows是有序数组，每次遍历的元素<code>nums[i]</code> 会放到窗口中的合适位置）。</li>
+<li>判断 <code>window[idx]</code> 与相邻位置上元素差值绝对值，若果满足 <code>abs(window[idx] - window[idx - 1]) &lt;= t</code> 或者 <code>abs(window[idx + 1] - window[idx]) &lt;= t</code> 时返回 <code>True</code>。</li>
+</ol>
+</li>
+<li><p>重复 <code>2</code> ~ <code>4</code> 步，直到遍历至数组末尾，如果还没找到满足条件的情况，则返回 <code>False</code>。</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">containsNearbyAlmostDuplicate</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], indexDiff: <span class="built_in">int</span>, valueDiff: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        <span class="keyword">from</span> sortedcontainers <span class="keyword">import</span> SortedList</span><br><span class="line">        k,t=indexDiff,valueDiff</span><br><span class="line">        windows=SortedList()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):           </span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(windows)&gt;k:</span><br><span class="line">                windows.remove(nums[i-k-<span class="number">1</span>])</span><br><span class="line">            windows.add(nums[i])</span><br><span class="line"></span><br><span class="line">            <span class="comment"># idx和i的区别是，idx是nums[i]在有序数组windows中的位置</span></span><br><span class="line">            idx=windows.bisect_left(nums[i]) </span><br><span class="line">            <span class="comment"># 判断nums[i]和它在窗口中相邻的两个元素只差的绝对值，是否在t之内</span></span><br><span class="line">            <span class="keyword">if</span> idx&gt;<span class="number">0</span> <span class="keyword">and</span> <span class="built_in">abs</span>(windows[idx]-windows[idx-<span class="number">1</span>])&lt;=t: <span class="comment"># idx&gt;0则idx-1最小为0</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">if</span> idx&lt;<span class="built_in">len</span>(windows)-<span class="number">1</span> <span class="keyword">and</span> <span class="built_in">abs</span>(windows[idx+<span class="number">1</span>]-windows[idx])&lt;=t:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>时间复杂度：TreeSet 基于红黑树，查找和插入都是 O(logk) 复杂度。整体复杂度为 O(nlogk)</li>
+<li>空间复杂度：O(k)</li>
+</ul>
+<blockquote>
+<p>SortedList详情请参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/bmicnj/article/details/120070558?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167853143916782425182505%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=167853143916782425182505&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-3-120070558-null-null.142%5Ev73%5Econtrol,201%5Ev4%5Eadd_ask,239%5Ev2%5Einsert_chatgpt&amp;utm_term=SortedList&amp;spm=1018.2226.3001.4187">《SortedList【python类】》</a></p>
+</blockquote>
+<p><strong>思路 2：桶排序</strong><br>&#8195;&#8195;述解法无法做到线性的原因是：我们需要在大小为 <code>k</code> 的滑动窗口所在的「有序集合」中找到与 <code>nums[i]</code> 接近的数。如果我们能够将 <code>k</code> 个数字分到 <code>k</code> 个桶的话，那么我们就能 在O(1) 的复杂度确定是否有 <code>[nums[i]−t,nums[i]+t]</code> 的数字（检查目标桶是否有元素）。</p>
+<ol>
+<li>利用桶排序的思想，将桶的大小设置为 <code>t + 1</code>。只需要使用一重循环遍历位置 <code>i</code>，然后根据 <code>nums[i] // (t + 1)</code>，从而决定将 <code>nums[i]</code> 放入哪个桶中。</li>
+<li>这样在同一个桶内各个元素之间的差值绝对值都小于等于 <code>t</code>。而相邻桶之间的元素，只需要校验一下两个桶之间的差值是否不超过 <code>t</code>。这样就可以以 $O(1)$ 的时间复杂度检测相邻 <code>2 * k</code> 个元素是否满足 <code>abs(nums[i] - nums[j]) &lt;= t</code>。</li>
+<li>而 <code>abs(i - j) &lt;= k</code> 条件则可以通过在一重循环遍历时，将超出范围的 <code>nums[i - k]</code> 从对应桶中删除，从而保证桶中元素一定满足 <code>abs(i - j) &lt;= k</code>。</li>
+</ol>
+<p>具体步骤如下：</p>
+<ol>
+<li>将每个桶的大小设置为 <code>t + 1</code>。我们将元素按照大小依次放入不同的桶中。</li>
+<li>遍历数组 <code>nums</code> 中的元素，对于元素<code>nums[i]</code> ：<ol>
+<li>如果 <code>nums[i]</code> 放入桶之前桶里已经有元素了，那么这两个元素必然满足 <code>abs(nums[i] - nums[j]) &lt;= t</code>，</li>
+<li>如果之前桶里没有元素，那么就将 <code>nums[i]</code> 放入对应桶中。</li>
+<li>再判断左右桶的左右两侧桶中是否有元素满足 <code>abs(nums[i] - nums[j]) &lt;= t</code>。</li>
+<li>然后将 <code>nums[i - k]</code> 之前的桶清空，因为这些桶中的元素与 <code>nums[i]</code> 已经不满足 <code>abs(i - j) &lt;= k</code> 了。</li>
+</ol>
+</li>
+<li>最后上述满足条件的情况就返回 <code>True</code>，最终遍历完仍不满足条件就返回 <code>False</code>。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">containsNearbyAlmostDuplicate</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], k: <span class="built_in">int</span>, t: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">       bucket_dict = <span class="built_in">dict</span>()</span><br><span class="line">       <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">           <span class="comment"># 将 nums[i] 划分到大小为 t + 1 的不同桶中</span></span><br><span class="line">           num = nums[i] // (t + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">           <span class="comment"># 桶中已经有元素了</span></span><br><span class="line">           <span class="keyword">if</span> num <span class="keyword">in</span> bucket_dict:</span><br><span class="line">               <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">           <span class="comment"># 把 nums[i] 放入桶中</span></span><br><span class="line">           bucket_dict[num] = nums[i]</span><br><span class="line"></span><br><span class="line">           <span class="comment"># 判断左侧桶是否满足条件</span></span><br><span class="line">           <span class="keyword">if</span> (num - <span class="number">1</span>) <span class="keyword">in</span> bucket_dict <span class="keyword">and</span> <span class="built_in">abs</span>(bucket_dict[num - <span class="number">1</span>] - nums[i]) &lt;= t:</span><br><span class="line">               <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">           <span class="comment"># 判断右侧桶是否满足条件</span></span><br><span class="line">           <span class="keyword">if</span> (num + <span class="number">1</span>) <span class="keyword">in</span> bucket_dict <span class="keyword">and</span> <span class="built_in">abs</span>(bucket_dict[num + <span class="number">1</span>] - nums[i]) &lt;= t:</span><br><span class="line">               <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">           <span class="comment"># 将 i-k 之前的旧桶清除，因为之前的桶已经不满足条件了</span></span><br><span class="line">           <span class="keyword">if</span> i &gt;= k:</span><br><span class="line">               bucket_dict.pop(nums[i-k] // (t + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> <span class="literal">False</span>                       </span><br></pre></td></tr></table></figure>
+<h3 id="2-4-只出现一次的数字"><a href="#2-4-只出现一次的数字" class="headerlink" title="2.4 只出现一次的数字"></a>2.4 只出现一次的数字</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/single-number/">136 只出现一次的数字</a>      </p>
+</blockquote>
+</li>
+</ol>
+<p>&#8195;&#8195;给你一个 非空 整数数组 nums ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。你必须设计并实现线性时间复杂度的算法来解决此问题，且该算法只使用常量额外空间。</p>
+<p>&#8195;&#8195;如果没有时间复杂度和空间复杂度的限制，可以使用哈希表 / 集合来存储每个元素出现的次数，如果哈希表中没有该数字，则将该数字加入集合，如果集合中有了该数字，则从集合中删除该数字，最终成对的数字都被删除了，只剩下单次出现的元素。</p>
+<p>&#8195;&#8195;但是题目要求不使用额外的存储空间，就需要用到位运算中的异或运算。</p>
+<blockquote>
+<p>异或运算 $\oplus$ 的三个性质：</p>
+<ol>
+<li>任何数和 $0$ 做异或运算，结果仍然是原来的数，即 $a \oplus 0 = a$。</li>
+<li>数和其自身做异或运算，结果是 $0$，即 $a \oplus a = 0$。</li>
+<li>异或运算满足交换率和结合律：$a \oplus b \oplus a = b \oplus a \oplus a = b \oplus (a \oplus a) = b \oplus 0 = b$。</li>
+</ol>
+</blockquote>
+<p>根据异或运算的性质，对 $n$ 个数不断进行异或操作，最终可得到单次出现的元素。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="built_in">sum</span>=<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="built_in">sum</span>^=i</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-5-有效的数独"><a href="#2-5-有效的数独" class="headerlink" title="2.5 有效的数独"></a>2.5 有效的数独</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-sudoku/">0036. 有效的数独</a></p>
+</blockquote>
+<p>请你判断一个 9 x 9 的数独是否有效。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入：board = </span><br><span class="line">[[<span class="string">&quot;5&quot;</span>,<span class="string">&quot;3&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;7&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>]</span><br><span class="line">,[<span class="string">&quot;6&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;1&quot;</span>,<span class="string">&quot;9&quot;</span>,<span class="string">&quot;5&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>]</span><br><span class="line">,[<span class="string">&quot;.&quot;</span>,<span class="string">&quot;9&quot;</span>,<span class="string">&quot;8&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;6&quot;</span>,<span class="string">&quot;.&quot;</span>]</span><br><span class="line">,[<span class="string">&quot;8&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;6&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;3&quot;</span>]</span><br><span class="line">,[<span class="string">&quot;4&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;8&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;3&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;1&quot;</span>]</span><br><span class="line">,[<span class="string">&quot;7&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;2&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;6&quot;</span>]</span><br><span class="line">,[<span class="string">&quot;.&quot;</span>,<span class="string">&quot;6&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;2&quot;</span>,<span class="string">&quot;8&quot;</span>,<span class="string">&quot;.&quot;</span>]</span><br><span class="line">,[<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;4&quot;</span>,<span class="string">&quot;1&quot;</span>,<span class="string">&quot;9&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;5&quot;</span>]</span><br><span class="line">,[<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;8&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;.&quot;</span>,<span class="string">&quot;7&quot;</span>,<span class="string">&quot;9&quot;</span>]]</span><br><span class="line">输出：true</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/609ac90735d048609ca1f40e6f0c0fe7.png" alt="在这里插入图片描述"></p>
+<p><strong>思路一：哈希表</strong></p>
+<p>&#8195;&#8195;判断数独是否有效，需要分别看每一行、每一列、每一个 <code>3 * 3</code> 的小方格是否出现了重复数字，如果都没有出现重复数字就是一个有效的数独，如果出现了重复数字则不是有效的数独。</p>
+<ul>
+<li>用 <code>3</code> 个 <code>9 * 9</code> 的数组分别来表示该数字是否在所在的行，所在的列，所在的方格出现过。其中方格角标的计算用 <code>box[(i / 3) * 3 + (j / 3)][n]</code> 来表示。</li>
+<li>双重循环遍历数独矩阵。如果对应位置上的数字如果已经在在所在的行 / 列 / 方格出现过，则返回 <code>False</code>。</li>
+<li>遍历完没有重复出现，则返回 <code>Ture</code>。</li>
+</ul>
+<blockquote>
+<ul>
+<li>九宫格1-3坐标：（0-2,0-2）,（0-2,3-5）,（0-2,6-8）</li>
+<li>九宫格4-6坐标：（3-5,0-2）,（3-5,3-5）,（3-5,6-8）</li>
+<li>九宫格7-9坐标：（6-8,0-2）,（6-8,3-5）,（6-8,6-8）</li>
+<li>所以每个元素属于第几个九宫格，是<code>i//3</code>的三倍<code>+j//3</code><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isValidSudoku</span>(<span class="params">self, board</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type board: List[List[str]]</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        row=[<span class="built_in">dict</span>() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>)] <span class="comment"># 创建一个包含9个字典的列表，其中每个字典统计每一行元素出现的次数</span></span><br><span class="line">        col=[<span class="built_in">dict</span>() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>)] <span class="comment"># 统计每一列元素出现的次数</span></span><br><span class="line">        box=[<span class="built_in">dict</span>() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>)] <span class="comment"># 统计每个九宫格元素出现的次数</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):               </span><br><span class="line">                <span class="keyword">if</span> board[i][j]==<span class="string">&#x27;.&#x27;</span>:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"> </span><br><span class="line">                num=<span class="built_in">int</span>(board[i][j])</span><br><span class="line">                idx=(i//<span class="number">3</span>)*<span class="number">3</span>+j//<span class="number">3</span></span><br><span class="line">                <span class="comment"># 查找各行、各列、各九宫格中，是否出现过num这个元素。没有出现就返回0</span></span><br><span class="line">                a,b,c=row[i].get(num,<span class="number">0</span>),col[j].get(num,<span class="number">0</span>),box[idx].get(num,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> a!=<span class="number">0</span> <span class="keyword">or</span> b!=<span class="number">0</span> <span class="keyword">or</span> c!=<span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">                <span class="comment"># 在各行、列、九宫格中，将出现的数字次数计为1</span></span><br><span class="line">                row[i][num]=<span class="number">1</span></span><br><span class="line">                col[j][num]=<span class="number">1</span></span><br><span class="line">                box[idx][num]=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<strong>思路二：列表查找</strong></li>
+</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isValidSudoku</span>(<span class="params">self, board</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type board: List[List[str]]</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):                        <span class="comment">#对每一行进行判断</span></span><br><span class="line">            row = []</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):</span><br><span class="line">                <span class="keyword">if</span> board[i][j] == <span class="string">&#x27;.&#x27;</span>:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">if</span> board[i][j] <span class="keyword">in</span> row:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    row.append(board[i][j])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):                         <span class="comment">#对每一列进行判断</span></span><br><span class="line">            col = []</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):</span><br><span class="line">                <span class="keyword">if</span> board[j][i] == <span class="string">&#x27;.&#x27;</span>:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">if</span> board[j][i] <span class="keyword">in</span> col:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    col.append(board[j][i])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">9</span>,<span class="number">3</span>):                 <span class="comment"># 对每个九宫格进行判断</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">9</span>,<span class="number">3</span>):</span><br><span class="line">                box=[]</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">                    <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">                        <span class="keyword">if</span> board[i+x][j+y]==<span class="string">&#x27;.&#x27;</span> :</span><br><span class="line">                            <span class="keyword">continue</span></span><br><span class="line">                        <span class="keyword">if</span> board[i+x][j+y] <span class="keyword">in</span> box:</span><br><span class="line">                            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            box.append(board[i+x][j+y])</span><br><span class="line">                 </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-6-两数之和、三数之和、四数之和、四数相加"><a href="#2-6-两数之和、三数之和、四数之和、四数相加" class="headerlink" title="2.6 两数之和、三数之和、四数之和、四数相加"></a>2.6 两数之和、三数之和、四数之和、四数相加</h3><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">0001. 两数之和</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum/">0015. 三数之和</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/4sum/">0018. 四数之和</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/4sum-ii/">0454. 四数相加 II</a><h4 id="2-6-1-两数之和"><a href="#2-6-1-两数之和" class="headerlink" title="2.6.1 两数之和"></a>2.6.1 两数之和</h4>&#8195;&#8195;给定一个整数数组 <code>nums</code> 和一个整数目标值 <code>target</code>，请你在该数组中找出 和为 <code>target</code>  的那 两个 整数，并返回它们的数组下标（任意顺序）。</li>
+<li>输入：nums = [2,7,11,15], target = 9</li>
+<li>输出：[0,1]</li>
+<li>解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。</li>
+</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span>(<span class="params">self, nums, target</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        d=<span class="built_in">dict</span>()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="keyword">if</span> target-nums[i] <span class="keyword">in</span> d:</span><br><span class="line">                <span class="keyword">return</span> i,d[target-nums[i]]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                d[nums[i]]=i</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-6-2-三数之和"><a href="#2-6-2-三数之和" class="headerlink" title="2.6.2 三数之和"></a>2.6.2 三数之和</h4><p><strong>思路 1：对撞指针</strong></p>
+<p>&#8195;&#8195;直接三重遍历查找 <code>a</code>、<code>b</code>、<code>c</code> 的时间复杂度是：$O(n^3)$。我们可以通过一些操作来降低复杂度。</p>
+<p>&#8195;&#8195;<font color='red'> 先将数组进行排序，再使用对撞指针&lt;/font &gt;，从而保证所找到的三个元素是不重复的，且使用双指针减少一重遍历。时间复杂度为：$O(nlogn)$。</p>
+<p>&#8195;&#8195;第一重循环遍历 <code>i</code>，对于每个 <code>nums[i]</code> 元素，从 <code>i</code> 元素的下一个位置开始，使用对撞指针 <code>left</code>，<code>right</code>。<code>left</code> 指向 <code>i</code> 的下一个位置，<code>right</code> 指向末尾位置。先将 <code>left</code> 右移、<code>right</code> 左移去除重复元素，再进行下边的判断。</p>
+<ol>
+<li>如果 <code>nums[a] + nums[left] + nums[right] = 0</code>，则得到一个解，将其加入答案数组中，并继续将 <code>left</code> 右移，<code>right</code> 左移；</li>
+<li>如果 <code>nums[a] + nums[left] + nums[right] &gt; 0</code>，说明 <code>nums[right]</code> 值太大，将 <code>right</code> 向左移；</li>
+<li>如果 <code>nums[a] + nums[left] + nums[right] &lt; 0</code>，说明 <code>nums[left]</code> 值太小，将 <code>left</code> 右移。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: List[List[int]]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        nums.sort()</span><br><span class="line">        ans=[]</span><br><span class="line">        le=<span class="built_in">len</span>(nums)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(le):                     </span><br><span class="line">            <span class="keyword">if</span> nums[i]&gt;<span class="number">0</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> i&gt;<span class="number">0</span> <span class="keyword">and</span> nums[i]==nums[i-<span class="number">1</span>]: <span class="comment"># 如果下一位置和前一位置元素重复，就不需要再遍历</span></span><br><span class="line">                <span class="keyword">continue</span>    </span><br><span class="line"></span><br><span class="line">            left,right=i+<span class="number">1</span>,le-<span class="number">1</span><span class="comment">#左指针起点i+1       </span></span><br><span class="line">            <span class="keyword">while</span> left&lt;right:<span class="comment">#判断条件</span></span><br><span class="line">                <span class="keyword">if</span> nums[i]+nums[left]+nums[right]&gt;<span class="number">0</span>:</span><br><span class="line">                    right-=<span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> nums[i]+nums[left]+nums[right]&lt;<span class="number">0</span>:</span><br><span class="line">                    left+=<span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    ans.append([nums[i],nums[left],nums[right]])</span><br><span class="line">                    <span class="comment"># 找到解之后，如果left或right下一个元素重复，则需要跳过重复位置</span></span><br><span class="line">                    <span class="keyword">while</span> left!=right <span class="keyword">and</span> nums[left]==nums[left+<span class="number">1</span>]:left+=<span class="number">1</span></span><br><span class="line">                    <span class="keyword">while</span> left!=right <span class="keyword">and</span> nums[right]==nums[right-<span class="number">1</span>]:right-=<span class="number">1</span></span><br><span class="line">                    <span class="comment"># 找到解后也要移动指针</span></span><br><span class="line">                    left+=<span class="number">1</span></span><br><span class="line">                    right-=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<h4 id="2-6-3-四数之和"><a href="#2-6-3-四数之和" class="headerlink" title="2.6.3 四数之和"></a>2.6.3 四数之和</h4><p>&#8195;&#8195;给你一个由 <code>n</code> 个整数组成的数组 <code>nums</code> ，和一个目标值 <code>target</code> 。请你找出并返回满足下述全部条件且不重复的四元组 <code>[nums[a], nums[b], nums[c], nums[d]]</code> （若两个四元组元素一一对应，则认为两个四元组重复）：</p>
+<ul>
+<li>0 &lt;= a, b, c, d &lt; n</li>
+<li>a、b、c 和 d 互不相同</li>
+<li>nums[a] + nums[b] + nums[c] + nums[d] == target</li>
+<li>你可以按 任意顺序 返回答案 。</li>
+<li>示例：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">0</span>,-<span class="number">1</span>,<span class="number">0</span>,-<span class="number">2</span>,<span class="number">2</span>], target = <span class="number">0</span></span><br><span class="line">输出：[[-<span class="number">2</span>,-<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>],[-<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>],[-<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>]]</span><br></pre></td></tr></table></figure>
+<p>基本上就是套用三数之和的思路，也使用排序数组和对撞指针，去除一次循环遍历。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fourSum</span>(<span class="params">self, nums, target</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[List[int]]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        nums.sort()</span><br><span class="line">        le=<span class="built_in">len</span>(nums)</span><br><span class="line">        ans=[]</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(le):</span><br><span class="line">            <span class="comment">#if nums[a]&gt;target:</span></span><br><span class="line">               <span class="comment"># break</span></span><br><span class="line">            <span class="comment"># 这里和三数之和不一样。三数之和nums[i]＞0，所有都是正数不用计算了。这里第一个数&gt;target，还可以有负数使和变得更小</span></span><br><span class="line">            <span class="keyword">if</span> a&gt;<span class="number">0</span> <span class="keyword">and</span> nums[a]==nums[a-<span class="number">1</span>]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">for</span> b <span class="keyword">in</span> <span class="built_in">range</span>(a+<span class="number">1</span>,le):</span><br><span class="line">                <span class="keyword">if</span> b&gt;a+<span class="number">1</span> <span class="keyword">and</span> nums[b]==nums[b-<span class="number">1</span>]:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                left,right=b+<span class="number">1</span>,le-<span class="number">1</span></span><br><span class="line">                <span class="keyword">while</span> left&lt;right:</span><br><span class="line">                    <span class="keyword">if</span> nums[a]+nums[b]+nums[left]+nums[right]&gt;target:</span><br><span class="line">                        right-=<span class="number">1</span></span><br><span class="line">                    <span class="keyword">elif</span> nums[a]+nums[b]+nums[left]+nums[right]&lt;target:</span><br><span class="line">                        left+=<span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        ans.append([nums[a],nums[b],nums[left],nums[right]])</span><br><span class="line">                        <span class="keyword">while</span> left&lt;right <span class="keyword">and</span> nums[left]==nums[left+<span class="number">1</span>]:left+=<span class="number">1</span></span><br><span class="line">                        <span class="keyword">while</span> left&lt;right <span class="keyword">and</span> nums[right]==nums[right-<span class="number">1</span>]:right-=<span class="number">1</span></span><br><span class="line">                        left+=<span class="number">1</span></span><br><span class="line">                        right-=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-6-4-四数相加"><a href="#2-6-4-四数相加" class="headerlink" title="2.6.4 四数相加"></a>2.6.4 四数相加</h4><p>&#8195;&#8195;直接暴力搜索的时间复杂度是 $O(n^4)$。我们可以降低一下复杂度。将四个数组分为两组。nums1 和 nums2 分为一组，nums3 和 nums4 分为一组。</p>
+<p>&#8195;&#8195;已知 $nums1[i] + nums2[j] + nums3[k] + nums4[l] = 0$，可以得到 $nums1[i] + nums2[j] = -(nums3[k] + nums4[l])$</p>
+<p>&#8195;&#8195;建立一个哈希表。两重循环遍历数组 <code>nums1</code>、<code>nums2</code>，先将 $nums[i] + nums[j]$ 的和记录到哈希表中，然后再用两重循环遍历数组 <code>nums3</code>、<code>nums4</code>。如果 $-(nums3[k] + nums4[l])$ 的结果出现在哈希表中，则将结果数累加到答案中。最终输出累加之后的答案。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fourSumCount</span>(<span class="params">self, nums1, nums2, nums3, nums4</span>):</span></span><br><span class="line"></span><br><span class="line">        d=<span class="built_in">dict</span>()</span><br><span class="line">        count=<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums1:</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> nums2:</span><br><span class="line">                <span class="built_in">sum</span>=i+j</span><br><span class="line">                d[<span class="built_in">sum</span>]=d.get(<span class="built_in">sum</span>,<span class="number">0</span>)+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> nums3:</span><br><span class="line">            <span class="keyword">for</span> l <span class="keyword">in</span> nums4:               </span><br><span class="line">                <span class="keyword">if</span> -k-l <span class="keyword">in</span> d:</span><br><span class="line">                    count+=d[-k-l]</span><br><span class="line">        <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
+<h3 id="2-7-缺失的第一个正数"><a href="#2-7-缺失的第一个正数" class="headerlink" title="2.7 缺失的第一个正数"></a>2.7 缺失的第一个正数</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/first-missing-positive/">0041. 缺失的第一个正数</a></p>
+</blockquote>
+<p>&#8195;&#8195;给你一个未排序的整数数组 <code>nums</code> ，请你找出其中没有出现的最小的正整数。请你实现时间复杂度为 <code>O(n)</code> 并且只使用常数级别额外空间的解决方案。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>]</span><br><span class="line">输出：<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>如果本题没有额外的时空复杂度要求，那么就很容易实现：</p>
+<ul>
+<li><p>我们可以将数组所有的数放入哈希表，随后从 1 开始依次枚举正整数，并判断其是否在哈希表中。这种解法时空复杂度都是<code>O(n)</code>；</p>
+</li>
+<li><p>我们可以从 1 开始依次枚举正整数，并遍历数组，判断其是否在数组中。这种解法时间复杂度$O(n^2)$，空间复杂度<code>O(1)</code></p>
+</li>
+</ul>
+<p>&#8195;&#8195;所以可以考虑利用给定数组中的空间来存储一些状态。即：如果题目给定的数组是不可修改的，那么就不存在满足时空复杂度要求的算法；但如果我们可以修改给定的数组，那么是存在满足要求的算法的。</p>
+<p><strong>思路 1：原地哈希</strong></p>
+<p>&#8195;&#8195;我们可以将当前数组视为哈希表。一个长度为 <code>n</code> 的数组，对应存储的元素值应该为 <code>[1, n + 1]</code> 之间，其中还包含一个缺失的元素。</p>
+<ol>
+<li>遍历当前数组，将当前元素放到其对应位置上（比如元素值为 <code>1</code> 的元素放到数组第 <code>0</code> 个位置上、元素值为 <code>2</code> 的元素放到数组第 <code>1</code> 个位置上，等等）。<ul>
+<li>对于遍历到的数 $x=nums[i]$，如果 $x∈[1,N]$，我们就知道 $x$ 应当出现在数组中的 $x−1$ 的位置（下标从0开始），因此交换 $nums[i]$ 和 $nums[x−1]$，这样 $x$ 就出现在了正确的位置。在完成交换后，新的 $nums[i]$ 可能还在 $[1,N]$ 的范围内，我们需要继续进行交换操作，直到 $x\notin   [1,N]$。</li>
+<li>上面的方法可能会陷入死循环。如果 $nums[i] == nums[x−1]$ ，那么就会无限交换下去。此时$x$ 已经出现在了正确的位置。因此我们可以跳出循环，开始遍历下一个数。</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>然后再次遍历一遍数组。遇到第一个元素值不等于下标 + 1 的元素，就是答案要求的缺失的第一个正数。</li>
+<li>如果遍历完没有在数组中找到缺失的第一个正数，则缺失的第一个正数是 <code>n + 1</code>。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">firstMissingPositive</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        size = <span class="built_in">len</span>(nums)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(size):</span><br><span class="line">        	<span class="comment"># 对于1到size范围内的数，才进行交换，放到正确位置</span></span><br><span class="line">            <span class="keyword">while</span> <span class="number">1</span> &lt;= nums[i] &lt;= size <span class="keyword">and</span> nums[i] != nums[nums[i] - <span class="number">1</span>]:</span><br><span class="line">                index1 = i</span><br><span class="line">                index2 = nums[i] - <span class="number">1</span></span><br><span class="line">                nums[index1], nums[index2] = nums[index2], nums[index1]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(size):</span><br><span class="line">            <span class="keyword">if</span> nums[i] != i + <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> i + <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> size + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-8-最长连续序列"><a href="#2-8-最长连续序列" class="headerlink" title="2.8 最长连续序列"></a>2.8 最长连续序列</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-consecutive-sequence/">128 最长连续序列</a></p>
+</blockquote>
+<p>思路一：排序+滑动窗口，时间复杂度是 $O(nlogn)$<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestConsecutive</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(nums)==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            nums=<span class="built_in">list</span>(<span class="built_in">set</span>(nums)) <span class="comment"># 去除重复元素</span></span><br><span class="line">            nums.sort()</span><br><span class="line">            left,right=<span class="number">0</span>,<span class="number">1</span></span><br><span class="line">            ans=<span class="number">1</span>                <span class="comment"># 默认起始的连续序列长度为1（只有一个元素时）</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 如果差值不为1，左右指针右移；否则差值为1，右指针不停右移，同时记录连续序列的长度</span></span><br><span class="line">            <span class="keyword">while</span> left&lt;right <span class="keyword">and</span> right&lt;<span class="built_in">len</span>(nums):</span><br><span class="line">                <span class="keyword">if</span> nums[right]!=nums[left]+<span class="number">1</span>:</span><br><span class="line">                    left+=<span class="number">1</span></span><br><span class="line">                    right+=<span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">while</span> right&lt;<span class="built_in">len</span>(nums) <span class="keyword">and</span> nums[right]==nums[right-<span class="number">1</span>]+<span class="number">1</span>:</span><br><span class="line">                        ans=<span class="built_in">max</span>(ans,right-left+<span class="number">1</span>)</span><br><span class="line">                        right+=<span class="number">1</span></span><br><span class="line">                    <span class="comment"># 右移到差值不为1时右指针停止移动，left跳到right前一个位置</span></span><br><span class="line">                    left=right-<span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure><br><strong>思路二：哈希表</strong></p>
+<ol>
+<li>先 将数组存储到集合中进行去重，然后使用 <code>curr_streak</code> 维护当前连续序列长度，使用 <code>ans</code> 维护最长连续序列长度。</li>
+<li>遍历集合中的元素，对每个元素进行判断，如果该元素不是序列的开始（即 <code>num - 1</code> 在集合中），则跳过。</li>
+<li>如果 <code>num - 1</code> 不在集合中，说明 <code>num</code> 是序列的开始，判断 <code>num + 1</code> 、<code>nums + 2</code>、<code>...</code> 是否在哈希表中，并不断更新当前连续序列长度 <code>curr_streak</code>。并在遍历结束之后更新最长序列的长度。</li>
+<li>最后输出最长序列长度。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestConsecutive</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        ans=<span class="number">0</span>  <span class="comment"># 记录最长序列长度</span></span><br><span class="line">        nums=<span class="built_in">set</span>(nums) <span class="comment"># 去重</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> num-<span class="number">1</span> <span class="keyword">not</span> <span class="keyword">in</span> nums: <span class="comment"># 比当前元素小1的不在集合中，则连续序列需要从头开始计算</span></span><br><span class="line">                cur=num</span><br><span class="line">                res=<span class="number">1</span> <span class="comment"># 初始化连续序列长度=1</span></span><br><span class="line">                <span class="keyword">while</span> cur+<span class="number">1</span> <span class="keyword">in</span> nums:</span><br><span class="line">                    cur+=<span class="number">1</span></span><br><span class="line">                    res+=<span class="number">1</span></span><br><span class="line">                ans=<span class="built_in">max</span>(ans,res)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<h3 id="2-9-根据字符出现频率排序"><a href="#2-9-根据字符出现频率排序" class="headerlink" title="2.9 根据字符出现频率排序"></a>2.9 根据字符出现频率排序</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sort-characters-by-frequency/">451 根据字符出现频率排序</a></p>
+</blockquote>
+<p>&#8195;&#8195;给定一个字符串 s ，根据字符出现的 频率 对其进行 降序排序 。一个字符出现的 频率 是它出现在字符串中的次数。返回 已排序的字符串 。如果有多个答案，返回其中任何一个。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入: s = <span class="string">&quot;tree&quot;</span></span><br><span class="line">输出: <span class="string">&quot;eert&quot;</span></span><br><span class="line">解释: <span class="string">&#x27;e&#x27;</span>出现两次，<span class="string">&#x27;r&#x27;</span>和<span class="string">&#x27;t&#x27;</span>都只出现一次。</span><br><span class="line">因此<span class="string">&#x27;e&#x27;</span>必须出现在<span class="string">&#x27;r&#x27;</span>和<span class="string">&#x27;t&#x27;</span>之前。此外，<span class="string">&quot;eetr&quot;</span>也是一个有效的答案。</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">frequencySort</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line">        d=<span class="built_in">dict</span>(Counter(s)) <span class="comment"># 统计每个字母出现的次数</span></span><br><span class="line">        <span class="comment"># 根据次数对字母进行降序排列，结果是一个列表</span></span><br><span class="line">        d=<span class="built_in">sorted</span>(d.items(),key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>],reverse=<span class="literal">True</span>)</span><br><span class="line">         </span><br><span class="line">        ans=<span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">for</span> k,v <span class="keyword">in</span> d:</span><br><span class="line">            ans+=k*v</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<h3 id="2-10-字母异位词分组"><a href="#2-10-字母异位词分组" class="headerlink" title="2.10 字母异位词分组"></a>2.10 字母异位词分组</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/group-anagrams/">49 字母异位词分组</a></p>
+</blockquote>
+<p>&#8195;&#8195;给你一个字符串数组，请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。字母异位词 是由重新排列源单词的字母得到的一个新单词，所有源单词中的字母通常恰好只用一次。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入: strs = [<span class="string">&quot;eat&quot;</span>, <span class="string">&quot;tea&quot;</span>, <span class="string">&quot;tan&quot;</span>, <span class="string">&quot;ate&quot;</span>, <span class="string">&quot;nat&quot;</span>, <span class="string">&quot;bat&quot;</span>]</span><br><span class="line">输出: [[<span class="string">&quot;bat&quot;</span>],[<span class="string">&quot;nat&quot;</span>,<span class="string">&quot;tan&quot;</span>],[<span class="string">&quot;ate&quot;</span>,<span class="string">&quot;eat&quot;</span>,<span class="string">&quot;tea&quot;</span>]]</span><br></pre></td></tr></table></figure>
+<p>解题思路：</p>
+<ul>
+<li><p>对每一个字符串先进行排序，然后使用哈希表记录字母相同的子字符串。（排序后结果一样的子串，存储在一个列表里）</p>
+</li>
+<li><p>最终将哈希表的值转换为对应数组返回结果。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">groupAnagrams</span>(<span class="params">self, strs</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type strs: List[str]</span></span><br><span class="line"><span class="string">        :rtype: List[List[str]]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        d=<span class="built_in">dict</span>()</span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> strs:</span><br><span class="line">        	<span class="comment"># 子串进行字母排序，sorted的结果是一个列表，str将其转为字符串</span></span><br><span class="line">            sort_ch=<span class="built_in">str</span>(<span class="built_in">sorted</span>(ch)) </span><br><span class="line">            <span class="keyword">if</span> sort_ch <span class="keyword">not</span> <span class="keyword">in</span> d:</span><br><span class="line">                d[sort_ch]=[ch]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                d[sort_ch]+=[ch]</span><br><span class="line"></span><br><span class="line">        ans=[]</span><br><span class="line">        <span class="keyword">for</span> k,v <span class="keyword">in</span> d.items():</span><br><span class="line">            ans+=[v]</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<h3 id="2-11-两个列表的最小索引总和"><a href="#2-11-两个列表的最小索引总和" class="headerlink" title="2.11 两个列表的最小索引总和"></a>2.11 两个列表的最小索引总和</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-index-sum-of-two-lists/solution/liang-ge-lie-biao-de-zui-xiao-suo-yin-zo-5m9w/">599 两个列表的最小索引总和</a> </p>
+</blockquote>
+</li>
+</ul>
+<p>&#8195;&#8195;假设 Andy 和 Doris 想在晚餐时选择一家餐厅，并且他们都有一个表示最喜爱餐厅的列表，每个餐厅的名字用字符串表示。</p>
+<p>&#8195;&#8195;你需要帮助他们用最少的索引和找出他们共同喜爱的餐厅。 如果答案不止一个，则输出所有答案并且不考虑顺序。 你可以假设答案总是存在。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"> 输入:list1 = [<span class="string">&quot;Shogun&quot;</span>, <span class="string">&quot;Tapioca Express&quot;</span>, <span class="string">&quot;Burger King&quot;</span>, <span class="string">&quot;KFC&quot;</span>]，list2 = [<span class="string">&quot;KFC&quot;</span>, <span class="string">&quot;Shogun&quot;</span>, <span class="string">&quot;Burger King&quot;</span>]</span><br><span class="line">输出: [<span class="string">&quot;Shogun&quot;</span>]</span><br><span class="line">解释: 他们共同喜爱且具有最小索引和的餐厅是“Shogun”，它有最小的索引和<span class="number">1</span>(<span class="number">0</span>+<span class="number">1</span>)。</span><br></pre></td></tr></table></figure>
+<p><strong>思路1</strong></p>
+<ul>
+<li><p>遍历 <code>list1</code>，建立一个哈希表<code>d1</code>，以 <code>list1[i] : i</code> 键值对的方式，将 <code>list1</code> 的下标存储起来。</p>
+</li>
+<li><p>遍历 <code>list2</code>，判断 <code>list2[i]</code> 是否在哈希表中，如果在，则根据 <code>i + list1_dict[i]</code> 和 <code>min_sum</code> 的比较，判断是否需要更新最小索引和。</p>
+<ul>
+<li>如果 <code>i + list1_dict[i] &lt; min_sum</code>，则更新最小索引和，并清空答案数据，添加新的答案；</li>
+<li>如果 <code>i + list1_dict[i] == min_sum</code>，则更新最小索引和，并添加答案。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findRestaurant</span>(<span class="params">self, list1: <span class="type">List</span>[<span class="built_in">str</span>], list2: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="type">List</span>[<span class="built_in">str</span>]:</span></span><br><span class="line">        d1 = <span class="built_in">dict</span>()</span><br><span class="line">        len1 = <span class="built_in">len</span>(list1)</span><br><span class="line">        len2 = <span class="built_in">len</span>(list2)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len1):</span><br><span class="line">            d1[list1[i]] = i</span><br><span class="line"></span><br><span class="line">        min_sum = len1 + len2</span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len2):</span><br><span class="line">            <span class="keyword">if</span> list2[i] <span class="keyword">in</span> d1:</span><br><span class="line">                <span class="built_in">sum</span> = i + d1[list2[i]]</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">sum</span> &lt; min_sum:</span><br><span class="line">                    res = [list2[i]]</span><br><span class="line">                    min_sum = <span class="built_in">sum</span></span><br><span class="line">                <span class="keyword">elif</span> <span class="built_in">sum</span> == min_sum:</span><br><span class="line">                    res.append(list2[i])</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<p><strong>思路2</strong>：</p>
+<ul>
+<li>遍历 <code>list1</code>，建立一个哈希表<code>d1</code>，以 <code>list1[i] : i</code> 键值对的方式，将 <code>list1</code> 的下标存储起来。</li>
+<li>遍历 <code>list2</code>，如果<code>list2[j]</code> 在哈希表中，将这个字符和其在两个列表中的下标和分别存储在列表<code>ls</code>和<code>res</code>中</li>
+<li>最终遍历<code>res</code>，当遍历到最小下标和时，将ls对应位置的字符取出，存到最终结果中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findRestaurant</span>(<span class="params">self, list1, list2</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type list1: List[str]</span></span><br><span class="line"><span class="string">        :type list2: List[str]</span></span><br><span class="line"><span class="string">        :rtype: List[str]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        d1=<span class="built_in">dict</span>()</span><br><span class="line">        ls=[]  <span class="comment"># 存储相同字符</span></span><br><span class="line">        res=[] <span class="comment"># 存储相同字符的下标和</span></span><br><span class="line">        ans=[] <span class="comment"># 存储最终答案</span></span><br><span class="line">        </span><br><span class="line">    </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(list1)):</span><br><span class="line">            d1[list1[i]]=i</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(list2)):</span><br><span class="line">            <span class="keyword">if</span> list2[j] <span class="keyword">in</span> d1:</span><br><span class="line">                idx=d1[list2[j]]+j  <span class="comment"># 相同字符的下标和</span></span><br><span class="line">                ls.append(list2[j]) <span class="comment"># 同步存储这个字符</span></span><br><span class="line">                res.append(idx)      </span><br><span class="line"></span><br><span class="line">        min_idx=<span class="built_in">min</span>(res) <span class="comment"># 最小下标和</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(res)):</span><br><span class="line">            <span class="keyword">if</span> res[i]==min_idx:</span><br><span class="line">                ans.append(ls[i])</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<h3 id="2-12-字符串中的第一个唯一字符"><a href="#2-12-字符串中的第一个唯一字符" class="headerlink" title="2.12 字符串中的第一个唯一字符"></a>2.12 字符串中的第一个唯一字符</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/first-unique-character-in-a-string/submissions/">387 字符串中的第一个唯一字符</a> </p>
+</blockquote>
+<p>给定一个字符串 s ，找到 它的第一个不重复的字符，并返回它的索引 。如果不存在，则返回 -1 。        </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入: s = <span class="string">&quot;leetcode&quot;</span></span><br><span class="line">输出: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">firstUniqChar</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        d=<span class="built_in">dict</span>()</span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> s:</span><br><span class="line">            d[ch]=d.get(ch,<span class="number">0</span>)+<span class="number">1</span> <span class="comment"># 统计每个字符出现的次数</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            <span class="keyword">if</span> d[s[i]]==<span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-13-直线上最多的点数"><a href="#2-13-直线上最多的点数" class="headerlink" title="2.13 直线上最多的点数"></a>2.13 直线上最多的点数</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/max-points-on-a-line/">149 直线上最多的点数</a></p>
+</blockquote>
+<p>给你一个数组 points ，其中 points[i] = [xi, yi] 表示 X-Y 平面上的一个点。求最多有多少个点在同一条直线上。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入：points = [[<span class="number">1</span>,<span class="number">1</span>],[<span class="number">3</span>,<span class="number">2</span>],[<span class="number">5</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">1</span>],[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">4</span>]]</span><br><span class="line">输出：<span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/579c9577312745bdbcbdd7f08ae2c449.png" alt="在这里插入图片描述"><br><strong>解题思路</strong></p>
+<p>&#8195;&#8195;两个点可以确定一条直线，固定其中一个点，求其他点与该点的斜率，斜率相同的点则在同一条直线上。可以考虑把斜率当做哈希表的键值，存储经过该点，不同斜率的直线上经过的点数目。</p>
+<p>&#8195;&#8195;对于点 <code>i</code>，查找经过该点的直线只需要考虑 <code>(i+1,n-1)</code> 位置上的点即可，因为 <code>i-1</code> 之前的点已经在遍历点 <code>i-2</code> 的时候考虑过了。</p>
+<p>&#8195;&#8195;斜率的计算公式为 $\frac{dy}{dx} = \frac{y_j - y_i}{x_j - x_i}$。因为斜率是小数会有精度误差，所以我们考虑使用 <code>(dx, dy)</code> 的元组作为哈希表的 <code>key</code>。</p>
+<blockquote>
+<p> &#8195;&#8195;注意： 需要处理倍数关系，dy、dx 异号情况，以及处理垂直直线（两点横坐标差为 0）的水平直线（两点横坐标差为 0）的情况。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/524b67fe3d2d453aa3baacebc5d8c1b0.png" alt="在这里插入图片描述"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxPoints</span>(<span class="params">self, points: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        n = <span class="built_in">len</span>(points)</span><br><span class="line">        <span class="keyword">if</span> n &lt; <span class="number">3</span>:</span><br><span class="line">            <span class="keyword">return</span> n</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            line_dict = <span class="built_in">dict</span>()</span><br><span class="line">            line_dict[<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">            same = <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>, n):</span><br><span class="line">                dx = points[j][<span class="number">0</span>] - points[i][<span class="number">0</span>]</span><br><span class="line">                dy = points[j][<span class="number">1</span>] - points[i][<span class="number">1</span>]</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> dx == <span class="number">0</span> <span class="keyword">and</span> dy == <span class="number">0</span>:</span><br><span class="line">                    same += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                gcd_dx_dy = math.gcd(<span class="built_in">abs</span>(dx), <span class="built_in">abs</span>(dy))</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (dx &gt; <span class="number">0</span> <span class="keyword">and</span> dy &gt; <span class="number">0</span>) <span class="keyword">or</span> (dx &lt; <span class="number">0</span> <span class="keyword">and</span> dy &lt; <span class="number">0</span>):</span><br><span class="line">                    dx = <span class="built_in">abs</span>(dx) // gcd_dx_dy</span><br><span class="line">                    dy = <span class="built_in">abs</span>(dy) // gcd_dx_dy</span><br><span class="line">                <span class="keyword">elif</span> dx &lt; <span class="number">0</span> <span class="keyword">and</span> dy &gt; <span class="number">0</span>:</span><br><span class="line">                    dx = -dx // gcd_dx_dy</span><br><span class="line">                    dy = -dy // gcd_dx_dy</span><br><span class="line">                <span class="keyword">elif</span> dx &gt; <span class="number">0</span> <span class="keyword">and</span> dy &lt; <span class="number">0</span>:</span><br><span class="line">                    dx = dx // gcd_dx_dy</span><br><span class="line">                    dy = dy // gcd_dx_dy</span><br><span class="line">                <span class="keyword">elif</span> dx == <span class="number">0</span> <span class="keyword">and</span> dy != <span class="number">0</span>:</span><br><span class="line">                    dy = <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> dx != <span class="number">0</span> <span class="keyword">and</span> dy == <span class="number">0</span>:</span><br><span class="line">                    dx = <span class="number">1</span></span><br><span class="line">                    </span><br><span class="line">                key = (dx, dy)</span><br><span class="line">                <span class="keyword">if</span> key <span class="keyword">in</span> line_dict:</span><br><span class="line">                    line_dict[key] += <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    line_dict[key] = <span class="number">1</span></span><br><span class="line">            ans = <span class="built_in">max</span>(ans, same + <span class="built_in">max</span>(line_dict.values()))</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<h3 id="2-14-子域名访问计数"><a href="#2-14-子域名访问计数" class="headerlink" title="2.14 子域名访问计数"></a>2.14 子域名访问计数</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subdomain-visit-count/">811 子域名访问计数</a></p>
+</blockquote>
+<p>&#8195;&#8195;网站域名 “discuss.leetcode.com” 由多个子域名组成。顶级域名为 “com” ，二级域名为 “leetcode.com” ，最低一级为 “discuss.leetcode.com” 。当访问域名 “discuss.leetcode.com” 时，同时也会隐式访问其父域名 “leetcode.com” 以及 “com” 。</p>
+<p>&#8195;&#8195;计数配对域名 是遵循 “rep d1.d2.d3” 或 “rep d1.d2” 格式的一个域名表示，其中 rep 表示访问域名的次数，d1.d2.d3 为域名本身。例如，”9001 discuss.leetcode.com” 就是一个 计数配对域名 ，表示 discuss.leetcode.com 被访问了 9001 次。<br>&#8195;&#8195;给你一个 计数配对域名 组成的数组 cpdomains ，解析得到输入中每个子域名对应的 计数配对域名 ，并以数组形式返回。可以按 任意顺序 返回答案。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入：cpdomains = [<span class="string">&quot;900 google.mail.com&quot;</span>, <span class="string">&quot;50 yahoo.com&quot;</span>, <span class="string">&quot;1 intel.mail.com&quot;</span>, <span class="string">&quot;5 wiki.org&quot;</span>]</span><br><span class="line">输出：[<span class="string">&quot;901 mail.com&quot;</span>,<span class="string">&quot;50 yahoo.com&quot;</span>,<span class="string">&quot;900 google.mail.com&quot;</span>,<span class="string">&quot;5 wiki.org&quot;</span>,<span class="string">&quot;5 org&quot;</span>,<span class="string">&quot;1 intel.mail.com&quot;</span>,<span class="string">&quot;951 com&quot;</span>]</span><br><span class="line">解释：按照前文描述，会访问 <span class="string">&quot;google.mail.com&quot;</span> <span class="number">900</span> 次，<span class="string">&quot;yahoo.com&quot;</span> <span class="number">50</span> 次，<span class="string">&quot;intel.mail.com&quot;</span> <span class="number">1</span> 次，<span class="string">&quot;wiki.org&quot;</span> <span class="number">5</span> 次。</span><br><span class="line">而对于父域名，会访问 <span class="string">&quot;mail.com&quot;</span> <span class="number">900</span> + <span class="number">1</span> = <span class="number">901</span> 次，<span class="string">&quot;com&quot;</span> <span class="number">900</span> + <span class="number">50</span> + <span class="number">1</span> = <span class="number">951</span> 次，和 <span class="string">&quot;org&quot;</span> <span class="number">5</span> 次。</span><br></pre></td></tr></table></figure>
+<p><strong>解题思路</strong></p>
+<p>&#8195;&#8195;这道题求解的是不同层级的域名的次数汇总，很容易想到使用哈希表。我们可以使用哈希表来统计不同层级的域名访问次数。具体做如下：</p>
+<ol>
+<li>如果数组 <code>cpdomains</code> 为空，直接返回空数组。</li>
+<li>使用哈希表 <code>times_dict</code> 存储不同层级的域名访问次数。</li>
+<li>遍历数组 <code>cpdomains</code>。对于每一个计算机配对域名 <code>cpdomain</code>：<ol>
+<li>先将计算机配对域名的访问次数 <code>times</code> 和域名 <code>domain</code> 进行分割。</li>
+<li>然后将域名转为子域名数组 <code>domain_list</code>，逆序拼接不同等级的子域名 <code>sub_domain</code>。</li>
+<li>如果子域名 <code>sub_domain</code> 没有出现在哈希表 <code>times_dict</code> 中，则在哈希表中存入 <code>sub_domain</code> 和访问次数 <code>times</code> 的键值对。</li>
+<li>如果子域名 <code>sub_domain</code> 曾经出现在哈希表 <code>times_dict</code> 中，则在哈希表对应位置加上 <code>times</code>。</li>
+</ol>
+</li>
+<li>遍历完之后，遍历哈希表 <code>times_dict</code>，将所有域名和访问次数拼接为字符串，存入答案数组中。</li>
+<li>最后返回答案数组。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subdomainVisits</span>(<span class="params">self, cpdomains: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="type">List</span>[<span class="built_in">str</span>]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> cpdomains:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">        times_dict = <span class="built_in">dict</span>()</span><br><span class="line">        <span class="keyword">for</span> cpdomain <span class="keyword">in</span> cpdomains:</span><br><span class="line">            tiems, domain = cpdomain.split()</span><br><span class="line">            tiems = <span class="built_in">int</span>(tiems)</span><br><span class="line">            </span><br><span class="line">            domain_list = domain.split(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(domain_list) - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                sub_domain = <span class="string">&#x27;.&#x27;</span>.join(domain_list[i:])</span><br><span class="line">                <span class="keyword">if</span> sub_domain <span class="keyword">not</span> <span class="keyword">in</span> times_dict:</span><br><span class="line">                    times_dict[sub_domain] = tiems</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    times_dict[sub_domain] += tiems</span><br><span class="line">        </span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> times_dict.keys():</span><br><span class="line">            res.append(<span class="built_in">str</span>(times_dict[key]) + <span class="string">&#x27; &#x27;</span> + key)</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">zhxnlp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zhxnlp.github.io/2023/03/12/数据结构与算法/LeetCode练习五：哈希表/">https://zhxnlp.github.io/2023/03/12/数据结构与算法/LeetCode练习五：哈希表/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zhxnlp.github.io">zhxnlpのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/leetcode/">leetcode</a><a class="post-meta__tags" href="/tags/Stack/">Stack</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2023/03/20/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode%E7%BB%83%E4%B9%A0%E5%85%AD%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2/"><i class="fa fa-chevron-left">  </i><span>leetcode练习六：字符串</span></a></div><div class="next-post pull-right"><a href="/2023/03/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode%E7%BB%83%E4%B9%A0%E5%9B%9B%EF%BC%9A%E6%A0%88/"><span>leetcode练习四：栈</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2023 By zhxnlp</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>

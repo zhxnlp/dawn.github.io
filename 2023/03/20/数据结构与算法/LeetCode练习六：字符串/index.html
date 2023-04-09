@@ -1,0 +1,542 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="leetcode练习六：字符串"><meta name="keywords" content="leetcode,String"><meta name="author" content="zhxnlp"><meta name="copyright" content="zhxnlp"><title>leetcode练习六：字符串 | zhxnlpのBlog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"JU6VFRRZVF","apiKey":"ca17f8e20c4dc91dfe1214d03173a8be","indexName":"github-io","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.0.0'
+} </script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="zhxnlpのBlog" type="application/atom+xml">
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9F%BA%E7%A1%80"><span class="toc-text">一、字符串基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">1.1 字符串基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-1-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%80%E4%BB%8B"><span class="toc-text">1.1.1 字符串简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-2-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86"><span class="toc-text">1.1.2 字符串处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-3-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-text">1.1.3 字符串类型的格式化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE"><span class="toc-text">1.2 字符串基础题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE%E5%88%97%E8%A1%A8"><span class="toc-text">1.2.1 字符串基础题目列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2"><span class="toc-text">1.2.2 验证回文串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2"><span class="toc-text">1.2.3 最长回文子串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2"><span class="toc-text">1.2.4 无重复字符的最长子串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-5-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%8A%A0"><span class="toc-text">1.2.5 字符串相加</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-6-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98"><span class="toc-text">1.2.6   字符串相乘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-7-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80"><span class="toc-text">1.2.7 最长公共前缀</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%8D%95%E6%A8%A1%E5%BC%8F%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95"><span class="toc-text">二、单模式串匹配算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Brute-Force-%E7%AE%97%E6%B3%95%EF%BC%88%E6%9A%B4%E5%8A%9B%E5%8C%B9%E9%85%8D%EF%BC%89"><span class="toc-text">2.1 Brute Force 算法（暴力匹配）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">2.1.1 算法介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">2.1.2 代码实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">2.2.3 算法分析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-KMP-%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">2.2 KMP 算法介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E6%9C%B4%E7%B4%A0%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-text">2.2.1 朴素匹配算法的缺陷</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E6%94%B9%E8%BF%9B%E7%AE%97%E6%B3%95%EF%BC%9AKMP"><span class="toc-text">2.2.1 改进算法：KMP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-next-%E6%95%B0%E7%BB%84"><span class="toc-text">2.2.3 next 数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-next-%E6%95%B0%E7%BB%84%E7%9A%84%E6%9E%84%E9%80%A0"><span class="toc-text">2.2.4 next 数组的构造</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-KMP-%E7%AE%97%E6%B3%95%E6%95%B4%E4%BD%93%E6%AD%A5%E9%AA%A4%E5%92%8C%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">2.2.5 KMP 算法整体步骤和代码实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-KMP-%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">2.2.5 KMP 算法分析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%8D%95%E6%A8%A1%E5%BC%8F%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%BB%83%E4%B9%A0"><span class="toc-text">三、单模式串匹配练习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%8D%95%E6%A8%A1%E5%BC%8F%E4%B8%B2%E5%8C%B9%E9%85%8D%E9%A2%98%E7%9B%AE"><span class="toc-text">3.1 单模式串匹配题目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87"><span class="toc-text">3.2 找出字符串中第一个匹配项的下标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">3.3 重复的子字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E9%87%8D%E5%A4%8D%E5%8F%A0%E5%8A%A0%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D"><span class="toc-text">3.4 重复叠加字符串匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E6%9C%80%E5%A4%A7%E9%87%8D%E5%A4%8D%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">3.5 最大重复子字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">3.6 旋转字符串</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-blog.csdnimg.cn/92202ef591744a55a05a1fc7e108f4d6.png"></div><div class="author-info__name text-center">zhxnlp</div><div class="author-info__description text-center">nlp</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/zhxnlp">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">58</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">50</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">10</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://relph1119.github.io/my-team-learning">relph</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://ifwind.github.io/">ifwind</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://chuxiaoyu.cn/nlp-transformer-summary/">chuxiaoyu</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">zhxnlpのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">leetcode练习六：字符串</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-03-20</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Data-Structure-and-Algorithms/">Data Structure and Algorithms</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">11.1k</span><span class="post-meta__separator">|</span><span>阅读时长: 41 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>@[toc]</p>
+<blockquote>
+<p>参考<a target="_blank" rel="noopener" href="https://algo.itcharge.cn/06.String/01.String-Basic/01.String-Basic/">《算法通关手册》字符串篇</a></p>
+<h2 id="一、字符串基础"><a href="#一、字符串基础" class="headerlink" title="一、字符串基础"></a>一、字符串基础</h2><h3 id="1-1-字符串基础知识"><a href="#1-1-字符串基础知识" class="headerlink" title="1.1 字符串基础知识"></a>1.1 字符串基础知识</h3><h4 id="1-1-1-字符串简介"><a href="#1-1-1-字符串简介" class="headerlink" title="1.1.1 字符串简介"></a>1.1.1 字符串简介</h4><ol>
+<li>字符串的表示:字符串是由0个或多个字符组成的有序字符序列，由一对单引号或一对双引号表示<br><img src="https://img-blog.csdnimg.cn/4f88e8eacc4b429e88f9284acaeec927.png" alt="在这里插入图片描述"><span id="more"></span>
+</li>
+</ol>
+</blockquote>
+<ol>
+<li>字符串有2类共4种表示方法:<ul>
+<li>由1对单引号或双引号表示,仅表示单行字符串;</li>
+<li>由1对三单引号或三双引号表示,可表示多行字符串;</li>
+</ul>
+</li>
+<li><p>字符串是字符的有序序列，可以对其中的字符进行索引。</p>
+</li>
+<li><p>特殊字符：使用转义符<code>\</code>，<code>\b</code>表示回退；<code>\n</code>表换行（光标移动到下行首；<code>\r</code>表示回车（光标移动到本行首），<code>\t</code>表示制表符（4格）</p>
+<h4 id="1-1-2-字符串处理"><a href="#1-1-2-字符串处理" class="headerlink" title="1.1.2 字符串处理"></a>1.1.2 字符串处理</h4><blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/string.html#formatstrings">format官方文档</a>、<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/re.html">re文档</a></p>
+</blockquote>
+</li>
+<li>字符串操作符</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作符及查找</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>x+y    |连接两个字符串x和y<br>n<em>x或x</em>n |    复制n次字符串x<br>x in s    |如果x是s的子串，返回True，否则返回False<br>str.index(‘’)    |子串第一次出现的位置，不存在报错ValueError<br>str.rindex(‘’)    |子串最后一次出现的位置，不存在报错ValueError<br>str.find(‘’)    |子串第一次出现的位置，不存在返回-1<br>str.rfind(‘’)|    子串最后一次出现的位置，不存在返回-1</p>
+<ol>
+<li>字符串处理函数</li>
+</ol>
+<p>函数及使用|    描述<br>|—|—|<br>len(x)    |返回字符串的长度，非空字符串都有长度（换行符、空格和符号长度1）<br>str(x)    |将x转换为string类型<br>hex(x)或oct(x)     |将整数x转换成16进制或8进制字符串<br>chr(x)    |将一个(0-255)10或16进制整数(Unicode编码)，转换成对应ASCII字符<br>ord(x)    |x为字符，返回其对应的Unicode编码(原始值0-65535)</p>
+<ol>
+<li>字符串大小写</li>
+</ol>
+<p>大小写转换|    描述<br>|—|—|<br>str.lower()或str.upper() |    全部字符小写或大写，产生新字符串<br>str.swapcase()    |字符串大写改小写，小写改大写，产生新字符串<br>str.capitalize()|    首字符大写，其余小写，产生新字符串<br>str.title()    |每个字符首字符大写，其余小写，产生新字符串</p>
+<ol>
+<li>字符串对齐</li>
+</ol>
+<p>字符串对齐|    描述<br>|—|—|<br>str.center(width,’stp’)|    <strong>居中对齐</strong>，width指定宽度，stp指定分隔符，默认空格分割。<br>str.ljust(width,’stp’)|    <strong>左对齐</strong>，width指定宽度，stp指定分隔符，默认空格分割。<br>str.rjust(width,’stp’)|    <strong>右对齐</strong>，width指定宽度，stp指定分隔符，默认空格分割。<br>str.zfill(width)|    <strong>右对齐，左侧用0填充</strong>，width指定宽度。</p>
+<blockquote>
+<p>以上对齐方式，指定宽度小于实际宽度时返回原字符串</p>
+<ol>
+<li>字符串处理函数</li>
+</ol>
+</blockquote>
+<p>函数及使用|    描述<br>|—|—|<br>str.split(‘sep’,maxsplit)    |从str左侧开始分割，分隔符为sep，默认空格。第二个参数指定最大分割次数。最大分割后剩余字符串成一个元素<br>str.rsplit(‘sep’,maxsplit)|    同上，从右侧开始分割。直接写’/’或者sep=’/’都可以。最大分割后的元素不同。没有指定最大分割时是一样的<br>str.count(sub)|    返回子串sub在str中的出现的次数<br>str.replace(old,new,num)|    返回字符串str副本，所有old子串被替换为new,num为最大替换次数<br>str.center(width[,fillchar])|    字符串str根据宽度width居中，fillchar可选填<br>str.strip(chars)|    从str中去掉在其左侧和右侧chars中列出的字符<br>str.join(iter)|    在iter变量除最后元素外每个元素后增加一个str<br>str.isidentifier()    |判断字符串是否是合法标识符（汉字也算）<br>str.isspace()    |判断字符串是否都是由空白字符组成（回车、换行、水平制表符）<br>str.isalpha()    |判断字符串是否都是由字母组成（汉字也算）<br>str.isdecimal()|    判断字符串是否都是由十进制数字组成<br>str.isnumeric()|    判断字符串是否都是由数字组成（包括罗马数字）<br>str.isalnum()    |判断字符串是否都是由数字和字母组成</p>
+<ol>
+<li>字符串的比较<br>字符串可以用&lt;、&gt;、=、&gt;=、&lt;=、==、!=来比较。比较原理是比较每个字符的原始值（unicode编码），可用ord查看</li>
+<li><p>编码与解码</p>
+<ul>
+<li>编码：将字符串转换成二进制数据（byte）（gbk中文两个字节，utf-8中文三个字节）</li>
+<li>格式：<code>str.encode(encoding=’gbk’)</code>(gbk大小写都可以,开头b表二进制)</li>
+<li>解码：将二进制数据（byte）转换成字符串</li>
+<li>格式：<code>byte.decode((encoding=’gbk’)</code>(byte为二进制编码)，解码格式应该与编码格式一致<h4 id="1-1-3-字符串类型的格式化"><a href="#1-1-3-字符串类型的格式化" class="headerlink" title="1.1.3 字符串类型的格式化"></a>1.1.3 字符串类型的格式化</h4>字符串格式化有两种方式：<ol>
+<li>用%占位输出<br>如print(‘我是%s,今年%d岁，%(name,age))<br>print(‘我今年%10.2f岁’ % age)<br>结果：我是name，今年age岁</li>
+<li>用{}输出，如<br>print(f‘我是(name),今年(age)岁)<br>print(‘我是{0},今年{1}岁’.format(name,age))(槽中0 和1可以不写)</li>
+</ol>
+</li>
+</ul>
+<p>整数类型输出格式：</p>
+</li>
+</ol>
+<ul>
+<li>b:输出整数的二进制方式</li>
+<li>c:输出整数对应的Unicode字符</li>
+<li>d:输出整数的十进制方式</li>
+<li>o:输出整数的八进制方式</li>
+<li>x:输出整数的小写十六进制方式</li>
+<li>X:输出整数的大写十六进制方式</li>
+</ul>
+<p>浮点数类型输出格式：</p>
+<ul>
+<li>e:输出浮点数对应的小写字母e的指数形式</li>
+<li>E:输出浮点数对应的大写字母E的指数形式</li>
+<li>f:输出浮点数的标准浮点形式</li>
+<li>%:输出浮点数的百分比形式<ul>
+<li>{:.2f}表示小数点后两位的小数</li>
+<li>{:.2}表示一共两位数，有十位时表示为3e+01的形式</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/1763d1b7dced4c5fb4db6e0f5dd70511.png" alt="在这里插入图片描述"></p>
+<p>②格式控制</p>
+<p><img src="https://img-blog.csdnimg.cn/234b26b7d1ee499caf184b3b42e3615b.png" alt="在这里插入图片描述"></p>
+<h3 id="1-2-字符串基础题目"><a href="#1-2-字符串基础题目" class="headerlink" title="1.2 字符串基础题目"></a>1.2 字符串基础题目</h3><h4 id="1-2-1-字符串基础题目列表"><a href="#1-2-1-字符串基础题目列表" class="headerlink" title="1.2.1 字符串基础题目列表"></a>1.2.1 字符串基础题目列表</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">题号</th>
+<th style="text-align:left">标题</th>
+<th style="text-align:left">题解</th>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0125</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-palindrome/">验证回文串</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0125.%20%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2.md">Python</a></td>
+<td style="text-align:left">字符串、双指针</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0005</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-palindromic-substring/">最长回文子串</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0005.%20%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2.md">Python</a></td>
+<td style="text-align:left">字符串、动态规划</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0003</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/">无重复字符的最长子串</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0003.%20%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2.md">Python</a></td>
+<td style="text-align:left">字符串、哈希表、双指针、字符串、滑动窗口</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0344</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-string/">反转字符串</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0344.%20%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2.md">Python</a></td>
+<td style="text-align:left">字符串</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0557</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-words-in-a-string-iii/">反转字符串中的单词 III</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0557.%20%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D%20III.md">Python</a></td>
+<td style="text-align:left">字符串</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0049</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/group-anagrams/">字母异位词分组</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0049.%20%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%E5%88%86%E7%BB%84.md">Python</a></td>
+<td style="text-align:left">字符串、哈希表</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0415</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/add-strings/">字符串相加</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0415.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%8A%A0.md">Python</a></td>
+<td style="text-align:left">字符串、大数加法</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0151</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-words-in-a-string/">颠倒字符串中的单词</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0151.%20%E9%A2%A0%E5%80%92%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D.md">Python</a></td>
+<td style="text-align:left">双指针、字符串</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0043</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/multiply-strings/">字符串相乘</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0043.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98.md">Python</a></td>
+<td style="text-align:left">数学、字符串、模拟</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0014</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-common-prefix/">最长公共前缀</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0014.%20%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80.md">Python</a></td>
+<td style="text-align:left">字符串</td>
+<td style="text-align:left">简单</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="1-2-2-验证回文串"><a href="#1-2-2-验证回文串" class="headerlink" title="1.2.2 验证回文串"></a>1.2.2 验证回文串</h4><p>&#8195;&#8195;如果将所有大写字符转换为小写字符、并移除所有非字母数字字符之后，短语正着读和反着读都一样。则可以认为该短语是一个 回文串 。<br>&#8195;&#8195;给你一个字符串 s，如果它是 回文串 ，返回 true ；否则，返回 false 。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isPalindrome</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        s = <span class="string">&quot;&quot;</span>.join(ch.lower() <span class="keyword">for</span> ch <span class="keyword">in</span> s <span class="keyword">if</span> ch.isalnum())</span><br><span class="line">        <span class="keyword">return</span> s == s[::-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<p>作者：LeetCode-Solution<br>链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-palindrome/solution/yan-zheng-hui-wen-chuan-by-leetcode-solution/">https://leetcode.cn/problems/valid-palindrome/solution/yan-zheng-hui-wen-chuan-by-leetcode-solution/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<h4 id="1-2-3-最长回文子串"><a href="#1-2-3-最长回文子串" class="headerlink" title="1.2.3 最长回文子串"></a>1.2.3 最长回文子串</h4><p>&#8195;&#8195;给你一个字符串 <code>s</code>，找到 <code>s</code> 中最长的回文子串。如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入：s = <span class="string">&quot;babad&quot;</span></span><br><span class="line">输出：<span class="string">&quot;bab&quot;</span></span><br><span class="line">解释：<span class="string">&quot;aba&quot;</span> 同样是符合题意的答案。</span><br></pre></td></tr></table></figure>
+<p><strong>思路 1：动态规划</strong></p>
+<ul>
+<li><p>初始化一个 <code>n * n</code> 大小的布尔类型数组 <code>dp[][]</code> ，<code>dp[i][j]</code> 表示字符串 <code>s</code> 上 从位置 <code>i</code> 到 <code>j</code> 的子串 <code>s[i...j]</code> 是否是一个回文串，下面进行判断：</p>
+<ul>
+<li><p>当子串只有 <code>1</code> 位或 <code>2</code> 位的时候，如果 <code>s[i] == s[j]</code>，该子串为回文子串， <code>dp[i][j] = (s[i] == s[j])</code>。</p>
+</li>
+<li><p>如果子串大于 <code>2</code> 位，则如果 <code>s[i + 1...j - 1]</code> 是回文串，且 <code>s[i] == s[j]</code>，则 <code>s[i...j]</code> 也是回文串，<code>dp[i][j] = (s[i] == s[j]) and dp[i + 1][j - 1]</code>。</p>
+</li>
+</ul>
+</li>
+<li><p>当判断完 <code>s[i: j]</code> 是否为回文串时，判断并更新最长回文子串的起始位置和最大长度。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestPalindrome</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        n=<span class="built_in">len</span>(s)</span><br><span class="line">        <span class="keyword">if</span> n&lt;<span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 定义dp[i][j]表示从i到j的子串是否是回文串，初始设为False</span></span><br><span class="line">        dp=[[<span class="literal">False</span>]*n <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        max_len=<span class="number">1</span> <span class="comment"># 回文串最大长度</span></span><br><span class="line">        start=<span class="number">0</span>   <span class="comment"># 最长回文串起始位置</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(j):</span><br><span class="line">                <span class="keyword">if</span> s[i]==s[j]:</span><br><span class="line">                    <span class="comment"># 子串长度只有1或2时，一定是回文串</span></span><br><span class="line">                    <span class="keyword">if</span> j-i&lt;<span class="number">3</span>:</span><br><span class="line">                        dp[i][j]=<span class="literal">True</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        dp[i][j]=dp[i+<span class="number">1</span>][j-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> dp[i][j] <span class="keyword">and</span> j-i+<span class="number">1</span>&gt;max_len:</span><br><span class="line">                   max_len=j-i+<span class="number">1</span></span><br><span class="line">                   start=i</span><br><span class="line">                   </span><br><span class="line">        <span class="keyword">return</span> s[start:start+max_len]</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-4-无重复字符的最长子串"><a href="#1-2-4-无重复字符的最长子串" class="headerlink" title="1.2.4 无重复字符的最长子串"></a>1.2.4 无重复字符的最长子串</h4><p>给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入: s = <span class="string">&quot;abcabcbb&quot;</span></span><br><span class="line">输出: <span class="number">3</span> </span><br><span class="line">解释: 因为无重复字符的最长子串是 <span class="string">&quot;abc&quot;</span>，所以其长度为 <span class="number">3</span>。</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        left,right=<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">        se=<span class="built_in">set</span>()</span><br><span class="line">        ans=<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> right&lt;<span class="built_in">len</span>(s):</span><br><span class="line">            <span class="keyword">if</span> s[right] <span class="keyword">not</span> <span class="keyword">in</span> se:</span><br><span class="line">                se.add(s[right])</span><br><span class="line">                right+=<span class="number">1</span></span><br><span class="line">                ans=<span class="built_in">max</span>(ans,right-left)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                se.remove(s[left])</span><br><span class="line">                left+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        l,r=<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">        ans=<span class="number">0</span></span><br><span class="line">        se=<span class="built_in">set</span>()</span><br><span class="line">        <span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            <span class="keyword">while</span> s[r] <span class="keyword">in</span> se:</span><br><span class="line">                se.remove(s[l])</span><br><span class="line">                l+=<span class="number">1</span></span><br><span class="line">            se.add(s[r])</span><br><span class="line">            ans=<span class="built_in">max</span>(ans,r-l+<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-5-字符串相加"><a href="#1-2-5-字符串相加" class="headerlink" title="1.2.5 字符串相加"></a>1.2.5 字符串相加</h4><p>&#8195;&#8195;给定两个字符串形式的非负整数 <code>num1</code> 和<code>num2</code> ，计算它们的和并同样以字符串形式返回。</p>
+<p>&#8195;&#8195;你不能使用任何內建的用于处理大整数的库（比如 BigInteger）， 也不能直接将输入的字符串转换为整数形式。<br>&#8195;&#8195;<strong>解题思路</strong>：本题不能将字符串直接转为整数之后，在整数之间相加计算。只能对两个大整数模拟「竖式加法」的过程，如下所示：<br><img src="https://img-blog.csdnimg.cn/fb5e6836b75b41acbe1430b7faaea780.png#pic_center =500x" alt="在这里插入图片描述"><br>算法流程： </p>
+<ul>
+<li>设定 <code>i</code>，<code>j</code> 两指针分别指向 <code>num1</code>，<code>num2</code> 尾部，模拟人工加法；</li>
+<li>计算进位： 计算 <code>add= tmp // 10</code>，代表当前位相加是否产生<strong>进位</strong>；</li>
+<li>添加当前位： 计算 <code>tmp = n1 + n2 + add</code>，即当前位的结果。但是这其中要除去进位，所以当前位实际结果是 <code>tmp % 10</code> ，将其添加至 <code>ans</code> 头部；（比如计算9+4=13，当前位计算结果是3，但是进位<code>add=1</code>，累积到高一位的计算中）</li>
+<li>索引溢出处理： 当指针 <code>i</code>或<code>j</code> 走过数字首部后，给 <code>n1</code>，<code>n2</code> 赋值为 <code>0</code>，相当于给 <code>num1</code>，<code>num2</code> 中长度较短的数字前面填 0，以便后续计算。</li>
+<li>当遍历完 <code>num1</code>，<code>num2</code> 后跳出循环，并根据<code>add</code> 值决定是否在头部添加进位 1，最终返回 res 即可。<blockquote>
+<p>&#8195;&#8195;这其中的关键点，就是用add来表示前一位是否对当前位产生了进位，并将这个进位状态不断累加到后续每一位的计算中。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addStrings</span>(<span class="params">self, num1: <span class="built_in">str</span>, num2: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span></span><br><span class="line">        ans=<span class="string">&quot;&quot;</span></span><br><span class="line">        i,j,add=<span class="built_in">len</span>(num1)-<span class="number">1</span>,<span class="built_in">len</span>(num2)-<span class="number">1</span>,<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i&gt;=<span class="number">0</span> <span class="keyword">or</span> j&gt;=<span class="number">0</span>:<span class="comment"># 只要有一个数还可以计算</span></span><br><span class="line">            <span class="comment">#位数减为负则补0</span></span><br><span class="line">            n1=<span class="built_in">int</span>(num1[i]) <span class="keyword">if</span> i&gt;=<span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span> </span><br><span class="line">            n2=<span class="built_in">int</span>(num2[j]) <span class="keyword">if</span> j&gt;=<span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            </span><br><span class="line">            temp=n1+n2+add 				<span class="comment"># 当前位计算结果</span></span><br><span class="line">            add=temp//<span class="number">10</span> 				<span class="comment">#判断是否要进一位</span></span><br><span class="line">            ans=<span class="built_in">str</span>(temp%<span class="number">10</span>)+ans		<span class="comment"># 当前位写入的结果</span></span><br><span class="line">            i-=<span class="number">1</span></span><br><span class="line">            j-=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;1&quot;</span>+ans <span class="keyword">if</span> add==<span class="number">1</span> <span class="keyword">else</span> ans</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-6-字符串相乘"><a href="#1-2-6-字符串相乘" class="headerlink" title="1.2.6   字符串相乘"></a>1.2.6   字符串相乘</h4><p>&#8195;&#8195;给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。</p>
+</blockquote>
+</li>
+</ul>
+<p>&#8195;&#8195;注意：不能使用任何内置的 BigInteger 库或直接将输入转换为整数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入: num1 = <span class="string">&quot;123&quot;</span>, num2 = <span class="string">&quot;456&quot;</span></span><br><span class="line">输出: <span class="string">&quot;56088&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>思路一：先算乘数的每一位相乘结果再相加</strong></p>
+<ul>
+<li>将较长的字符作为被乘数（<code>num1</code>），较短的作为乘数（<code>num2</code>）。</li>
+<li>遍历<code>num2</code>的每一位<code>j</code>，将<code>num2[j]</code>乘以<code>num1</code>的每一位，得到结果<code>ans</code></li>
+<li>将结果<code>ans</code>存在列表<code>ls</code>中，最后再将<code>ls</code>的所有中间结果依次相加（借用上一题的相加函数）</li>
+</ul>
+<p>比如<code>996*32=1992+29980=31872</code>。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span>    </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">multiply</span>(<span class="params">self, num1, num2</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type num1: str</span></span><br><span class="line"><span class="string">        :type num2: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> num1==<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> num2==<span class="string">&#x27;0&#x27;</span>:</span><br><span class="line">        	<span class="keyword">return</span> <span class="string">&#x27;0&#x27;</span> <span class="comment"># 如果没有这一步，会算出&#x27;00000&#x27;之类的</span></span><br><span class="line">        <span class="comment"># 将nums1设为更长的数</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(num1)-<span class="number">1</span>&lt;<span class="built_in">len</span>(num2)-<span class="number">1</span>:</span><br><span class="line">            num1,num2=num2,num1</span><br><span class="line"></span><br><span class="line">        ls=[]  <span class="comment"># 记录nums2每一位和nums1相乘的结果</span></span><br><span class="line">        count=<span class="number">0</span> <span class="comment"># 记录nums2的位数，每进一位中间结果要乘以10</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(num2)-<span class="number">1</span>,-<span class="number">1</span>,-<span class="number">1</span>):</span><br><span class="line">            n2=<span class="built_in">int</span>(num2[j]) <span class="comment"># 用nums2的每一位乘以nums1的所有位</span></span><br><span class="line">            add=<span class="number">0</span></span><br><span class="line">            ans=<span class="string">&#x27;&#x27;</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(num1)-<span class="number">1</span>,-<span class="number">1</span>,-<span class="number">1</span>): </span><br><span class="line">                n1=<span class="built_in">int</span>(num1[i]) </span><br><span class="line">                <span class="comment">#print(n1,n2)          </span></span><br><span class="line">                temp=n1*n2+add</span><br><span class="line">                add=temp//<span class="number">10</span></span><br><span class="line">                ans=<span class="built_in">str</span>(temp%<span class="number">10</span>)+ans</span><br><span class="line">            ans=<span class="built_in">str</span>(add)+ans <span class="keyword">if</span> add!=<span class="number">0</span> <span class="keyword">else</span> ans <span class="comment"># 因为是相乘，进位可以是1到8（9*9=81）</span></span><br><span class="line">            ls.append(ans+<span class="string">&#x27;0&#x27;</span>*count)</span><br><span class="line">            count+=<span class="number">1</span>  </span><br><span class="line">        <span class="comment">#print(ls)</span></span><br><span class="line"></span><br><span class="line">        res=<span class="string">&#x27;0&#x27;</span>            </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(ls)):</span><br><span class="line">            res=self.addStrings(res,ls[i])</span><br><span class="line">        <span class="keyword">return</span>  res </span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">addStrings</span>(<span class="params">self, num1, num2</span>):</span> <span class="comment"># 加法函数</span></span><br><span class="line">        ans=<span class="string">&quot;&quot;</span></span><br><span class="line">        i,j,add=<span class="built_in">len</span>(num1)-<span class="number">1</span>,<span class="built_in">len</span>(num2)-<span class="number">1</span>,<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i&gt;=<span class="number">0</span> <span class="keyword">or</span> j&gt;=<span class="number">0</span>:<span class="comment"># 只要有一个数还可以计算</span></span><br><span class="line">            <span class="comment">#位数减为负则补0</span></span><br><span class="line">            n1=<span class="built_in">int</span>(num1[i]) <span class="keyword">if</span> i&gt;=<span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span> </span><br><span class="line">            n2=<span class="built_in">int</span>(num2[j]) <span class="keyword">if</span> j&gt;=<span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            </span><br><span class="line">            temp=n1+n2+add 				<span class="comment"># 当前位计算结果</span></span><br><span class="line">            add=temp//<span class="number">10</span> 				<span class="comment">#判断是否要进一位</span></span><br><span class="line">            ans=<span class="built_in">str</span>(temp%<span class="number">10</span>)+ans		<span class="comment"># 当前位写入的结果</span></span><br><span class="line">            i-=<span class="number">1</span></span><br><span class="line">            j-=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;1&quot;</span>+ans <span class="keyword">if</span> add==<span class="number">1</span> <span class="keyword">else</span> ans</span><br></pre></td></tr></table></figure></p>
+<p><strong>思路二：各位相乘后，再相加</strong></p>
+<p>&#8195;&#8195;长度为 <code>len(num1)</code> 的整数 <code>num1</code> 与长度为 <code>len(num2)</code> 的整数 <code>num2</code> 相乘的结果长度为 <code>len(num1) + len(num2) - 1</code> 或 <code>len(num1) + len(num2)</code>。所以我们可以使用长度为 <code>len(num1) + len(num2)</code> 的整数数组 <code>nums</code> 来存储两个整数相乘之后的结果。（相当于首位可能补了0，如果最终结果没有进位的话）</p>
+<p>整个计算流程的步骤如下：</p>
+<ol>
+<li>从个位数字由低位到高位开始遍历 <code>num1</code>，取得每一位数字 <code>digit1</code>。从个位数字由低位到高位开始遍历 <code>num2</code>，取得每一位数字 <code>digit2</code>。</li>
+<li><strong>将 <code>digit1 * digit2</code> 的结果累积存储到 <code>nums</code> 对应位置 <code>i + j + 1</code> 上。</strong>（比如<code>1996*23</code>时，<code>nums=[0, 2, 21, 45, 39, 18]</code>）</li>
+<li>从 <code>len(num1) + len(num2) - 1</code> 的位置由低位到高位遍历数组 <code>nums</code>。将每个数位上大于等于 <code>10</code> 的数字进行进位操作，然后对该位置上的数字进行取余操作。</li>
+<li>最后判断首位是否有进位。如果首位为 <code>0</code>，则从第 <code>1</code> 个位置开始将答案数组拼接成字符串。如果首位不为 <code>0</code>，则从第 <code>0</code> 个位置开始将答案数组拼接成字符串。并返回答案字符串。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">multiply</span>(<span class="params">self, num1: <span class="built_in">str</span>, num2: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span></span><br><span class="line">        <span class="keyword">if</span> num1 == <span class="string">&quot;0&quot;</span> <span class="keyword">or</span> num2 == <span class="string">&quot;0&quot;</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;0&quot;</span></span><br><span class="line"></span><br><span class="line">        len1, len2 = <span class="built_in">len</span>(num1), <span class="built_in">len</span>(num2)</span><br><span class="line">        nums = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(len1 + len2)] <span class="comment"># 首位补0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len1 - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            digit1 = <span class="built_in">int</span>(num1[i])</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(len2 - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                digit2 = <span class="built_in">int</span>(num2[j])</span><br><span class="line">                <span class="comment"># 比如num1的十位*num2的个位，和num2的十位*num1的个位，结果都在十位上，要累加起来</span></span><br><span class="line">                nums[i + j + <span class="number">1</span>] += digit1 * digit2 </span><br><span class="line">                </span><br><span class="line">		<span class="comment"># nums是每一位乘法计算之后的结果，比如[0, 2, 21, 45, 39, 18]</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len1 + len2 - <span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>): <span class="comment"># 从个位遍历到最高位的前一位</span></span><br><span class="line">            nums[i - <span class="number">1</span>] += nums[i] // <span class="number">10</span>        <span class="comment"># 先计算进位，并累加到下一位</span></span><br><span class="line">            nums[i] %= <span class="number">10</span>						<span class="comment"># 再将当前位结果取余数</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> nums[<span class="number">0</span>] == <span class="number">0</span>:</span><br><span class="line">            ans = <span class="string">&quot;&quot;</span>.join(<span class="built_in">str</span>(digit) <span class="keyword">for</span> digit <span class="keyword">in</span> nums[<span class="number">1</span>:])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            ans = <span class="string">&quot;&quot;</span>.join(<span class="built_in">str</span>(digit) <span class="keyword">for</span> digit <span class="keyword">in</span> nums[:])</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> ans    </span><br></pre></td></tr></table></figure>
+<h4 id="1-2-7-最长公共前缀"><a href="#1-2-7-最长公共前缀" class="headerlink" title="1.2.7 最长公共前缀"></a>1.2.7 最长公共前缀</h4><p>&#8195;&#8195;编写一个函数来查找字符串数组中的最长公共前缀。如果不存在公共前缀，返回空字符串 <code>&quot;&quot;</code>。<br><strong>思路一：纵向比较</strong></p>
+<p>&#8195;&#8195;从前往后遍历所有字符串的每一列，比较相同列上的字符是否相同，如果相同则继续对下一列进行比较，如果不相同则当前列不再属于公共前缀<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestCommonPrefix</span>(<span class="params">self, strs</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type strs: List[str]</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> strs:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        le=[<span class="built_in">len</span>(x) <span class="keyword">for</span> x <span class="keyword">in</span> strs]</span><br><span class="line">        min_le=<span class="built_in">min</span>(le) <span class="comment"># 最短的长度</span></span><br><span class="line"></span><br><span class="line">        i=<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i &lt;min_le:</span><br><span class="line">            se=<span class="built_in">set</span>(strs[<span class="number">0</span>][i]) <span class="comment"># 从第一个字符串的第一个字符开始比较</span></span><br><span class="line">            <span class="keyword">for</span> ch <span class="keyword">in</span> strs[<span class="number">1</span>:]:</span><br><span class="line">                <span class="keyword">if</span> ch[i] <span class="keyword">not</span> <span class="keyword">in</span> se:</span><br><span class="line">                    <span class="keyword">return</span> strs[<span class="number">0</span>][:i]</span><br><span class="line">            i+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> strs[<span class="number">0</span>][:i]</span><br></pre></td></tr></table></figure><br>或者是：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestCommonPrefix</span>(<span class="params">self, strs: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="built_in">str</span>:</span></span><br><span class="line">        s = <span class="string">&quot;&quot;</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">zip</span>(*strs): <span class="comment"># 直接取出所有字符串的第i列</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(<span class="built_in">set</span>(i)) == <span class="number">1</span>:</span><br><span class="line">                s += i[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">break</span>           </span><br><span class="line">        <span class="keyword">return</span> s</span><br></pre></td></tr></table></figure>
+<h2 id="二、单模式串匹配算法"><a href="#二、单模式串匹配算法" class="headerlink" title="二、单模式串匹配算法"></a>二、单模式串匹配算法</h2><blockquote>
+<p>参考<a target="_blank" rel="noopener" href="https://algo.itcharge.cn/06.String/02.String-Single-Pattern-Matching/03.String-KMP/">《算法通关手册》单模式串匹配篇</a></p>
+<h3 id="2-1-Brute-Force-算法（暴力匹配）"><a href="#2-1-Brute-Force-算法（暴力匹配）" class="headerlink" title="2.1 Brute Force 算法（暴力匹配）"></a>2.1 Brute Force 算法（暴力匹配）</h3><h4 id="2-1-1-算法介绍"><a href="#2-1-1-算法介绍" class="headerlink" title="2.1.1 算法介绍"></a>2.1.1 算法介绍</h4><ul>
+<li><strong>Brute Force 算法</strong>：简称为 BF 算法。中文意思是暴力匹配算法，也可以叫做朴素匹配算法。</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>BF 算法思想</strong>：对于给定文本串 <code>T</code> 与模式串 <code>p</code>，从文本串的第一个字符开始与模式串 <code>p</code> 的第一个字符进行比较，如果相等，则继续逐个比较后续字符，否则从文本串 <code>T</code> 的第二个字符起重新和模式串 <code>p</code> 进行比较。依次类推，直到模式串 <code>p</code> 中每个字符依次与文本串 <code>T</code> 的一个连续子串相等，则模式匹配成功。否则模式匹配失败。</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/06d03ed3c0516d54823fbf3d30413319.png" alt=""></p>
+<ul>
+<li><p><strong>Brute Force 算法步骤</strong></p>
+<ol>
+<li>对于给定的文本串 <code>T</code> 与模式串 <code>p</code>，求出文本串 <code>T</code> 的长度为 <code>n</code>，模式串 <code>p</code> 的长度为 <code>m</code>。</li>
+<li>同时遍历文本串 <code>T</code> 和模式串 <code>p</code>，先将 <code>T[0]</code> 与 <code>p[0]</code> 进行比较。<ol>
+<li>如果相等，则继续比较 <code>T[1]</code> 和 <code>p[1]</code>。以此类推，一直到模式串 <code>p</code> 的末尾 <code>p[m - 1]</code> 为止。</li>
+<li>如果不相等，则将文本串 <code>T</code> 移动到上次匹配开始位置的下一个字符位置，模式串 <code>p</code> 则回退到开始位置，再依次进行比较。</li>
+</ol>
+</li>
+<li>当遍历完文本串 <code>T</code> 或者模式串 <code>p</code> 的时候停止搜索。</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-1-2-代码实现"><a href="#2-1-2-代码实现" class="headerlink" title="2.1.2 代码实现"></a>2.1.2 代码实现</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bruteForce</span>(<span class="params">T: <span class="built_in">str</span>, p: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">    n, m = <span class="built_in">len</span>(T), <span class="built_in">len</span>(p)</span><br><span class="line">    </span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span>                     <span class="comment"># i 表示文本串 T 的当前位置，j 表示模式串 p 的当前位置</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; n <span class="keyword">and</span> j &lt; m:          <span class="comment"># i 或 j 其中一个到达尾部时停止搜索</span></span><br><span class="line">        <span class="keyword">if</span> T[i] == p[j]:            <span class="comment"># 如果相等，则继续进行下一个字符匹配</span></span><br><span class="line">            i += <span class="number">1</span>					<span class="comment"># i和j同步右移</span></span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            i = i - (j - <span class="number">1</span>)         <span class="comment"># 如果匹配失败则将 i 移动到上次匹配开始位置的下一个位置，</span></span><br><span class="line">            j = <span class="number">0</span>                   <span class="comment"># 匹配失败 j 回退到模式串开始位置</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> j == m:</span><br><span class="line">        <span class="keyword">return</span> i - j                <span class="comment"># 匹配成功，返回匹配的开始位置</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>                   <span class="comment"># 匹配失败，返回 -1</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-2-3-算法分析"><a href="#2-2-3-算法分析" class="headerlink" title="2.2.3 算法分析"></a>2.2.3 算法分析</h4><p>&#8195;&#8195;BF 算法非常简单，容易理解，但其效率很低。主要是因为在匹配过程中可能会出现回溯：当遇到一对字符不同时，模式串 <code>p</code> 直接回到开始位置，文本串也回到匹配开始位置的下一个位置，再重新开始比较。</p>
+<ul>
+<li><p>最坏时间复杂度为 $O(m \times n)$。在回溯之后，文本串和模式串中一些部分的比较是没有必要的。由于这种操作策略，导致 BF 算法的效率很低。最坏情况是每一趟比较都在模式串的最后遇到了字符不匹配的情况，每轮比较需要进行 <code>m</code> 次字符对比，总共需要进行 <code>n - m + 1</code> 轮比较，总的比较次数为 <code>m * (n - m + 1)</code>。</p>
+</li>
+<li><p>最佳时间复杂度是 $O(m)$。最理想的情况下（第一次匹配直接匹配成功）。</p>
+</li>
+<li><p>平均时间复杂度为 $O(n + m)$。在一般情况下，根据等概率原则，平均搜索次数为 $\frac{(n + m)}{2}$。</p>
+</li>
+</ul>
+<h3 id="2-2-KMP-算法介绍"><a href="#2-2-KMP-算法介绍" class="headerlink" title="2.2 KMP 算法介绍"></a>2.2 KMP 算法介绍</h3><blockquote>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://algo.itcharge.cn/06.String/02.String-Single-Pattern-Matching/03.String-KMP/">《算法通关手册：KMP 算法》</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/21923021/answer/281346746">《如何更好地理解和掌握 KMP 算法?》</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/solution/shua-chuan-lc-shuang-bai-po-su-jie-fa-km-tb86/">《【宫水三叶】简单题学 KMP 算法》</a></li>
+</ul>
+<p>&#8195;&#8195;<strong>KMP 算法</strong>：全称叫做 <strong>「Knuth Morris Pratt 算法」</strong>，是由它的三位发明者 Donald Knuth、James H. Morris、 Vaughan Pratt 的名字来命名的。KMP 算法是他们三人在 1977 年联合发表的。</p>
+</blockquote>
+<p>&#8195;&#8195; <strong>KMP 算法思想</strong>：对于给定文本串 <code>T</code> 与模式串 <code>p</code>，当发现文本串 <code>T</code> 的某个字符与模式串 <code>p</code> 不匹配的时候，可以利用匹配失败后的信息，尽量减少模式串与文本串的匹配次数，避免文本串位置的回退，以达到快速匹配的目的。</p>
+<h4 id="2-2-1-朴素匹配算法的缺陷"><a href="#2-2-1-朴素匹配算法的缺陷" class="headerlink" title="2.2.1 朴素匹配算法的缺陷"></a>2.2.1 朴素匹配算法的缺陷</h4><p>&#8195;&#8195;在朴素匹配算法的匹配过程中，我们分别用指针 <code>i</code> 和指针 <code>j</code> 指示文本串 <code>T</code> 和模式串 <code>p</code> 中当前正在对比的字符。当发现文本串 <code>T</code> 的某个字符与模式串 <code>p</code> 不匹配的时候，<code>j</code> 回退到开始位置，<code>i</code> 回退到之前匹配开始位置的下一个位置上（下图的B），继续匹配，直到能够与匹配串对上位置（下图第二个A），如下图所示。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/90419f77b5ec3db563a3388170214c8e.png" alt=""></p>
+<p>&#8195;&#8195;那么有没有哪种算法，可以让 <code>i</code> 不发生回退，一直向右移动呢？</p>
+<h4 id="2-2-1-改进算法：KMP"><a href="#2-2-1-改进算法：KMP" class="headerlink" title="2.2.1 改进算法：KMP"></a>2.2.1 改进算法：KMP</h4><p>&#8195;&#8195;如果我们可以通过每一次的失配而得到一些「信息」，并且这些「信息」可以帮助我们跳过那些不可能匹配成功的位置，那么我们就能大大减少模式串与文本串的匹配次数，从而达到快速匹配的目的。</p>
+<ol>
+<li>每一次失配所告诉我们的信息是：<strong>主串的某一个子串等于模式串的某一个前缀</strong>。</li>
+</ol>
+<blockquote>
+<ul>
+<li><p>比如文本串 <code>T[i: i + m]</code> 与模式串 <code>p</code> 的失配是下标位置 <code>j</code> 上发生的，那么文本串 <code>T</code> 从下标位置 <code>i</code> 开始连续的 <code>j - 1</code> 个字符，一定与模式串 <code>p</code> 的前 <code>j - 1</code> 个字符一模一样，即：<code>T[i: i + j] == p[0: j]</code>。</p>
+</li>
+<li><p>例如上图中，失配是在下标<code>i+5</code>这个位置发生的，那么失配位置的前<code>5</code>个字符，一定与模式串 <code>p</code> 的前 <code>5</code> 个字符一模一样，即：<code>&quot;ABCAB&quot; == &quot;ABCAB&quot;</code>。</p>
+</li>
+</ul>
+<ol>
+<li>模式串的前 <code>5</code> 个字符中，前 <code>2</code> 位前缀和后 <code>2</code> 位后缀又是相同的，即 <code>&quot;AB&quot; == &quot;AB&quot;</code>。</li>
+</ol>
+</blockquote>
+<p>&#8195;&#8195;所以根据上面的信息，我们可以推出：文本串子串的后 <code>2</code> 位后缀和模式串子串的前 <code>2</code> 位是相同的，即 <code>T[i + 3: i + 5] == p[0: 2]</code>，而这部分（即下图中的蓝色部分）是之前已经比较过的，不需要再比较了，可以直接跳过。</p>
+<p>&#8195;&#8195;那么我们就可以将文本串中的 <code>T[i + 5]</code> 对准模式串中的 <code>p[2]</code>，继续进行对比。这样 <code>i</code> 就不再需要回退了，可以一直向右移动匹配下去。在这个过程中，我们只需要将模式串 <code>j</code> 进行回退操作即可。</p>
+<blockquote>
+<p>&#8195;&#8195;实际上，我们会创建一个next数组作为「部分匹配表」，<code>next[j]</code> 表示的含义是：<strong>记录下标 j 之前（包括 j）的模式串 <code>p</code> 中，最长相等前后缀的长度。</strong>下一节会详细说明。<br>&#8195;&#8195; 由于模式串数组中，<code>next[4] == 2</code>，所以不用回退 <code>i</code>，而是将 <code>j</code> 移动到下标为 <code>2</code> 的位置，让 <code>T[i + 5]</code> 直接对准 <code>p[2]</code>，然后继续进行比对。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/1c10c21b12d64b6db024073f4eded908.png" alt=""><br>下图参考<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/solution/shua-chuan-lc-shuang-bai-po-su-jie-fa-km-tb86/">《【宫水三叶】简单题学 KMP 算法》</a></p>
+<p>&#8195;&#8195;也就是说，匹配失败时，匹配串会检查之前已经匹配成功的部分中里是否存在相同的「前缀」和「后缀」。如果存在，则跳转到「前缀」的下一个位置继续往下匹配：<br><img src="https://img-blog.csdnimg.cn/97af9b72d61e4a59b44c03b9a1b17687.png" alt="在这里插入图片描述"><br>&#8195;&#8195;跳转到下一匹配位置后，尝试匹配，发现两个指针的字符对不上，并且此时匹配串指针前面不存在相同的「前缀」和「后缀」，这时候只能回到匹配串的起始位置重新开始：<br><img src="https://img-blog.csdnimg.cn/7e9f01f66079472a96bf2d09ef779543.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<p>&#8195;&#8195;KMP 算法就是使用了这样的思路，对模式串 <code>p</code> 进行了预处理，计算出一个 <strong>「部分匹配表」</strong>(也叫PMT:Partial Match Table)**，用一个数组 <code>next</code> 来记录。然后在每次失配发生时，不回退文本串的指针 <code>i</code>，而是根据「部分匹配表」中模式串失配位置 <code>j</code> 的前一个位置的值，即 <code>next[j - 1]</code> 的值来决定模式串可以向右移动的位数。</p>
+<ul>
+<li>KMP 利用已匹配部分中相同的「前缀」和「后缀」来加速下一次的匹配</li>
+<li>KMP 的原串指针不会进行回溯（没有朴素匹配中回到下一个「发起点」的过程）<h4 id="2-2-3-next-数组"><a href="#2-2-3-next-数组" class="headerlink" title="2.2.3 next 数组"></a>2.2.3 next 数组</h4></li>
+</ul>
+<p>&#8195;&#8195;上文提到的「部分匹配表PMT」，也叫做「前缀表」，在 KMP 算法中使用 <code>next</code> 数组存储。<code>next[j]</code> 表示的含义是：<strong>记录下标 j 之前（包括 j）的模式串 <code>p</code> 中，最长相等前后缀的长度。</strong> 也可以理解为，PMT中的值是<font color='red'> <strong>字符串的前缀集合与后缀集合的交集中最长元素的长度。</strong>&lt;/font &gt;</p>
+<blockquote>
+<ul>
+<li><strong>前缀</strong>：<ul>
+<li>如果字符串A和B，存在<code>A=BS</code>，其中S是任意的非空字符串，那就称<code>B</code>为<code>A</code>的前缀。</li>
+<li>例如，”<code>Harry</code>”的前缀包括{<code>”H”, ”Ha”, ”Har”, ”Harr”</code>}，我们把所有前缀组成的集合，称为字符串的<strong>前缀集合</strong>。</li>
+</ul>
+</li>
+<li><strong>后缀</strong>：<ul>
+<li>若有<code>A=SB</code>， 其中S是任意的非空字符串，那就称<code>B</code>为<code>A</code>的后缀</li>
+<li>例如，”<code>Potter</code>”的后缀包括{<code>”otter”, ”tter”, ”ter”, ”er”, ”r”</code>}，然后把所有后缀组成的集合，称为字符串的<strong>后缀集合</strong>。</li>
+</ul>
+</li>
+<li>对于字符串”<code>ababa</code>”，它的前缀集合为<code>&#123;”a”, ”ab”, ”aba”, ”abab”</code>}，它的后缀集合为<code>&#123;”baba”, ”aba”, ”ba”, ”a”</code>}， 两个集合的交集为{”<code>a”, ”aba”</code>}，其中最长的元素为”<code>aba</code>”，长度为<code>3</code>。</li>
+<li>要注意的是，字符串本身并不是自己的前缀或者后缀。<br><img src="https://img-blog.csdnimg.cn/4c668faba22c48d5acf90557e0ba6846.png" alt="在这里插入图片描述"></li>
+</ul>
+</blockquote>
+<p>举个例子来说明一下，以 <code>p = &quot;ABCABCD&quot;</code> 为例。</p>
+<ul>
+<li><code>next[0] = 0</code>，因为 <code>&quot;A&quot;</code> 中无有相同前缀后缀，最大长度为 <code>0</code>。</li>
+<li><code>next[1] = 0</code>，因为 <code>&quot;AB&quot;</code> 中无相同前缀后缀，最大长度为 <code>0</code>。</li>
+<li><code>next[2] = 0</code>，因为 <code>&quot;ABC&quot;</code> 中无相同前缀后缀，最大长度为 <code>0</code>。</li>
+<li><code>next[3] = 1</code>，因为 <code>&quot;ABCA&quot;</code> 中有相同的前缀后缀 <code>&quot;a&quot;</code>，最大长度为 <code>1</code>。</li>
+<li><code>next[4] = 2</code>，因为 <code>&quot;ABCAB&quot;</code>  中有相同的前缀后缀 <code>&quot;AB&quot;</code>，最大长度为 <code>2</code>。</li>
+<li><code>next[5] = 3</code>，因为 <code>&quot;ABCABC&quot;</code>  中有相同的前缀后缀 <code>&quot;ABC&quot;</code>，最大长度为 <code>3</code>。</li>
+<li><code>next[6] = 0</code>，因为 <code>&quot;ABCABCD&quot;</code>  中无相同前缀后缀，最大长度为 <code>0</code>。</li>
+</ul>
+<p>&#8195;&#8195;同理也可以计算出 <code>&quot;ABCABDEF&quot;</code>  的前缀表为 <code>[0, 0, 0, 1, 2, 0, 0, 0]</code>。<code>&quot;AABAAAB&quot;</code>  的前缀表为 <code>[0, 1, 0, 1, 2, 2, 3]</code>。<code>&quot;ABCDABD&quot;</code> 的前缀表为 <code>[0, 0, 0, 0, 1, 2, 0]</code>。</p>
+<p>&#8195;&#8195;在之前的例子中，当 <code>p[5]</code> 和 <code>T[i + 5]</code> 匹配失败后，根据模式串失配位置 <code>j</code> 的前一个位置的值，即 <code>next[4] = 2</code>，我们直接让 <code>T[i + 5]</code> 直接对准了 <code>p[2]</code>，然后继续进行比对，如下图所示。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/e398bec5a4f92734b7243cf2fa26ea87.png" alt=""></p>
+<p><strong>但是这样移动的原理是什么？</strong></p>
+<p>如果文本串 <code>T[i: i + m]</code> 与模式串 <code>p</code> 的失配是在第 <code>j</code> 个下标位置发生的，那么：</p>
+<ul>
+<li>文本串 <code>T</code> 从下标位置 <code>i</code> 开始连续的 <code>j</code> 个字符，一定与模式串 <code>p</code> 的前 <code>j</code> 个字符一模一样，即：<code>T[i: i + j] == p[0: j]</code>（上图中的<code>&quot;ABCAB&quot; == &quot;ABCAB&quot;</code>）。</li>
+<li><p>而如果模式串 <code>p</code> 的前 <code>j</code> 个字符中，前 <code>k</code> 位前缀和后 <code>k</code> 位后缀相同，（<code>&quot;ABCAB&quot;</code>中有相同的前后缀<code>&quot;AB&quot;</code>，即<code>k=2</code>）那么可以断言：文本串中<code>i</code>指针失配位置之前的 <code>k</code> 位（”<code>AB</code>“）一定与模式字符串的第<code>0</code>位至第 <code>k</code>位是相同的（”<code>AB</code>“），即长度为 <code>k</code>的后缀与前缀相同。</p>
+</li>
+<li><p>这样一来，我们就可以将这些字符段的比较省略掉。具体的做法是，保持<code>i</code>指针不动，然后将<code>j</code>指针指向模式字符串的<code>next[j −1]</code>位即可（表示模式串中，前<code>j-1</code>个子符里，最长相同前后缀的长度<code>k</code>）。</p>
+</li>
+</ul>
+<blockquote>
+<p>其实相当于因为模式串存在相同的前后缀，所以失配后，模式串不用退回起始位置，退到相同前缀的下一位置就行。</p>
+</blockquote>
+<h4 id="2-2-4-next-数组的构造"><a href="#2-2-4-next-数组的构造" class="headerlink" title="2.2.4 next 数组的构造"></a>2.2.4 next 数组的构造</h4><p>&#8195;&#8195;其实，求<code>next</code>数组的过程完全可以看成字符串匹配的过程，即以模式字符串为文本串串，以模式字符串的前缀为目标字符串，一旦字符串匹配成功，那么当前的<code>next</code>值就是匹配成功的字符串的长度。<br>&#8195;&#8195;具体来说，就是从模式字符串的第一位(注意，不包括第0位)开始对自身进行匹配运算。 在任一位置，能匹配的最长长度就是当前位置的<code>next</code>值。如下图所示。</p>
+<blockquote>
+<p>数组下标从0开始，所以图中应该是<code>next[5]=4</code>，以此类推。下图模式串有<code>next=[0, 0, 1, 2, 3, 4, 0, 1]</code></p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/7e695da5918c470fae67e1d37a8dec2e.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/6cb1c32ec6ef4effadca78ea25d3fb4e.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/d8d42bb313bd426aa620c599926a437b.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/727e4cd34a894196ac94d707d2c7a645.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/529c2c60c5e240dfb93577cb45eeabfb.png" alt="在这里插入图片描述"></p>
+<p>这样我们就可以使用KMP本身的匹配原理来计算next数组。</p>
+<ul>
+<li>我们将模式串p本身即作为文本串也作为模式串，同样用指针<code>i</code>和<code>j</code>来遍历。因为文本串第一个位置即使匹配上 ，也有next[0]=0，而不等于1，所以初始时令<code>j = 0</code>，<code>i = 1</code>。</li>
+<li>遍历文本串和模式串：<ul>
+<li>如果 <code>p[i] != p[j]</code>，说明文本串在此位置失配，同上面所讲， <code>i</code> 不动，模式串指针 <code>j</code> 不断回退到 <code>next[j - 1]</code> 位置。<ul>
+<li>如果回退几次后，有 <code>p[i] == p[j]</code> ，说明匹配上了一个字符，令<code>j</code>右移，此时此时 <code>j</code>  既是前缀下一次进行比较的下标位置，又是当前最长前后缀的长度，所以<code>next[i]=j</code>。最后移动指针i遍历下一个位置；</li>
+<li>如果一直回退到<code>j=0</code>，表示文本串在<code>i</code>位置匹配不到任何一个字符，<code>next[i]=0=j</code>，<code>i+=1</code>；</li>
+</ul>
+</li>
+<li>如果 <code>p[i] == p[j]</code>，同样先将 <code>j += 1</code>，<code>next[i]=j</code>，<code>i+=1</code>；</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>如果<code>p[j]==p[i]</code>，<code>j</code>先后移，<code>next[i]=j</code>，然后<code>i</code>后移；</li>
+<li>如果不匹配，前缀指针回退，退到前一位置的<code>next</code>值，即<code>j=next[j-1]</code>，不停回退，直到<code>p[j]==p[i]</code>，或者j=0表示退到模式串开头位置，此时<code>next[i]=0</code>（因为<code>j=0</code>，所以依旧有<code>next[i]=j</code>），表示没有匹配的共同前后缀。<br><img src="https://img-blog.csdnimg.cn/90342fcb20f34047a644b63e7ee17243.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/ec32c5699af645b5aa49c526e8fc83db.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/68b7376aadef44d3a103d7dd705f584e.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/c08fe49b0df0499d94c4ffa3dcba5787.png" alt="在这里插入图片描述"></li>
+</ul>
+</blockquote>
+<h4 id="2-2-5-KMP-算法整体步骤和代码实现"><a href="#2-2-5-KMP-算法整体步骤和代码实现" class="headerlink" title="2.2.5 KMP 算法整体步骤和代码实现"></a>2.2.5 KMP 算法整体步骤和代码实现</h4><ol>
+<li>根据 <code>next</code> 数组的构造步骤生成「前缀表」<code>next</code>。</li>
+<li>使用两个指针 <code>i</code>、<code>j</code>，其中 <code>i</code> 指向文本串中当前匹配的位置，<code>j</code> 指向模式串中当前匹配的位置。初始时，<code>i = 0</code>，<code>j = 0</code>。</li>
+<li>循环判断模式串前缀是否匹配成功，如果模式串前缀匹配不成功，将模式串进行回退，即 <code>j = next[j - 1]</code>，直到 <code>j == 0</code> 时或前缀匹配成功时停止回退。</li>
+<li>如果当前模式串前缀匹配成功，则令模式串向右移动 <code>1</code> 位，即 <code>j += 1</code>。</li>
+<li>如果当前模式串 <strong>完全</strong> 匹配成功，则返回模式串 <code>p</code> 在文本串 <code>T</code> 中的开始位置，即 <code>i - j + 1</code>。</li>
+<li>如果还未完全匹配成功，则令文本串向右移动 <code>1</code> 位，即 <code>i += 1</code>，然后继续匹配。</li>
+<li>如果直到文本串遍历完也未完全匹配成功，则说明匹配失败，返回 <code>-1</code>。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 生成 next 数组</span></span><br><span class="line"><span class="comment"># next[j] 表示下标 j 之前的模式串 p 中，最长相等前后缀的长度</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generateNext</span>(<span class="params">p: <span class="built_in">str</span></span>):</span></span><br><span class="line">    m = <span class="built_in">len</span>(p)</span><br><span class="line">    <span class="built_in">next</span> = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(m)]                <span class="comment"># 初始化数组元素全部为 0</span></span><br><span class="line">    </span><br><span class="line">    left = <span class="number">0</span>                                    <span class="comment"># left 表示前缀串开始所在的下标位置</span></span><br><span class="line">    <span class="keyword">for</span> right <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, m):                   <span class="comment"># right 表示后缀串开始所在的下标位置</span></span><br><span class="line">        <span class="keyword">while</span> left &gt; <span class="number">0</span> <span class="keyword">and</span> p[left] != p[right]: <span class="comment"># 匹配不成功, left 进行回退, left == 0 时停止回退</span></span><br><span class="line">            left = <span class="built_in">next</span>[left - <span class="number">1</span>]               <span class="comment"># left 进行回退操作</span></span><br><span class="line">        <span class="keyword">if</span> p[left] == p[right]:                 <span class="comment"># 匹配成功，找到相同的前后缀，先让 left += 1，此时 left 为前缀长度</span></span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">        <span class="built_in">next</span>[right] = left                      <span class="comment"># 记录前缀长度，更新 next[right], 结束本次循环, right += 1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># KMP 匹配算法，T 为文本串，p 为模式串</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kmp</span>(<span class="params">T: <span class="built_in">str</span>, p: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">    n, m = <span class="built_in">len</span>(T), <span class="built_in">len</span>(p)</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">next</span> = generateNext(p)                      <span class="comment"># 生成 next 数组</span></span><br><span class="line">    </span><br><span class="line">    j = <span class="number">0</span>                                       <span class="comment"># j 为模式串中当前匹配的位置</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):                          <span class="comment"># i 为文本串中当前匹配的位置</span></span><br><span class="line">        <span class="keyword">while</span> j &gt; <span class="number">0</span> <span class="keyword">and</span> T[i] != p[j]:           <span class="comment"># 如果模式串前缀匹配不成功, 将模式串进行回退, j == 0 时停止回退</span></span><br><span class="line">            j = <span class="built_in">next</span>[j - <span class="number">1</span>]</span><br><span class="line">        <span class="keyword">if</span> T[i] == p[j]:                        <span class="comment"># 当前模式串前缀匹配成功，令 j += 1，继续匹配</span></span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> j == m:                              <span class="comment"># 当前模式串完全匹配成功，返回匹配开始位置</span></span><br><span class="line">            <span class="keyword">return</span> i - j + <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>                                   <span class="comment"># 匹配失败，返回 -1            </span></span><br></pre></td></tr></table></figure>
+<h4 id="2-2-5-KMP-算法分析"><a href="#2-2-5-KMP-算法分析" class="headerlink" title="2.2.5 KMP 算法分析"></a>2.2.5 KMP 算法分析</h4><ul>
+<li>KMP 算法在构造前缀表阶段的时间复杂度为 $O(m)$，其中 $m$ 是模式串 <code>p</code> 的长度。</li>
+<li>KMP 算法在匹配阶段，是根据前缀表不断调整匹配的位置，文本串的下标 <code>i</code> 并没有进行回退，可以看出匹配阶段的时间复杂度是 $O(n)$，其中 $n$ 是文本串 <code>T</code> 的长度。</li>
+<li>所以 KMP 整个算法的时间复杂度是 $O(n + m)$，相对于朴素匹配算法的 $O(n * m)$ 的时间复杂度，KMP 算法的效率有了很大的提升。</li>
+</ul>
+<blockquote>
+<p>参考资料</p>
+<ul>
+<li>【博文】<a target="_blank" rel="noopener" href="https://blog.csdn.net/v_JULY_v/article/details/7041827?spm=1001.2014.3001.5502">从头到尾彻底理解 KMP - 结构之法 算法之道 - CSDN博客</a></li>
+<li>【博文】<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2013/05/Knuth–Morris–Pratt_algorithm.html">字符串匹配的 KMP 算法 - 阮一峰的网络日志</a></li>
+<li>【题解】<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/implement-strstr/solution/duo-tu-yu-jing-xiang-jie-kmp-suan-fa-by-w3c9c/">多图预警👊🏻详解 KMP 算法 - 实现 strStr() - 力扣</a></li>
+<li>【题解】<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/implement-strstr/solution/dai-ma-sui-xiang-lu-kmpsuan-fa-xiang-jie-mfbs/">「代码随想录」KMP算法详解 - 实现 strStr() - 力扣</a></li>
+</ul>
+</blockquote>
+<h2 id="三、单模式串匹配练习"><a href="#三、单模式串匹配练习" class="headerlink" title="三、单模式串匹配练习"></a>三、单模式串匹配练习</h2><h3 id="3-1-单模式串匹配题目"><a href="#3-1-单模式串匹配题目" class="headerlink" title="3.1 单模式串匹配题目"></a>3.1 单模式串匹配题目</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">题号</th>
+<th style="text-align:left">标题</th>
+<th style="text-align:left">题解</th>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0028</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/">找出字符串中第一个匹配项的下标</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0028.%20%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87.md">Python</a></td>
+<td style="text-align:left">字符串、双指针</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0459</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/repeated-substring-pattern/">重复的子字符串</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0459.%20%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2.md">Python</a></td>
+<td style="text-align:left">字符串、字符串匹配</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0686</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/repeated-string-match/">重复叠加字符串匹配</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0686.%20%E9%87%8D%E5%A4%8D%E5%8F%A0%E5%8A%A0%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D.md">Python</a></td>
+<td style="text-align:left">字符串、字符串匹配</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">1668</td>
+<td style="text-align:left">最大重复子字符串</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0796</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/rotate-string/">旋转字符串</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0796.%20%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2.md">Python</a></td>
+<td style="text-align:left">字符串、字符串匹配</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">1408</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/string-matching-in-an-array/">数组中的字符串匹配</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/1408.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D.md">Python</a></td>
+<td style="text-align:left">字符串、字符串匹配</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">2156</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-substring-with-given-hash-value/">查找给定哈希值的子串</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/2156.%20%E6%9F%A5%E6%89%BE%E7%BB%99%E5%AE%9A%E5%93%88%E5%B8%8C%E5%80%BC%E7%9A%84%E5%AD%90%E4%B8%B2.md">Python</a></td>
+<td style="text-align:left">字符串、滑动窗口、哈希函数、滚动哈希</td>
+<td style="text-align:left">中等</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="3-2-找出字符串中第一个匹配项的下标"><a href="#3-2-找出字符串中第一个匹配项的下标" class="headerlink" title="3.2 找出字符串中第一个匹配项的下标"></a>3.2 找出字符串中第一个匹配项的下标</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">strStr</span>(<span class="params">self, haystack, needle</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type haystack: str</span></span><br><span class="line"><span class="string">        :type needle: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># KMP 匹配算法，haystack 为文本串，needle 为模式串</span></span><br><span class="line">        m,n = <span class="built_in">len</span>(haystack), <span class="built_in">len</span>(needle)</span><br><span class="line">        <span class="built_in">next</span> = self.<span class="built_in">next</span>(needle)  <span class="comment"># 生成 next 数组</span></span><br><span class="line">        j = <span class="number">0</span>                                             <span class="comment"># j 为模式串中当前匹配的位置</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):                                <span class="comment"># i 为文本串中当前匹配的位置</span></span><br><span class="line">            <span class="keyword">while</span> j &gt; <span class="number">0</span> <span class="keyword">and</span> haystack[i] != needle[j]:     <span class="comment"># 如果模式串前缀匹配不成功, 将模式串进行回退, j == 0 时停止回退</span></span><br><span class="line">                j = <span class="built_in">next</span>[j - <span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span> haystack[i] == needle[j]:                  <span class="comment"># 当前模式串前缀匹配成功，令 j += 1，继续匹配</span></span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> j == n:                              	  <span class="comment"># 当前模式串完全匹配成功，返回匹配开始位置</span></span><br><span class="line">                <span class="keyword">return</span> i - j + <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next</span>(<span class="params">self,p</span>):</span></span><br><span class="line">        <span class="comment"># 等同于模式串自己和自己匹配，只不过文本串从1开始（第一位匹配到结果也应该是0不是1），模式串从0开始</span></span><br><span class="line">        <span class="built_in">next</span>=[<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(p))]</span><br><span class="line">        j=<span class="number">0</span> <span class="comment"># 模式串匹配起始位置，也是匹配到的长度</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(p)):</span><br><span class="line">            <span class="comment">#次序反过来，left右移，下一步判定就不对了</span></span><br><span class="line">            <span class="comment">#if p[left]==p[right]:</span></span><br><span class="line">                <span class="comment">#left+=1</span></span><br><span class="line">            <span class="comment"># 先判定不相等就回退，直到相等再右移模式串指针，进行下一步比较</span></span><br><span class="line">            <span class="keyword">while</span> j&gt;<span class="number">0</span> <span class="keyword">and</span> p[j]!=p[i]:</span><br><span class="line">                j=<span class="built_in">next</span>[j-<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span> p[i]==p[j]:</span><br><span class="line">                j+=<span class="number">1</span> 			<span class="comment"># 匹配上了，公共前后缀长度+1</span></span><br><span class="line">            <span class="built_in">next</span>[i]=j</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">next</span> </span><br></pre></td></tr></table></figure>
+<h3 id="3-3-重复的子字符串"><a href="#3-3-重复的子字符串" class="headerlink" title="3.3 重复的子字符串"></a>3.3 重复的子字符串</h3><p>给定一个非空的字符串 s ，检查是否可以通过由它的一个子串重复多次构成。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入: s = <span class="string">&quot;abcabcabcabc&quot;</span></span><br><span class="line">输出: true</span><br><span class="line">解释: 可由子串 <span class="string">&quot;abc&quot;</span> 重复四次构成。 (或子串 <span class="string">&quot;abcabc&quot;</span> 重复两次构成。)</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>思路一：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/repeated-substring-pattern/solution/zhong-fu-de-zi-zi-fu-chuan-by-leetcode-solution/">官方题解</a><br><img src="https://img-blog.csdnimg.cn/11a7f3154b684b7aad14871b250b7618.png" alt="在这里插入图片描述"></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">repeatedSubstringPattern</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (s+s).find(s,<span class="number">1</span>)!=<span class="built_in">len</span>(s)</span><br></pre></td></tr></table></figure>
+<p>思路二：KMP（参考<a target="_blank" rel="noopener" href="https://algo.itcharge.cn/Solutions/0400-0499/repeated-substring-pattern/">《算法通关手册》</a>）<br>&#8195;&#8195;我们知道 <code>next[j]</code> 表示的含义是：记录下标 <code>j</code> 之前（包括 j）的模式串 <code>p</code> 中，最长相等前后缀的长度。<br>&#8195;&#8195;而如果整个模式串 p 的最长相等前后缀长度不为 0，即 <code>next[len(p) - 1] != 0</code> ，则说明整个模式串 p 中有最长相同的前后缀。假设 <code>next[len(p) - 1] == k</code>，则说明 <code>p[0: k] == p[m - k: m]</code>。比如字符串 “abcabcabc”，最长相同前后缀为 “abcabc” = “abcabc”。</p>
+<ul>
+<li>如果最长相等的前后缀是重叠的，比如之前的例子 “abcabcabc”。<ul>
+<li>如果我们去除字符串中相同的前后缀的重叠部分，剩下两头前后缀部分（这两部分是相同的）。然后再去除剩余的后缀部分，只保留剩余的前缀部分。比如字符串 “abcabcabc” 去除重叠部分和剩余的后缀部分之后就是 “abc”。实际上这个部分就是字符串去除整个后缀部分的剩余部分。</li>
+<li>如果整个字符串可以通过子串重复构成的话，那么这部分就是最小周期的子串。</li>
+<li>我们只需要判断整个子串的长度是否是剩余部分长度的整数倍即可。也就是判断 <code>len(p) % (len(p) - next[size - 1]) == 0</code> 是否成立，如果成立，则字符串 s 可由 <code>s[0: len(p) - next[size - 1]]</code> 构成的子串重复构成，返回 <code>True</code>。否则返回 <code>False</code>。</li>
+</ul>
+</li>
+<li>如果最长相等的前后缀是不重叠的，那我们可将重叠部分视为长度为 <code>0</code> 的空串，则剩余的部分其实就是去除后缀部分的剩余部分，上述结论依旧成立。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">repeatedSubstringPattern</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">    	<span class="comment"># 创建next数组</span></span><br><span class="line">        le=<span class="built_in">len</span>(s)</span><br><span class="line">        <span class="keyword">if</span> le==<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        j=<span class="number">0</span></span><br><span class="line">        <span class="built_in">next</span>=[<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(le)]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,le):</span><br><span class="line">            <span class="keyword">while</span> j&gt;<span class="number">0</span> <span class="keyword">and</span> s[i]!=s[j]:</span><br><span class="line">                j=<span class="built_in">next</span>[j-<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span> s[i]==s[j]:</span><br><span class="line">                j+=<span class="number">1</span></span><br><span class="line">            <span class="built_in">next</span>[i]=j</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># next数组最后一位的值，表示模式串的最长相等前后缀长度。</span></span><br><span class="line">        <span class="comment"># 将其除去前后缀重叠部分和剩余的后缀部分，就是剩余前缀部分。</span></span><br><span class="line">        <span class="comment"># 这部分就是最小周期长度，可以被模式串长度整除</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">next</span>[le-<span class="number">1</span>]!=<span class="number">0</span> <span class="keyword">and</span> le%(le-<span class="built_in">next</span>[le-<span class="number">1</span>])==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-4-重复叠加字符串匹配"><a href="#3-4-重复叠加字符串匹配" class="headerlink" title="3.4 重复叠加字符串匹配"></a>3.4 重复叠加字符串匹配</h3>&#8195;&#8195;给定两个字符串 a 和 b，寻找重复叠加字符串 a 的最小次数，使得字符串 b 成为叠加后的字符串 a 的子串，如果不存在则返回 -1。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入：a = <span class="string">&quot;abcd&quot;</span>, b = <span class="string">&quot;cdabcdab&quot;</span></span><br><span class="line">输出：<span class="number">3</span></span><br><span class="line">解释：a 重复叠加三遍后为 <span class="string">&quot;abcdabcdabcd&quot;</span>, 此时 b 是其子串。    </span><br></pre></td></tr></table></figure>
+<p>首先，可以分析复制次数的「下界」和「上界」为何值：</p>
+<ul>
+<li>「下界」：至少将 a 复制长度大于等于 b 的长度，才有可能匹配</li>
+<li>「上界」：由于主串是由 a 复制多次而来，并且是从主串中找到子串 b，因此可以明确子串的起始位置，不会超过 a 的长度。即长度越过 a 长度的起始匹配位置，必然在此前已经被匹配过了。由此，我们可知复制次数「上界」最多为「下界 + 1」<br><img src="https://img-blog.csdnimg.cn/da8507eccbac4687a8ef8648ce7e15a4.png#pic_center =500x" alt="在这里插入图片描述"></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">repeatedStringMatch</span>(<span class="params">self, a: <span class="built_in">str</span>, b: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">    <span class="comment"># 将b看做模式串，a最低重复次数是len([a]*count)=len(b)，即至少的是一样长</span></span><br><span class="line">    <span class="comment"># 最大重复次数是count+1。</span></span><br><span class="line">    <span class="comment"># 将a复制（n+1）次后匹配b，如果匹配下标超过n，则表示无法重复，否则返回count</span></span><br><span class="line">        m,n=<span class="built_in">len</span>(a),<span class="built_in">len</span>(b)</span><br><span class="line">        count=(n//m)+<span class="number">1</span> <span class="keyword">if</span> n%m!=<span class="number">0</span> <span class="keyword">else</span> n//m</span><br><span class="line">        a=a*(count+<span class="number">1</span>)</span><br><span class="line">        idx=a.find(b)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> idx ==-<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            idx=idx+n-<span class="number">1</span> <span class="comment"># 匹配串的结束位置</span></span><br><span class="line">            <span class="keyword">return</span> count <span class="keyword">if</span> idx&lt;m*count <span class="keyword">else</span> count +<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>如果用KMP算法代替find函数写，就是：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">repeatedStringMatch</span>(<span class="params">self, a: <span class="built_in">str</span>, b: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">    <span class="comment"># 将b看做模式串，a最低重复次数是len([a]*count)=len(b)，即至少的是一样长</span></span><br><span class="line">    <span class="comment"># 最大重复次数是count+1。</span></span><br><span class="line">    <span class="comment"># 将a复制（n+1）次后匹配b，如果匹配下标超过n，则表示无法重复，否则返回count</span></span><br><span class="line">        m,n=<span class="built_in">len</span>(a),<span class="built_in">len</span>(b)</span><br><span class="line">        count=(n//m)+<span class="number">1</span> <span class="keyword">if</span> n%m!=<span class="number">0</span> <span class="keyword">else</span> n//m</span><br><span class="line">        a=a*(count+<span class="number">1</span>)</span><br><span class="line">        idx=self.KMP(a,b)</span><br><span class="line">        <span class="built_in">print</span>(idx)</span><br><span class="line">        <span class="keyword">if</span> idx ==-<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:        </span><br><span class="line">            <span class="keyword">return</span> count <span class="keyword">if</span> idx&lt;m*count <span class="keyword">else</span> count +<span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">KMP</span>(<span class="params">self, t, p</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type haystack: str</span></span><br><span class="line"><span class="string">        :type needle: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># KMP 匹配算法，haystack 为文本串，needle 为模式串</span></span><br><span class="line">        m,n = <span class="built_in">len</span>(t), <span class="built_in">len</span>(p)</span><br><span class="line">        <span class="built_in">next</span> = self.<span class="built_in">next</span>(p)  <span class="comment"># 生成 next 数组</span></span><br><span class="line">        j = <span class="number">0</span>                                               <span class="comment"># j 为模式串中当前匹配的位置</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):                          <span class="comment"># i 为文本串中当前匹配的位置</span></span><br><span class="line">            <span class="keyword">while</span> j &gt; <span class="number">0</span> <span class="keyword">and</span> t[i] != p[j]:           <span class="comment"># 如果模式串前缀匹配不成功, 将模式串进行回退, j == 0 时停止回退</span></span><br><span class="line">                j = <span class="built_in">next</span>[j - <span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span> t[i] == p[j]:                        <span class="comment"># 当前模式串前缀匹配成功，令 j += 1，继续匹配</span></span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> j == n:                              <span class="comment"># 当前模式串完全匹配成功，返回匹配结束位置</span></span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next</span>(<span class="params">self,p</span>):</span></span><br><span class="line">        <span class="comment"># 等同于模式串自己和自己匹配看前缀，只不过文本串从1开始（第一位匹配到结果也应该是0不是1），模式串从0开始</span></span><br><span class="line">        <span class="built_in">next</span>=[<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(p))]</span><br><span class="line">        j=<span class="number">0</span> <span class="comment"># 共同前缀下标</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(p)):</span><br><span class="line">            <span class="comment">#次序反过来，left右移，下一步判定就不对了</span></span><br><span class="line">            <span class="comment">#if p[left]==p[right]:</span></span><br><span class="line">                <span class="comment">#left+=1</span></span><br><span class="line">            <span class="comment"># 先判定不相等就回退，直到相等再右移模式串指针，进行下一步比较</span></span><br><span class="line">            <span class="keyword">while</span> j&gt;<span class="number">0</span> <span class="keyword">and</span> p[j]!=p[i]:</span><br><span class="line">                j=<span class="built_in">next</span>[j-<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span> p[i]==p[j]:</span><br><span class="line">                j+=<span class="number">1</span> <span class="comment"># 匹配时，公共前后缀长度+1</span></span><br><span class="line">            <span class="built_in">next</span>[i]=j</span><br><span class="line">        <span class="comment">#print(next)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-5-最大重复子字符串"><a href="#3-5-最大重复子字符串" class="headerlink" title="3.5 最大重复子字符串"></a>3.5 最大重复子字符串</h3><p>&#8195;&#8195;给你一个字符串 sequence ，如果字符串 word 连续重复 k 次形成的字符串是 sequence 的一个子字符串，那么单词 word 的 重复值为 k 。单词 word 的 最大重复值 是单词 word 在 sequence 中最大的重复值。如果 word 不是 sequence 的子串，那么重复值 k 为 0 。</p>
+<p>&#8195;&#8195;给你一个字符串 sequence 和 word ，请你返回 最大重复值 k 。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入：sequence = <span class="string">&quot;ababc&quot;</span>, word = <span class="string">&quot;ba&quot;</span></span><br><span class="line">输出：<span class="number">1</span></span><br><span class="line">解释：<span class="string">&quot;ba&quot;</span> 是 <span class="string">&quot;ababc&quot;</span> 的子字符串，但 <span class="string">&quot;baba&quot;</span> 不是 <span class="string">&quot;ababc&quot;</span> 的子字符串。</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxRepeating</span>(<span class="params">self, sequence, word</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type sequence: str</span></span><br><span class="line"><span class="string">        :type word: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        ans=<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> (ans*word) <span class="keyword">in</span> sequence:</span><br><span class="line">            ans+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> ans -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxRepeating</span>(<span class="params">self, sequence, word</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type sequence: str</span></span><br><span class="line"><span class="string">        :type word: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        m,n=<span class="built_in">len</span>(sequence),<span class="built_in">len</span>(word)</span><br><span class="line">        max_count=m//n</span><br><span class="line">        ans,count=<span class="number">0</span>,<span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> count&lt;=max_count:</span><br><span class="line">            temp=word*count</span><br><span class="line">            <span class="keyword">if</span> sequence.find(temp)!=-<span class="number">1</span>:</span><br><span class="line">                ans=<span class="built_in">max</span>(ans,count)</span><br><span class="line">                count+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">break</span>            </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<h3 id="3-6-旋转字符串"><a href="#3-6-旋转字符串" class="headerlink" title="3.6 旋转字符串"></a>3.6 旋转字符串</h3><ul>
+<li>给定两个字符串, s 和 goal。如果在若干次旋转操作之后，s 能变成 goal ，那么返回 true 。</li>
+<li>s 的 旋转操作 就是将 s 最左边的字符移动到最右边。 </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">输入: s = <span class="string">&quot;abcde&quot;</span>, goal = <span class="string">&quot;cdeab&quot;</span></span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rotateString</span>(<span class="params">self, s, goal</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type goal: str</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> goal <span class="keyword">in</span> s+s <span class="keyword">if</span> <span class="built_in">len</span>(s)==<span class="built_in">len</span>(goal) <span class="keyword">else</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">zhxnlp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zhxnlp.github.io/2023/03/20/数据结构与算法/LeetCode练习六：字符串/">https://zhxnlp.github.io/2023/03/20/数据结构与算法/LeetCode练习六：字符串/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zhxnlp.github.io">zhxnlpのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/leetcode/">leetcode</a><a class="post-meta__tags" href="/tags/String/">String</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2023/03/28/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode%E7%BB%83%E4%B9%A0%E5%85%AB%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E4%B8%8B%EF%BC%9A%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"><i class="fa fa-chevron-left">  </i><span>leetcode练习八：背包问题</span></a></div><div class="next-post pull-right"><a href="/2023/03/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode%E7%BB%83%E4%B9%A0%E4%BA%94%EF%BC%9A%E5%93%88%E5%B8%8C%E8%A1%A8/"><span>leetcode练习五：哈希表</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2023 By zhxnlp</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>

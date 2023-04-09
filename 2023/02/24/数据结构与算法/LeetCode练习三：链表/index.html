@@ -1,0 +1,908 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="leetcode练习三：链表"><meta name="keywords" content="leetcode,Linked List"><meta name="author" content="zhxnlp"><meta name="copyright" content="zhxnlp"><title>leetcode练习三：链表 | zhxnlpのBlog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"JU6VFRRZVF","apiKey":"ca17f8e20c4dc91dfe1214d03173a8be","indexName":"github-io","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.0.0'
+} </script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="zhxnlpのBlog" type="application/atom+xml">
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%93%BE%E8%A1%A8%E5%9F%BA%E7%A1%80"><span class="toc-text">一、链表基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%97%A0%E5%BA%8F%E8%A1%A8%EF%BC%88UnorderedList%EF%BC%89"><span class="toc-text">1.1 无序表（UnorderedList）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-2-%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8"><span class="toc-text">1.1.2 双向链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-3-%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8"><span class="toc-text">1.1.3 循环链表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E9%93%BE%E8%A1%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text">1.2 链表的基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-%E5%AE%9A%E4%B9%89%E9%93%BE%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="toc-text">1.2.1 定义链表结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-%E5%BB%BA%E7%AB%8B%E7%BA%BF%E6%80%A7%E9%93%BE%E8%A1%A8"><span class="toc-text">1.2.2  建立线性链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-%E6%B1%82%E7%BA%BF%E6%80%A7%E9%93%BE%E8%A1%A8%E7%9A%84%E9%95%BF%E5%BA%A6"><span class="toc-text">1.2.3 求线性链表的长度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0"><span class="toc-text">1.2.4 查找元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-5-%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0"><span class="toc-text">1.2.5 插入元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-6-%E6%94%B9%E5%8F%98%E5%85%83%E7%B4%A0"><span class="toc-text">1.2.6 改变元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-7-%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="toc-text">1.2.7 删除元素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E6%9C%89%E5%BA%8F%E8%A1%A8OrderedList"><span class="toc-text">1.3 有序表OrderedList</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93"><span class="toc-text">1.4 链表总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-%E9%93%BE%E8%A1%A8%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE"><span class="toc-text">二、 链表基础题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E8%AE%BE%E8%AE%A1%E9%93%BE%E8%A1%A8-707"><span class="toc-text">2.1 设计链表(707)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1%E5%8D%95%E9%93%BE%E8%A1%A8"><span class="toc-text">2.1.1单链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-%E5%8F%8C%E9%93%BE%E8%A1%A8"><span class="toc-text">2.1.2 双链表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0%EF%BC%88203%EF%BC%89"><span class="toc-text">2.2 移除链表元素（203）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%EF%BC%8883%EF%BC%89"><span class="toc-text">2.3  删除排序链表中的重复元素（83）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-82"><span class="toc-text">2.4 删除排序链表中的重复元素 (82)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8"><span class="toc-text">2.5 反转链表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-1-%E8%BF%AD%E4%BB%A3"><span class="toc-text">2.5.1 迭代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-2-%E9%80%92%E5%BD%92"><span class="toc-text">2.5.2 递归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8%E4%BA%8C%EF%BC%8892%EF%BC%89"><span class="toc-text">2.6 反转链表二（92）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-1-%E8%BF%AD%E4%BB%A3"><span class="toc-text">2.6.1 迭代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-2-%E5%A4%B4%E6%8F%92%E6%B3%95%EF%BC%8C%E4%B8%80%E6%AC%A1%E9%81%8D%E5%8E%86%EF%BC%88%E5%AE%98%E6%96%B9%E9%A2%98%E8%A7%A3%EF%BC%89"><span class="toc-text">2.6.2 头插法，一次遍历（官方题解）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8"><span class="toc-text">2.7 回文链表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%93%BE%E8%A1%A8%E5%8F%8C%E6%8C%87%E9%92%88"><span class="toc-text">三、链表双指针</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%8F%8C%E6%8C%87%E9%92%88%E7%AE%80%E4%BB%8B"><span class="toc-text">3.1 双指针简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E8%B5%B7%E7%82%B9%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88"><span class="toc-text">3.2 起点不一致的快慢指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-%E7%AE%97%E6%B3%95%E7%AE%80%E4%BB%8B"><span class="toc-text">3.2.1 算法简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-N-%E4%B8%AA%E7%BB%93%E7%82%B9"><span class="toc-text">3.2.2 删除链表的倒数第 N 个结点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%AD%A5%E9%95%BF%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88"><span class="toc-text">3.3  步长不一致的快慢指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86"><span class="toc-text">3.3.1 算法原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-%E6%B1%82%E9%93%BE%E8%A1%A8%E7%9A%84%E4%B8%AD%E9%97%B4%E7%BB%93%E7%82%B9"><span class="toc-text">3.3.2  求链表的中间结点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-2-1-%E5%8D%95%E6%8C%87%E9%92%88"><span class="toc-text">3.3.2.1 单指针</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-2-2-%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88"><span class="toc-text">3.3.2.2 快慢指针</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-3-%E5%88%A4%E6%96%AD%E9%93%BE%E8%A1%A8%E4%B8%AD%E6%98%AF%E5%90%A6%E5%90%AB%E6%9C%89%E7%8E%AF"><span class="toc-text">3.3.3 判断链表中是否含有环</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-3-1-%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="toc-text">3.3.3.1 哈希表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-3-2-%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88%EF%BC%88Floyd-%E5%88%A4%E5%9C%88%E7%AE%97%E6%B3%95%EF%BC%89"><span class="toc-text">3.3.3.2 快慢指针（Floyd 判圈算法）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-4-%E6%B1%82%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E5%85%A5%E7%8E%AF%E4%BD%8D%E7%BD%AE"><span class="toc-text">3.3.4  求环形链表入环位置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-4-1-%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="toc-text">3.3.4.1 哈希表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-4-2-%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88%EF%BC%88Floyd-%E5%88%A4%E5%9C%88%E7%AE%97%E6%B3%95%EF%BC%89"><span class="toc-text">3.3.4.2 快慢指针（Floyd 判圈算法）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E5%88%86%E7%A6%BB%E5%8F%8C%E6%8C%87%E9%92%88"><span class="toc-text">3.4 分离双指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86"><span class="toc-text">3.4.1 算法原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8"><span class="toc-text">3.4.2 合并两个有序链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8"><span class="toc-text">3.4.3 相交链表</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-4-3-1-%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="toc-text">3.4.3.1 哈希表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-4-3-2-%E5%88%86%E7%A6%BB%E5%8F%8C%E6%8C%87%E9%92%88"><span class="toc-text">3.4.3.2 分离双指针</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F"><span class="toc-text">四、链表排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">4.1 基础知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E9%93%BE%E8%A1%A8%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-text">4.2 链表插入排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-text">4.3 链表归并排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F%E9%A2%98%E7%9B%AE"><span class="toc-text">4.4 链表排序题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-1-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8"><span class="toc-text">4.4.1 排序链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-2-%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8"><span class="toc-text">4.4.2 合并K个升序链表</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-4-2-1-%E9%A1%BA%E5%BA%8F%E5%90%88%E5%B9%B6"><span class="toc-text">4.4.2.1 顺序合并</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-4-2-2-%E5%88%86%E6%B2%BB%E5%90%88%E5%B9%B6"><span class="toc-text">4.4.2.2 分治合并</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-blog.csdnimg.cn/92202ef591744a55a05a1fc7e108f4d6.png"></div><div class="author-info__name text-center">zhxnlp</div><div class="author-info__description text-center">nlp</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/zhxnlp">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">58</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">50</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">10</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://relph1119.github.io/my-team-learning">relph</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://ifwind.github.io/">ifwind</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://chuxiaoyu.cn/nlp-transformer-summary/">chuxiaoyu</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">zhxnlpのBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">leetcode练习三：链表</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-02-24</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Data-Structure-and-Algorithms/">Data Structure and Algorithms</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">14.2k</span><span class="post-meta__separator">|</span><span>阅读时长: 54 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>@[toc]</p>
+<blockquote>
+<p>本文主要参考<a target="_blank" rel="noopener" href="https://algo.itcharge.cn/">《算法通关手册》</a>链表篇</p>
+<h2 id="一、链表基础"><a href="#一、链表基础" class="headerlink" title="一、链表基础"></a>一、链表基础</h2><h3 id="1-1-无序表（UnorderedList）"><a href="#1-1-无序表（UnorderedList）" class="headerlink" title="1.1 无序表（UnorderedList）"></a>1.1 无序表（UnorderedList）</h3></blockquote>
+<p>&#8195;&#8195; <strong>链表（Linked List）</strong>：一种线性表数据结构。它使用一组任意的存储单元（可以是连续的，也可以是不连续的），来存储一组具有相同类型的数据。简单来说，<strong>「链表」</strong> 是实现线性表链式存储结构的基础。</p>
+<p>&#8195;&#8195;虽然列表数据结构要求保持数据项的前后相对位置，但这种前后位置的保持，<strong>并不要求数据项依次存放在连续的存储空间</strong>。如下图，数据项存放位置并没有规则，但如果在数据项之间建立链接指向，就可以保持其前后相对位置。第一个和最后一个数据项需要显示标记出来，一个是队首，一个是队尾，后面再无数据了。</p>
+<ul>
+<li>插入删除元素时需要移动表中元素，而不是修改指针，顺序表也是随机存取数据。<br><img src="https://img-blog.csdnimg.cn/976032d0441941e890bb51d86205832a.png" alt="在这里插入图片描述"><span id="more"></span>
+如上图所示，链表通过将一组任意的存储单元串联在一起。其中，每个数据元素占用若干存储单元的组合称为一个<strong>链节点</strong>。每个节点包含两个部分：</li>
+<li>元素值</li>
+<li>后继指针 <code>next</code>：指出直接后继元素所在链节点的地址。</li>
+</ul>
+<p>在链表中，数据元素之间的逻辑关系是通过指针来间接反映的。逻辑上相邻的数据元素在物理地址上可能相邻，可也能不相邻。其在物理地址上的表现是随机的。</p>
+<p>我们先来简单介绍一下链表结构的优缺点：</p>
+<ul>
+<li><p><strong>优点</strong>：存储空间不必事先分配，在需要存储空间的时候可以临时申请，不会造成空间的浪费；一些操作的时间效率远比数组高（插入、移动、删除元素等）。</p>
+</li>
+<li><p><strong>缺点</strong>：不仅数据元素本身的数据信息要占用存储空间，指针也需要占用存储空间，链表结构比数组结构的空间开销大。</p>
+</li>
+</ul>
+<p>接下来先来介绍一下除了单链表之外，链表的其他几种类型。</p>
+<h4 id="1-1-2-双向链表"><a href="#1-1-2-双向链表" class="headerlink" title="1.1.2 双向链表"></a>1.1.2 双向链表</h4><blockquote>
+<p><strong>双向链表（Doubly Linked List）</strong>：链表的一种，也叫做双链表。它的每个链节点中有两个指针，分别指向直接后继和直接前驱。</p>
+</blockquote>
+<p>从双链表的任意一个节点开始，都可以很方便的访问它的前驱节点和后继节点。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/13e3e10cb7da9e3ae4abe40f5b297e7d.png" alt=""></p>
+<h4 id="1-1-3-循环链表"><a href="#1-1-3-循环链表" class="headerlink" title="1.1.3 循环链表"></a>1.1.3 循环链表</h4><blockquote>
+<p><strong>循环链表（Circular linked list）</strong>：链表的一种。它的最后一个链节点指向头节点，形成一个环。</p>
+</blockquote>
+<p>从循环链表的任何一个节点出发都能找到任何其他节点。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/6f46916bdfd94f22511b68b01944ff60.png" alt=""></p>
+<p>接下来我们以单链表为例，介绍一下链表的基本操作。</p>
+<h3 id="1-2-链表的基本操作"><a href="#1-2-链表的基本操作" class="headerlink" title="1.2 链表的基本操作"></a>1.2 链表的基本操作</h3><p>&#8195;&#8195;数据结构的操作一般涉及到增、删、改、查 4 种情况，链表的操作也基本上是这 4 种情况。我们一起来看一下链表的基本操作。</p>
+<h4 id="1-2-1-定义链表结构"><a href="#1-2-1-定义链表结构" class="headerlink" title="1.2.1 定义链表结构"></a>1.2.1 定义链表结构</h4><ul>
+<li><code>ListNode</code> 类：链节点类。链表是由链节点通过 <code>next</code> 链接而构成的，所以<code>ListNode</code> 类可使用成员变量 <code>val</code> 表示数据元素的值，使用指针变量 <code>next</code> 表示后继指针。</li>
+<li><code>LinkedList</code> 类：链表类 。<code>ListkedList</code> 类中只有一个链节点变量 <code>head</code> 用来表示链表的头节点。我们在创建空链表时，只需要把相应的链表头节点变量设置为空链接（None）即可。</li>
+</ul>
+<p>上述代码如下：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 链节点类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=<span class="number">0</span>, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 链表类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.head = <span class="literal">None</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="1-2-2-建立线性链表"><a href="#1-2-2-建立线性链表" class="headerlink" title="1.2.2  建立线性链表"></a>1.2.2  建立线性链表</h4><p>建立线性链表的过程是：据线性表的数据元素动态生成链节点，并依次将其连接到链表中。其做法如下：</p>
+<ol>
+<li>从所给线性表的第 <code>1</code> 个数据元素开始依次获取表中的数据元素。</li>
+<li>每获取一个数据元素，就为该数据元素生成一个新节点，将新节点插入到链表的尾部。</li>
+<li>插入完毕之后返回第 <code>1</code> 个链节点的地址。</li>
+</ol>
+<p>建立一个线性链表的时间复杂度为 $O(n)$，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 根据 data 初始化一个新链表</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span>(<span class="params">self, data</span>):</span></span><br><span class="line">    self.head = ListNode(<span class="number">0</span>)</span><br><span class="line">    cur = self.head</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(data)):</span><br><span class="line">        node = ListNode(data[i])</span><br><span class="line">        cur.<span class="built_in">next</span> = node</span><br><span class="line">        cur = cur.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<h4 id="1-2-3-求线性链表的长度"><a href="#1-2-3-求线性链表的长度" class="headerlink" title="1.2.3 求线性链表的长度"></a>1.2.3 求线性链表的长度</h4><p>&#8195;&#8195;使用一个可以顺着链表指针移动的指针变量 <code>cur</code> 和一个计数器 <code>count</code>， <code>cur</code> 从头开始遍历链表直至为空，此时计数器的数值就是链表的长度。此操作时间复杂度为 $O(n)$，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 获取链表长度</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">length</span>(<span class="params">self</span>):</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    cur = self.head</span><br><span class="line">    <span class="keyword">while</span> cur:</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        cur = cur.<span class="built_in">next</span> </span><br><span class="line">    <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-4-查找元素"><a href="#1-2-4-查找元素" class="headerlink" title="1.2.4 查找元素"></a>1.2.4 查找元素</h4><p>&#8195;&#8195;在链表中查找值为 <code>val</code> 的位置：链表不能像数组那样进行随机访问，只能从头节点 <code>head</code> 开始，沿着链表一个一个节点逐一进行查找。如果查找成功，返回被查找节点的地址。否则返回 <code>None</code>。所以查找元素操作的问时间复杂度也是 $O(n)$，其代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查找元素</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find</span>(<span class="params">self, val</span>):</span></span><br><span class="line">    cur = self.head</span><br><span class="line">    <span class="keyword">while</span> cur:</span><br><span class="line">        <span class="keyword">if</span> val == cur.val:</span><br><span class="line">            <span class="keyword">return</span> cur</span><br><span class="line">        cur = cur.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<h4 id="1-2-5-插入元素"><a href="#1-2-5-插入元素" class="headerlink" title="1.2.5 插入元素"></a>1.2.5 插入元素</h4><p>链表中插入元素操作分为三种：</p>
+<ul>
+<li><strong>链表头部插入元素</strong>：在链表第 <code>1</code> 个链节点之前插入值为 <code>val</code> 的链节点。</li>
+<li><strong>链表尾部插入元素</strong>：在链表最后 <code>1</code> 个链节点之后插入值为 <code>val</code> 的链节点。</li>
+<li><strong>链表中间插入元素</strong>：在链表第 <code>i</code> 个链节点之前插入值为 <code>val</code> 的链节点。</li>
+</ul>
+<p>接下来我们分别讲解一下。</p>
+<p><strong>1. 链表头部插入元素</strong></p>
+<ol>
+<li>先创建一个值为 <code>val</code> 的链节点 <code>node</code>。</li>
+<li>然后将 <code>node</code> 的 <code>next</code> 指针指向链表的头节点 <code>head</code>。</li>
+<li>再将链表的头节点 <code>head</code> 指向 <code>node</code>。</li>
+</ol>
+<p><font color='deeppink'>这里后面两步顺序不能反了，否则原先的链表就会丢失。&lt;/font &gt;<br><img src="https://img-blog.csdnimg.cn/img_convert/8e7a81c1f8bc5cbe63f7fc9a8a7b686f.png" alt=""></p>
+<p>&#8195;&#8195;因为在链表头部插入链节点与链表的长度无关，所以该算法的时间复杂度为 $O(1)$。其代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 头部插入元素</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertFront</span>(<span class="params">self, val</span>):</span></span><br><span class="line">    node = ListNode(val)</span><br><span class="line">    node.<span class="built_in">next</span> = self.head</span><br><span class="line">    self.head = node</span><br></pre></td></tr></table></figure>
+<p><strong>2. 尾部插入元素</strong></p>
+<ol>
+<li>先创建一个值为 <code>val</code> 的链节点 <code>node</code>。</li>
+<li>使用指针 <code>cur</code> 指向链表的头节点 <code>head</code>。</li>
+<li>通过链节点的 <code>next</code> 指针移动 <code>cur</code> 指针，从而遍历链表，直到 <code>cur.next == None</code>。</li>
+<li>令 <code>cur.next</code> 指向将新的链节点 <code>node</code>。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/2c1e8fddf3954f3469da41876a48e087.png" alt=""></p>
+<p>&#8195;&#8195;该算法的时间复杂度是 $O(n)$，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 尾部插入元素</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertRear</span>(<span class="params">self, val</span>):</span></span><br><span class="line">    node = ListNode(val)</span><br><span class="line">    cur = self.head</span><br><span class="line">    <span class="keyword">while</span> cur.<span class="built_in">next</span>:</span><br><span class="line">        cur = cur.<span class="built_in">next</span></span><br><span class="line">    cur.<span class="built_in">next</span> = node</span><br></pre></td></tr></table></figure>
+<p><strong>3. 中间插入元素</strong></p>
+<ol>
+<li>使用指针变量 <code>cur</code> 和一个计数器 <code>count</code>。令 <code>cur</code> 指向链表的头节点，<code>count</code> 初始值赋值为 <code>0</code>。</li>
+<li>沿着链节点的 <code>next</code> 指针遍历链表，指针变量 <code>cur</code> 每指向一个链节点，计数器就做一次计数。</li>
+<li>当 <code>count == index - 1</code> 时，说明遍历到了第 <code>index - 1</code> 个链节点，此时停止遍历。</li>
+<li>创建一个值为 <code>val</code> 的链节点 <code>node</code>。</li>
+<li>将 <code>node.next</code> 指向 <code>cur.next</code>。</li>
+<li>然后令 <code>cur.next</code> 指向 <code>node</code>。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/a3e86083642937438626e59ba8b4687a.png" alt=""></p>
+<p>&#8195;&#8195;该算法的时间复杂度是 $O(n)$，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 中间插入元素</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertInside</span>(<span class="params">self, index, val</span>):</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    cur = self.head</span><br><span class="line">    <span class="keyword">while</span> cur <span class="keyword">and</span> count &lt; index - <span class="number">1</span>:</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        cur = cur.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> cur:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error&#x27;</span></span><br><span class="line">    </span><br><span class="line">    node = ListNode(val)</span><br><span class="line">    node.<span class="built_in">next</span> = cur.<span class="built_in">next</span></span><br><span class="line">    cur.<span class="built_in">next</span> = node</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-6-改变元素"><a href="#1-2-6-改变元素" class="headerlink" title="1.2.6 改变元素"></a>1.2.6 改变元素</h4><p>&#8195;&#8195;将链表中第 <code>i</code> 个元素值改为 <code>val</code>：首先要先遍历到第 <code>i</code> 个链节点，然后直接更改第 <code>i</code> 个链节点的元素值。具体做法如下：</p>
+<ol>
+<li>使用指针变量 <code>cur</code> 和一个计数器 <code>count</code>。令 <code>cur</code> 指向链表的头节点，<code>count</code> 初始值赋值为 <code>0</code>。</li>
+<li>沿着链节点的 <code>next</code> 指针遍历链表，指针变量 <code>cur</code> 每指向一个链节点，计数器就做一次计数。</li>
+<li>当 <code>count == index</code> 时，说明遍历到了第 <code>index</code> 个链节点，此时停止遍历。</li>
+<li>直接更改 <code>cur</code> 的值 <code>val</code>。</li>
+</ol>
+<p>&#8195;&#8195;该算法的时间复杂度是 $O(n)$， 代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 改变元素</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change</span>(<span class="params">self, index, val</span>):</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    cur = self.head</span><br><span class="line">    <span class="keyword">while</span> cur <span class="keyword">and</span> count &lt; index:</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        cur = cur.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> cur:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error&#x27;</span></span><br><span class="line">    </span><br><span class="line">    cur.val = val</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-7-删除元素"><a href="#1-2-7-删除元素" class="headerlink" title="1.2.7 删除元素"></a>1.2.7 删除元素</h4><p>链表的删除元素操作同样分为三种情况：</p>
+<ul>
+<li><strong>链表头部删除元素</strong>：删除链表的第 <code>1</code> 个链节点。</li>
+<li><strong>链表尾部删除元素</strong>：删除链表末尾最后 <code>1</code> 个链节点。</li>
+<li><strong>链表中间删除元素</strong>：删除链表第 <code>i</code> 个链节点。</li>
+</ul>
+<p>接下来我们分别讲解一下。</p>
+<p><strong>1. 链表头部删除元素</strong><br>直接将 <code>self.head</code> 沿着 <code>next</code> 指针向右移动一步即可。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/f8c787c8937540da43add1a34c3db692.png" alt=""></p>
+<p>算法的时间复杂度为 $O(1)$，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 链表头部删除元素</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">removeFront</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.head:</span><br><span class="line">        self.head = self.head.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<p><strong>2.  链表尾部删除元素</strong></p>
+<ul>
+<li>先使用指针变量 <code>cur</code> 沿着 <code>next</code> 指针移动到倒数第 <code>2</code> 个链节点。</li>
+<li>然后将此节点的 <code>next</code> 指针指向 <code>None</code> 即可。</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/9132f79ad7424e8a4ee0deb452ca1cb9.png" alt=""></p>
+<p>该算法的时间复杂度为 $O(n)$，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 链表尾部删除元素</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">removeRear</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> self.head.<span class="built_in">next</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error&#x27;</span></span><br><span class="line"></span><br><span class="line">    cur = self.head</span><br><span class="line">    <span class="keyword">while</span> cur.<span class="built_in">next</span>.<span class="built_in">next</span>:</span><br><span class="line">        cur = cur.<span class="built_in">next</span></span><br><span class="line">    cur.<span class="built_in">next</span> = <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<p><strong>3.  链表中间删除元素</strong></p>
+<p>删除链表中第 <code>i</code> 个元素的算法具体步骤如下：</p>
+<ol>
+<li>先使用指针变量 <code>cur</code> 移动到第 <code>i - 1</code> 个位置的链节点。</li>
+<li>然后将 <code>cur</code> 的 <code>next</code> 指针，指向要第 <code>i</code> 个元素的下一个节点即可。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/29761b5bd6dcdd9f6e75df61ab0905e4.png" alt=""></p>
+<p>该算法的时间复杂度为 $O(n)$，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 链表中间删除元素</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">removeInside</span>(<span class="params">self, index</span>):</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    cur = self.head</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> cur.<span class="built_in">next</span> <span class="keyword">and</span> count &lt; index - <span class="number">1</span>:</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        cur = cur.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> cur:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error&#x27;</span></span><br><span class="line">        </span><br><span class="line">    del_node = cur.<span class="built_in">next</span></span><br><span class="line">    cur.<span class="built_in">next</span> = del_node.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>到这里，有关链表的基础知识就介绍完了。下面进行一下总结。</p>
+<h3 id="1-3-有序表OrderedList"><a href="#1-3-有序表OrderedList" class="headerlink" title="1.3 有序表OrderedList"></a>1.3 有序表OrderedList</h3><p><img src="https://img-blog.csdnimg.cn/8a48dfc3376046b884a24f38aa167894.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>在实现有序表时，需要记住数据项的相对位置，取决于他们之间的“大小”比较，Node定义相同，OrderedList也设置一个head来保存链表表头的引用。</li>
+<li>对于isEmpty()，size()，remove()方法与节点次序无关，其实现与UnorderedList相同。</li>
+<li>search和add方法需要修改。无序表中，需要search的数据项不存在，则需要搜索整个链表。而有序表中，可以利用链表有序排列的特点，节省搜索时间。</li>
+</ul>
+<p><strong>有序表实现：search方法</strong></p>
+<ul>
+<li>在无序表的search中，如果需要查找的数据项不存在，则会搜遍整个链表，直到表尾。</li>
+<li>对于有序表来说，可以利用链表节点有序排列的特性，来为search节省不存在数据项的查找时间。一旦当前节点的数据项大于所要查找的数据项，则说明链表后面已经不可能再有要查找的数据项，可以直接返回False。</li>
+</ul>
+<p><strong>有序表实现：add方法</strong></p>
+<ul>
+<li>add方法必须保证加入的数据项添加在合适的位置，以维护整个链表的有序性。</li>
+<li>从头找到第一个比添加项大的数据项，将添加项插到该数据项前面。</li>
+<li>跟remove方法类似，引入一个previous，跟随当前节点current。</li>
+</ul>
+<p><strong>代码实现</strong>：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,initdata</span>):</span></span><br><span class="line">        self.data = initdata</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getData</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.data</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getNext</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setData</span>(<span class="params">self,newdata</span>):</span></span><br><span class="line">        self.data = newdata</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setNext</span>(<span class="params">self,newnext</span>):</span></span><br><span class="line">        self.<span class="built_in">next</span> = newnext</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderedList</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.head = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self,item</span>):</span></span><br><span class="line">        current = self.head</span><br><span class="line">        found = <span class="literal">False</span></span><br><span class="line">        stop = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">while</span> current != <span class="literal">None</span> <span class="keyword">and</span> <span class="keyword">not</span> found <span class="keyword">and</span> <span class="keyword">not</span> stop:</span><br><span class="line">            <span class="keyword">if</span> current.getData() == item:</span><br><span class="line">                found = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> current.getData() &gt; item:</span><br><span class="line">                    stop = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    current = current.getNext()</span><br><span class="line">        <span class="keyword">return</span> found</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span>(<span class="params">self,item</span>):</span></span><br><span class="line">        current = self.head</span><br><span class="line">        previous = <span class="literal">None</span></span><br><span class="line">        stop = <span class="literal">False</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> current != <span class="literal">None</span> <span class="keyword">and</span> <span class="keyword">not</span> stop:</span><br><span class="line">            <span class="keyword">if</span> current.getData() &gt; item: 		<span class="comment"># 发现插入位置</span></span><br><span class="line">                stop = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                previous = current</span><br><span class="line">                current = current.getNext()</span><br><span class="line">        temp = Node(item)</span><br><span class="line">        <span class="keyword">if</span> previous == <span class="literal">None</span>:  				   <span class="comment"># 表头插入</span></span><br><span class="line">            temp.setNext(self.head)</span><br><span class="line">            self.head = temp</span><br><span class="line">        <span class="keyword">else</span>:									<span class="comment"># 表中插入</span></span><br><span class="line">            temp.setNext(current)</span><br><span class="line">            previous.setNext(temp)</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-链表总结"><a href="#1-4-链表总结" class="headerlink" title="1.4 链表总结"></a>1.4 链表总结</h3><p>&#8195;&#8195;<strong>「链表」</strong> 是实现线性表的链式存储结构的基础。它使用一组任意的存储单元（可以是连续的，也可以是不连续的），来存储一组具有相同类型的数据。</p>
+<p>&#8195;&#8195;链表最大的优点在于可以灵活的添加和删除元素。链表进行访问元素、改变元素操作的时间复杂度为 $O(n)$，进行头部插入、头部删除元素操作的时间复杂度是 $O(1)$，进行尾部插入、尾部删除操作的时间复杂度是 $O(n)$。普通情况下进行插入、删除元素操作的时间复杂度为 $O(n)$。</p>
+<p>&#8195;&#8195;Python内置的list数据类型，是基于顺序存储实现的，并进行了优化，其基本操作复杂度如下：<br><img src="https://img-blog.csdnimg.cn/0fde110f64fc4c8d96db86afd4f77be2.png##pic_center =500x" alt="在这里插入图片描述"></p>
+<h2 id="二、-链表基础题目"><a href="#二、-链表基础题目" class="headerlink" title="二、 链表基础题目"></a>二、 链表基础题目</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">题号</th>
+<th style="text-align:left">标题</th>
+<th style="text-align:left">题解</th>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0707</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/design-linked-list/">设计链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0707.%20%E8%AE%BE%E8%AE%A1%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">链表</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0083</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-duplicates-from-sorted-list/">删除排序链表中的重复元素</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0083.%20%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0.md">Python</a></td>
+<td style="text-align:left">链表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0082</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/">删除排序链表中的重复元素 II</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0082.%20%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%20II.md">Python</a></td>
+<td style="text-align:left">链表、双指针</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0206</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-linked-list/">反转链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0206.%20%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">链表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0092</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-linked-list-ii/">反转链表 II </a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0092.%20%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8%20II%20.md">Python</a></td>
+<td style="text-align:left">链表</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0025</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-nodes-in-k-group/">K 个一组翻转链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0025.%20K%20%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">递归、链表</td>
+<td style="text-align:left">困难</td>
+</tr>
+<tr>
+<td style="text-align:left">0203</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-linked-list-elements/">移除链表元素</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0203.%20%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0.md">Python</a></td>
+<td style="text-align:left">链表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0328</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/odd-even-linked-list/">奇偶链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0328.%20%E5%A5%87%E5%81%B6%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">链表</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0234</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/palindrome-linked-list/">回文链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0234.%20%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">链表、双指针</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0430</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/flatten-a-multilevel-doubly-linked-list/">扁平化多级双向链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0430.%20%E6%89%81%E5%B9%B3%E5%8C%96%E5%A4%9A%E7%BA%A7%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">链表</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0138</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/copy-list-with-random-pointer/">复制带随机指针的链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0138.%20%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">链表、哈希表</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0061</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/rotate-list/">旋转链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0061.%20%E6%97%8B%E8%BD%AC%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">链表、双指针</td>
+<td style="text-align:left">中等</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-1-设计链表-707"><a href="#2-1-设计链表-707" class="headerlink" title="2.1 设计链表(707)"></a>2.1 设计链表(707)</h3><p><strong>要求</strong>：设计实现一个链表，需要支持以下操作：</p>
+<ul>
+<li><code>get(index)</code>：获取链表中第 <code>index</code> 个节点的值。如果索引无效，则返回 <code>-1</code>。</li>
+<li><code>addAtHead(val)</code>：在链表的第一个元素之前添加一个值为 <code>val</code> 的节点。插入后，新节点将成为链表的第一个节点。</li>
+<li><code>addAtTail(val)</code>：将值为 <code>val</code> 的节点追加到链表的最后一个元素。</li>
+<li><code>addAtIndex(index, val)</code>：在链表中的第 <code>index</code> 个节点之前添加值为 <code>val</code>  的节点。如果 <code>index</code> 等于链表的长度，则该节点将附加到链表的末尾。如果 <code>index</code> 大于链表长度，则不会插入节点。如果 <code>index</code> 小于 <code>0</code>，则在头部插入节点。</li>
+<li><code>deleteAtIndex(index)</code>：如果索引 <code>index</code> 有效，则删除链表中的第 <code>index</code> 个节点。</li>
+</ul>
+<p><strong>说明</strong>：</p>
+<ul>
+<li>所有<code>val</code>值都在 $[1, 1000]$ 之内。</li>
+<li>操作次数将在 $[1, 1000]$ 之内。</li>
+<li>请不要使用内置的 <code>LinkedList</code> 库。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>示例 1：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">MyLinkedList linkedList = new MyLinkedList();</span><br><span class="line">linkedList.addAtHead(<span class="number">1</span>);</span><br><span class="line">linkedList.addAtTail(<span class="number">3</span>);</span><br><span class="line">linkedList.addAtIndex(<span class="number">1</span>,<span class="number">2</span>);   // 链表变为 <span class="number">1</span> -&gt; <span class="number">2</span> -&gt; <span class="number">3</span></span><br><span class="line">linkedList.get(<span class="number">1</span>);            // 返回 <span class="number">2</span></span><br><span class="line">linkedList.deleteAtIndex(<span class="number">1</span>);  // 现在链表是 <span class="number">1</span>-&gt; <span class="number">3</span></span><br><span class="line">linkedList.get(<span class="number">1</span>);            // 返回 <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-1-1单链表"><a href="#2-1-1单链表" class="headerlink" title="2.1.1单链表"></a>2.1.1单链表</h4><p>新建一个带有 <code>val</code> 值 和 <code>next</code> 指针的链表节点类， 然后按照要求对节点进行操作。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        self.val = x</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyLinkedList</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Initialize your data structure here.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.size = <span class="number">0</span></span><br><span class="line">        self.head = ListNode(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span>(<span class="params">self, index: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Get the value of the index-th node in the linked list. If the index is invalid, return -1.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> index &lt; <span class="number">0</span> <span class="keyword">or</span> index &gt;= self.size:</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        curr = self.head</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(index + <span class="number">1</span>):</span><br><span class="line">            curr = curr.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> curr.val</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addAtHead</span>(<span class="params">self, val: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.addAtIndex(<span class="number">0</span>, val)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addAtTail</span>(<span class="params">self, val: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Append a node of value val to the last element of the linked list.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.addAtIndex(self.size, val)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addAtIndex</span>(<span class="params">self, index: <span class="built_in">int</span>, val: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> index &gt; self.size:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> index &lt; <span class="number">0</span>:</span><br><span class="line">            index = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        self.size += <span class="number">1</span></span><br><span class="line">        pre = self.head</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(index):</span><br><span class="line">            pre = pre.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        add_node = ListNode(val)</span><br><span class="line">        add_node.<span class="built_in">next</span> = pre.<span class="built_in">next</span></span><br><span class="line">        pre.<span class="built_in">next</span> = add_node</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deleteAtIndex</span>(<span class="params">self, index: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Delete the index-th node in the linked list, if the index is valid.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> index &lt; <span class="number">0</span> <span class="keyword">or</span> index &gt;= self.size:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        self.size -= <span class="number">1</span></span><br><span class="line">        pre = self.head</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(index):</span><br><span class="line">            pre = pre.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        pre.<span class="built_in">next</span> = pre.<span class="built_in">next</span>.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>时间复杂度</strong>：</p>
+<ul>
+<li><code>addAtHead(val)</code>：$O(1)$。</li>
+<li><code>get(index)</code>、<code>addAtTail(val)</code>、<code>del eteAtIndex(index)</code>：$O(k)$。$k$ 指的是元素的索引。</li>
+<li><code>addAtIndex(index, val)</code>：$O(n)$。$n$ 指的是链表的元素个数。</li>
+</ul>
+</li>
+<li><p><strong>空间复杂度</strong>：$O(1)$。</p>
+</li>
+</ul>
+<h4 id="2-1-2-双链表"><a href="#2-1-2-双链表" class="headerlink" title="2.1.2 双链表"></a>2.1.2 双链表</h4><p>新建一个带有 <code>val</code> 值和 <code>next</code> 指针、<code>prev</code> 指针的链表节点类，然后按照要求对节点进行操作。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        self.val = x</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">        self.prev = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyLinkedList</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Initialize your data structure here.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.size = <span class="number">0</span></span><br><span class="line">        self.head = ListNode(<span class="number">0</span>)</span><br><span class="line">        self.tail = ListNode(<span class="number">0</span>)</span><br><span class="line">        self.head.<span class="built_in">next</span> = self.tail</span><br><span class="line">        self.tail.prev = self.head</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span>(<span class="params">self, index: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Get the value of the index-th node in the linked list. If the index is invalid, return -1.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> index &lt; <span class="number">0</span> <span class="keyword">or</span> index &gt;= self.size:</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> index + <span class="number">1</span> &lt; self.size - index:</span><br><span class="line">            curr = self.head</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(index + <span class="number">1</span>):</span><br><span class="line">                curr = curr.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            curr = self.tail</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(self.size - index):</span><br><span class="line">                curr = curr.prev</span><br><span class="line">        <span class="keyword">return</span> curr.val</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addAtHead</span>(<span class="params">self, val: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.addAtIndex(<span class="number">0</span>, val)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addAtTail</span>(<span class="params">self, val: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Append a node of value val to the last element of the linked list.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.addAtIndex(self.size, val)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addAtIndex</span>(<span class="params">self, index: <span class="built_in">int</span>, val: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> index &gt; self.size:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> index &lt; <span class="number">0</span>:</span><br><span class="line">            index = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> index &lt; self.size - index:</span><br><span class="line">            prev = self.head</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(index):</span><br><span class="line">                prev = prev.<span class="built_in">next</span></span><br><span class="line">            <span class="built_in">next</span> = prev.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">next</span> = self.tail</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(self.size - index):</span><br><span class="line">                <span class="built_in">next</span> = <span class="built_in">next</span>.prev</span><br><span class="line">            prev = <span class="built_in">next</span>.prev</span><br><span class="line"></span><br><span class="line">        self.size += <span class="number">1</span></span><br><span class="line">        add_node = ListNode(val)</span><br><span class="line">        add_node.prev = prev</span><br><span class="line">        add_node.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line">        prev.<span class="built_in">next</span> = add_node</span><br><span class="line">        <span class="built_in">next</span>.prev = add_node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deleteAtIndex</span>(<span class="params">self, index: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Delete the index-th node in the linked list, if the index is valid.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> index &lt; <span class="number">0</span> <span class="keyword">or</span> index &gt;= self.size:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> index &lt; self.size - index:</span><br><span class="line">            prev = self.head</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(index):</span><br><span class="line">                prev = prev.<span class="built_in">next</span></span><br><span class="line">            <span class="built_in">next</span> = prev.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">next</span> = self.tail</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(self.size - index - <span class="number">1</span>):</span><br><span class="line">                <span class="built_in">next</span> = <span class="built_in">next</span>.prev</span><br><span class="line">            prev = <span class="built_in">next</span>.prev.prev</span><br><span class="line"></span><br><span class="line">        self.size -= <span class="number">1</span></span><br><span class="line">        prev.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line">        <span class="built_in">next</span>.prev = prev</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>时间复杂度</strong>：<ul>
+<li><code>addAtHead(val)</code>、<code>addAtTail(val)</code>：$O(1)$。</li>
+<li><code>get(index)</code>、<code>addAtIndex(index, val)</code>、<code>del eteAtIndex(index)</code>：$O(min(k, n - k))$。$n$ 指的是链表的元素个数，$k$ 指的是元素的索引。</li>
+</ul>
+</li>
+<li><strong>空间复杂度</strong>：$O(1)$。</li>
+</ul>
+<h3 id="2-2-移除链表元素（203）"><a href="#2-2-移除链表元素（203）" class="headerlink" title="2.2 移除链表元素（203）"></a>2.2 移除链表元素（203）</h3><p>&#8195;&#8195;给定一个链表的头节点 <code>head</code> 和一个值 <code>val</code>，删除链表中值为 <code>val</code> 的节点，并返回新的链表头节点。</p>
+<ul>
+<li>列表中的节点数目在范围 $[0, 10^4]$ 内</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>输入：head = [1,2,6,3,4,5,6], val = 6</li>
+<li>输出：[1,2,3,4,5]</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/fd74c96b1cd120e1eeb087d8383dab40.jpeg#pic_center =500x" alt=""><br><strong>解题思路：</strong></p>
+<ul>
+<li>使用两个指针 <code>pre</code> 和 <code>cur</code>。<code>pre</code> 指向前一节点，<code>cur</code> 指向当前节点。</li>
+<li>从前向后遍历链表，遇到值为 <code>val</code> 的节点时，将 <code>pre</code> 的 <code>next</code> 指针指向当前节点的下一个节点，继续递归遍历。没有遇到则将 <code>pre</code> 指针向后移动一步。</li>
+<li>向右移动 <code>cur</code>，继续遍历。</li>
+</ul>
+<p>&#8195;&#8195;需要注意的是：因为要删除的节点可能包含了头节点，我们可以考虑在遍历之前，新建一个头节点，让其指向原来的头节点。这样，最终如果删除的是头节点，则直接删除原头节点，然后最后返回新建头节点的下一个节点即可。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeElements</span>(<span class="params">self, head: ListNode, val: <span class="built_in">int</span></span>) -&gt; ListNode:</span></span><br><span class="line">        newHead = ListNode(<span class="number">0</span>, head)</span><br><span class="line">        newHead.<span class="built_in">next</span> = head</span><br><span class="line">        pre, cur = newHead, head</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            <span class="keyword">if</span> cur.val == val:</span><br><span class="line">                pre.<span class="built_in">next</span> = cur.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                pre = cur</span><br><span class="line">            cur = cur.<span class="built_in">next</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> newHead.<span class="built_in">next</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>或者是：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeElements</span>(<span class="params">self, head: <span class="type">Optional</span>[ListNode], val: <span class="built_in">int</span></span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        newHead = ListNode(<span class="number">0</span>)</span><br><span class="line">        newHead.<span class="built_in">next</span> = head              </span><br><span class="line">        cur=newHead</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> cur.<span class="built_in">next</span>:</span><br><span class="line">        	<span class="comment"># 如果cur下一个节点值为val，就将其跳过下一节点，否则cur右移</span></span><br><span class="line">            <span class="keyword">if</span> cur.<span class="built_in">next</span>.val==val:</span><br><span class="line">                cur.<span class="built_in">next</span>=cur.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur=cur.<span class="built_in">next</span></span><br><span class="line">               </span><br><span class="line">            <span class="keyword">return</span> newHead.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3-删除排序链表中的重复元素（83）"><a href="#2-3-删除排序链表中的重复元素（83）" class="headerlink" title="2.3  删除排序链表中的重复元素（83）"></a>2.3  删除排序链表中的重复元素（83）</h3><p>给定一个已排序的链表的头 <code>head</code>，要求删除所有重复的元素，使每个元素只出现一次。返回已排序的链表。</p>
+<ul>
+<li>链表中节点数目在范围 $[0, 300]$ 内。</li>
+<li>$-100 \le Node.val \le 100$。</li>
+<li>题目数据保证链表已经按升序排列。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>输入：head = [1,1,2,3,3]</li>
+<li>输出：[1,2,3]</li>
+</ul>
+<p><strong>解题思路</strong></p>
+<ul>
+<li>使用指针 <code>cur</code> 遍历链表，如果cur节点和其下一个节点元素值相等，就跳过下一个节点（<code>cur.next = cur.next.next</code>）。否则，让 <code>cur</code> 继续向后遍历。</li>
+<li>遍历完之后返回头节点 <code>head</code>。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deleteDuplicates</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span></span><br><span class="line">        <span class="keyword">if</span> head == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line"></span><br><span class="line">        cur = head</span><br><span class="line">        <span class="keyword">while</span> cur.<span class="built_in">next</span>:</span><br><span class="line">            <span class="keyword">if</span> cur.val == cur.<span class="built_in">next</span>.val:</span><br><span class="line">                cur.<span class="built_in">next</span> = cur.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur = cur.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> head</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-删除排序链表中的重复元素-82"><a href="#2-4-删除排序链表中的重复元素-82" class="headerlink" title="2.4 删除排序链表中的重复元素 (82)"></a>2.4 删除排序链表中的重复元素 (82)</h3>&#8195;&#8195;给定一个已排序的链表的头 <code>head</code>，要求删除原始链表中所有重复数字的节点，只留下不同的数字。返回已排序的链表。</li>
+<li>链表中节点数目在范围 $[0, 300]$ 内。</li>
+<li>$-100 \le Node.val \le 100$。</li>
+<li>题目数据保证链表已经按升序排列。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>输入：head = [1,1,2,3,3,4,4,5]</li>
+<li>输出：[2,5]</li>
+</ul>
+<p>解题思路：</p>
+<ul>
+<li>先使用哑节点 <code>dummy_head</code> 构造一个指向 <code>head</code> 的指针，使得可以防止从 <code>head</code> 开始就是重复元素。</li>
+<li>然后使用指针 <code>cur</code> 表示链表中当前元素，从哑节点开始遍历。</li>
+<li>当指针 <code>cur</code> 的下一个元素和下下一个元素存在时：<ul>
+<li>如果下一个元素值和下下一个元素值相同，则我们使用指针 <code>temp</code> 保存下一个元素，并使用 <code>temp</code> 向后遍历，跳过所有重复元素，然后令 <code>cur</code> 的下一个元素指向 <code>temp</code> 的下一个元素，继续向后遍历。</li>
+<li>如果下一个元素值和下下一个元素值不同，则令 <code>cur</code> 向右移动一位，继续向后遍历。</li>
+</ul>
+</li>
+<li>当指针 <code>cur</code> 的下一个元素或者下下一个元素不存在时，说明已经遍历完，则返回哑节点 <code>dummy_head</code> 的下一个节点作为头节点。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, next=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.next = next</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deleteDuplicates</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span></span><br><span class="line">        dummy_head = ListNode(-<span class="number">1</span>)</span><br><span class="line">        dummy_head.<span class="built_in">next</span> = head</span><br><span class="line"></span><br><span class="line">        cur = dummy_head</span><br><span class="line">        <span class="keyword">while</span> cur.<span class="built_in">next</span> <span class="keyword">and</span> cur.<span class="built_in">next</span>.<span class="built_in">next</span>:</span><br><span class="line">            <span class="keyword">if</span> cur.<span class="built_in">next</span>.val == cur.<span class="built_in">next</span>.<span class="built_in">next</span>.val:</span><br><span class="line">                temp = cur.<span class="built_in">next</span></span><br><span class="line">                <span class="keyword">while</span> temp <span class="keyword">and</span> temp.<span class="built_in">next</span> <span class="keyword">and</span> temp.val == temp.<span class="built_in">next</span>.val:</span><br><span class="line">                    temp = temp.<span class="built_in">next</span></span><br><span class="line">                cur.<span class="built_in">next</span> = temp.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur = cur.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> dummy_head.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-5-反转链表"><a href="#2-5-反转链表" class="headerlink" title="2.5 反转链表"></a>2.5 反转链表</h3>给定一个单链表的头节点 <code>head</code>。将该单链表进行反转。可以迭代或递归地反转链表。</li>
+<li>链表中节点的数目范围是 $[0, 5000]$。</li>
+<li>$-5000 \le Node.val \le 5000$。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>输入：head = [1,2,3,4,5]</li>
+<li>输出：[5,4,3,2,1]</li>
+<li>解释：翻转前    1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL，反转后    5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</li>
+</ul>
+<h4 id="2-5-1-迭代"><a href="#2-5-1-迭代" class="headerlink" title="2.5.1 迭代"></a>2.5.1 迭代</h4><ol>
+<li><p>使用两个指针 <code>cur</code> 和 <code>pre</code> 进行迭代。<code>pre</code> 指向 <code>cur</code> 前一个节点位置。初始时，<code>pre</code> 指向 <code>None</code>，<code>cur</code> 指向 <code>head</code>。</p>
+</li>
+<li><p>将 <code>pre</code> 和 <code>cur</code> 的前后指针进行交换，指针更替顺序为：</p>
+<ol>
+<li>使用 <code>next</code> 指针保存当前节点 <code>cur</code> 的后一个节点，即 <code>next = cur.next</code>；</li>
+<li>断开当前节点 <code>cur</code> 的后一节点链接，将 <code>cur</code> 的 <code>next</code> 指针指向前一节点 <code>pre</code>，即 <code>cur.next = pre</code>；</li>
+<li><code>pre</code> 向前移动一步，移动到 <code>cur</code> 位置，即 <code>pre = cur</code>；</li>
+<li><code>cur</code> 向前移动一步，移动到之前 <code>next</code> 指针保存的位置，即 <code>cur = next</code>。</li>
+</ol>
+</li>
+<li>继续执行第 2 步中的 1、2、3、4。</li>
+<li>最后等到 <code>cur</code> 遍历到链表末尾，即 <code>cur == None</code>，时，<code>pre</code> 所在位置就是反转后链表的头节点，返回新的头节点 <code>pre</code>。</li>
+</ol>
+<p>使用迭代法反转链表的示意图如下所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/9e837f5fd0c48c8e79642189fbe957ae.png#pic_center =500x" alt=""><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseList</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span></span><br><span class="line">        pre = <span class="literal">None</span></span><br><span class="line">        cur = head</span><br><span class="line">        <span class="keyword">while</span> cur != <span class="literal">None</span>:</span><br><span class="line">            <span class="built_in">next</span> = cur.<span class="built_in">next</span></span><br><span class="line">            cur.<span class="built_in">next</span> = pre</span><br><span class="line">            pre = cur</span><br><span class="line">            cur = <span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> pre</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>时间复杂度</strong>：$O(n)$。</li>
+<li><strong>空间复杂度</strong>：$O(1)$。</li>
+</ul>
+<h4 id="2-5-2-递归"><a href="#2-5-2-递归" class="headerlink" title="2.5.2 递归"></a>2.5.2 递归</h4><ol>
+<li>首先定义递归函数含义为：将链表反转，并返回反转后的头节点。</li>
+<li>然后从 <code>head.next</code> 的位置开始调用递归函数，即将 <code>head.next</code> 为头节点的链表进行反转，并返回该链表的头节点。</li>
+<li>递归到链表的最后一个节点，将其作为最终的头节点，即为 <code>new_head</code>。</li>
+<li>在每次递归函数返回的过程中，改变 <code>head</code> 和 <code>head.next</code> 的指向关系。也就是将 <code>head.next</code> 的<code>next</code> 指针先指向当前节点 <code>head</code>，即 <code>head.next.next = head</code>。</li>
+<li>然后让当前节点 <code>head</code> 的 <code>next</code> 指针指向 <code>None</code>，从而实现从链表尾部开始的局部反转。</li>
+<li>当递归从末尾开始顺着递归栈的退出，从而将整个链表进行反转。</li>
+<li>最后返回反转后的链表头节点 <code>new_head</code>。</li>
+</ol>
+<p>使用递归法反转链表的示意图如下所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/ea86eca320a6601c923f704ac6215547.png#pic_center =500x" alt=""><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseList</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span></span><br><span class="line">        <span class="keyword">if</span> head == <span class="literal">None</span> <span class="keyword">or</span> head.<span class="built_in">next</span> == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        new_head = self.reverseList(head.<span class="built_in">next</span>)</span><br><span class="line">        head.<span class="built_in">next</span>.<span class="built_in">next</span> = head</span><br><span class="line">        head.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">return</span> new_head</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>时间复杂度</strong>：$O(n)$</li>
+<li><strong>空间复杂度</strong>：$O(n)$。最多需要 $n$ 层栈空间。</li>
+</ul>
+<h3 id="2-6-反转链表二（92）"><a href="#2-6-反转链表二（92）" class="headerlink" title="2.6 反转链表二（92）"></a>2.6 反转链表二（92）</h3><p>&#8195;&#8195;给定单链表的头指针 <code>head</code> 和两个整数 <code>left</code> 和 <code>right</code> ，其中 <code>left &lt;= right</code>。要求反转从位置 <code>left</code> 到位置 <code>right</code> 的链表节点，返回反转后的链表 。</p>
+<ul>
+<li>链表中节点数目为 <code>n</code>，且$1 \le n \le 500$。</li>
+<li>$-500 \le Node.val \le 500$。</li>
+<li>$1 \le left \le right \le n$。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>输入：head = [1,2,3,4,5], left = 2, right = 4</li>
+<li>输出：[1,4,3,2,5]</li>
+</ul>
+<h4 id="2-6-1-迭代"><a href="#2-6-1-迭代" class="headerlink" title="2.6.1 迭代"></a>2.6.1 迭代</h4><p>&#8195;&#8195;在「<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-linked-list/">0206. 反转链表</a>」中我们可以通过迭代、递归两种方法将整个链表反转。而这道题要求对链表的部分区间进行反转。我们可以先遍历到需要反转的链表区间的前一个节点，然后对需要反转的链表区间进行迭代反转。最后再返回头节点即可。</p>
+<p>&#8195;&#8195;但是需要注意一点，如果需要反转的区间包含了链表的第一个节点，那么我们可以事先创建一个哑节点作为链表初始位置开始遍历，这样就能避免找不到需要反转的链表区间的前一个节点。具体解题步骤如下：</p>
+<ol>
+<li>先使用哑节点 <code>dummy_head</code> 构造一个指向 <code>head</code> 的指针，使得可以从 <code>head</code> 开始遍历。使用 <code>index</code> 记录当前元素的序号。</li>
+<li>我们使用一个指针 <code>start</code>，初始赋值为 <code>dummy_head</code>。然后向右逐步移动到需要反转的区间的前一个节点。</li>
+<li>然后再使用两个指针 <code>cur</code> 和 <code>pre</code> 进行迭代。<code>pre</code> 指向 <code>cur</code> 前一个节点位置，即 <code>pre</code> 指向需要反转节点的前一个节点，<code>cur</code> 指向需要反转的节点。初始时，<code>pre</code> 指向 <code>start</code>，<code>cur</code> 指向 <code>pre.next</code>。</li>
+<li>当当前节点 <code>cur</code> 不为空，且 <code>index</code> 在反转区间内时，将 <code>pre</code> 和 <code>cur</code> 的前后指针进行交换，指针更替顺序为：<ol>
+<li>使用 <code>next</code> 指针保存当前节点 <code>cur</code> 的后一个节点，即 <code>next = cur.next</code>；</li>
+<li>断开当前节点 <code>cur</code> 的后一节点链接，将 <code>cur</code> 的 <code>next</code> 指针指向前一节点 <code>pre</code>，即 <code>cur.next = pre</code>；</li>
+<li><code>pre</code> 向前移动一步，移动到 <code>cur</code> 位置，即 <code>pre = cur</code>；</li>
+<li><code>cur</code> 向前移动一步，移动到之前 <code>next</code> 指针保存的位置，即 <code>cur = next</code>。</li>
+<li>然后令 <code>index</code> 加 <code>1</code>。</li>
+</ol>
+</li>
+<li>继续执行第 <code>4</code> 步中的 <code>1</code>、<code>2</code>、<code>3</code>、<code>4</code>、<code>5</code> 步。</li>
+<li>最后等到 <code>cur</code> 遍历到链表末尾（即 <code>cur == None</code>）或者遍历到需要反转区间的末尾时（即 <code>index &gt; right</code>） 时，将反转区间的头尾节点分别与之前保存的需要反转的区间的前一个节点 <code>reverse_start</code> 相连，即 <code>start.next.next = cur</code>，<code>start.next = pre</code>。</li>
+<li>最后返回新的头节点 <code>dummy_head.next</code>。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, next=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.next = next</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseBetween</span>(<span class="params">self, head: <span class="type">Optional</span>[ListNode], left: <span class="built_in">int</span>, right: <span class="built_in">int</span></span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        dummy_head=ListNode(-<span class="number">1</span>)</span><br><span class="line">        dummy_head.<span class="built_in">next</span>=head</span><br><span class="line">        <span class="comment"># 使用一指针start，初始赋值为 dummy_head。向右遍历到left前一个节点</span></span><br><span class="line">        start=dummy_head</span><br><span class="line">        index=<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> start.<span class="built_in">next</span> <span class="keyword">and</span> index&lt;=left-<span class="number">2</span>:</span><br><span class="line">            start=start.<span class="built_in">next</span></span><br><span class="line">            index+=<span class="number">1</span></span><br><span class="line">        <span class="comment">#print(start.val)</span></span><br><span class="line">        <span class="comment">#使用两个指针 cur 和 pre分别指向left和left前一个节点，开始反转链表</span></span><br><span class="line">        pre,cur=start,start.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">and</span> index&lt;right:</span><br><span class="line">            <span class="built_in">next</span>=cur.<span class="built_in">next</span></span><br><span class="line">            cur.<span class="built_in">next</span>=pre</span><br><span class="line">            pre=cur</span><br><span class="line">            cur=<span class="built_in">next</span></span><br><span class="line">            index+=<span class="number">1</span></span><br><span class="line">        <span class="comment"># 此时pre是反转后的链表头结点，cur是right下一个节点</span></span><br><span class="line">        <span class="comment">#print(pre.val,cur.val) # 如果right是最后一个节点，cur指向None，其没有val属性，print报错</span></span><br><span class="line">        start.<span class="built_in">next</span>.<span class="built_in">next</span>=cur</span><br><span class="line">        start.<span class="built_in">next</span>=pre</span><br><span class="line">        <span class="keyword">return</span> dummy_head.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-6-2-头插法，一次遍历（官方题解）"><a href="#2-6-2-头插法，一次遍历（官方题解）" class="headerlink" title="2.6.2 头插法，一次遍历（官方题解）"></a>2.6.2 头插法，一次遍历（官方题解）</h4><p>&#8195;&#8195;方法一的缺点是：如果 left 和 right 的区域很大，恰好是链表的头节点和尾节点时，找到 left 和 right 需要遍历一次，反转它们之间的链表还需要遍历一次，虽然总的时间复杂度为 $O(n)$，但遍历了链表 2 次，可不可以只遍历一次呢？答案是可以的，如下图所示：<br><img src="https://img-blog.csdnimg.cn/3a86d71926a04ddbbad07ae949d2ac87.png" alt="在这里插入图片描述"><br>&#8195;&#8195;整体思想是：在需要反转的区间里，每遍历到一个节点，让这个新节点来到反转部分的起始位置。下面的图展示了整个流程。<br><img src="https://img-blog.csdnimg.cn/948a8b25ef064a23b0e6872dadc3326a.png#pic_center =500x" alt="在这里插入图片描述"><br>具体来说，可以使用三个指针变量 pre、curr、next 来记录反转的过程中需要的变量，它们的意义如下：</p>
+<ul>
+<li>curr：指向待反转区域的第一个节点 left；</li>
+<li>next：永远指向 curr 的下一个节点，循环过程中，curr 变化以后 next 会变化；</li>
+<li>pre：永远指向待反转区域的第一个节点 left 的前一个节点，在循环过程中不变。</li>
+</ul>
+<ol>
+<li>反转链表（同206题）<ul>
+<li>先将 curr 的下一个节点记录为 next；</li>
+<li>执行操作 ①：把 curr 的下一个节点指向 next 的下一个节点；</li>
+<li>执行操作 ②：把 next 的下一个节点指向 pre 的下一个节点；</li>
+<li>执行操作 ③：把 pre 的下一个节点指向 next。</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/758ac8e638c34e0abf73444c2c62974a.png#pic_center =500x" alt="在这里插入图片描述"><br>反转后效果如下：<br><img src="https://img-blog.csdnimg.cn/d5372420233b45b285cbe7bd744c6de5.png#pic_center =500x" alt="在这里插入图片描述"></p>
+<ol>
+<li>继续穿针引线<br><img src="https://img-blog.csdnimg.cn/ac4972f5d09d4f7a954fc99a1cdfb463.png#pic_center =500x" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/52d80a5295c1420e818897d594780438.png#pic_center =500x" alt="在这里插入图片描述"><br>第三步同上：<br><img src="https://img-blog.csdnimg.cn/f739afba0f294c49883444925ef3e679.png#pic_center =500x" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/d0e441b8657a45268559427504fd7df1.png#pic_center =500x" alt="在这里插入图片描述"></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseBetween</span>(<span class="params">self, head: ListNode, left: <span class="built_in">int</span>, right: <span class="built_in">int</span></span>) -&gt; ListNode:</span></span><br><span class="line">        <span class="comment"># 设置 dummyNode 是这一类问题的一般做法</span></span><br><span class="line">        dummy_node = ListNode(-<span class="number">1</span>)</span><br><span class="line">        dummy_node.<span class="built_in">next</span> = head</span><br><span class="line">        pre = dummy_node</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(left - <span class="number">1</span>):</span><br><span class="line">            pre = pre.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        cur = pre.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(right - left):</span><br><span class="line">            <span class="built_in">next</span> = cur.<span class="built_in">next</span></span><br><span class="line">            cur.<span class="built_in">next</span> = <span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">            <span class="built_in">next</span>.<span class="built_in">next</span> = pre.<span class="built_in">next</span></span><br><span class="line">            pre.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> dummy_node.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-7-回文链表"><a href="#2-7-回文链表" class="headerlink" title="2.7 回文链表"></a>2.7 回文链表</h3><p>给定一个链表的头节点 head，判断该链表是否为回文链表。<br><strong>示例：</strong></p>
+<ul>
+<li>输入：head = [1,2,2,1]</li>
+<li>输出：True</li>
+</ul>
+<p>利用数组，将链表元素值依次存入，然后判断最终的数组是否是回文数。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isPalindrome</span>(<span class="params">self, head: ListNode</span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        nodes = []</span><br><span class="line">        p1 = head</span><br><span class="line">        <span class="keyword">while</span> p1:</span><br><span class="line">            nodes.append(p1.val)</span><br><span class="line">            p1 = p1.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> nodes == nodes[::-<span class="number">1</span>]</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、链表双指针"><a href="#三、链表双指针" class="headerlink" title="三、链表双指针"></a>三、链表双指针</h2><h3 id="3-1-双指针简介"><a href="#3-1-双指针简介" class="headerlink" title="3.1 双指针简介"></a>3.1 双指针简介</h3><p>在数组双指针中我们已经学习过了双指针的概念。这里再来复习一下。</p>
+<p>&#8195;&#8195; <strong>双指针（Two Pointers）</strong>：指的是在遍历元素的过程中，使用两个指针进行访问，从而达到相应的目的。如果两个指针方向相反，则称为<font color='deeppink'>「对撞时针」&lt;/font &gt;。如果两个指针方向相同，则称为<font color='deeppink'>「快慢指针」&lt;/font &gt;。如果两个指针分别属于不同的数组 / 链表，则称为<font color='deeppink'>「分离双指针」&lt;/font &gt;。</p>
+<p>&#8195;&#8195;而在单链表中，因为遍历节点只能顺着 <code>next</code> 指针方向进行，所以对于链表而言，一般只会用到「快慢指针」和「分离双指针」。其中链表的「快慢指针」又分为<font color='deeppink'>「起点不一致的快慢指针」&lt;/font &gt;和<font color='deeppink'>「步长不一致的快慢指针」&lt;/font &gt;。这几种类型的双指针所解决的问题也各不相同，下面我们一一进行讲解。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">题号</th>
+<th style="text-align:left">标题</th>
+<th style="text-align:left">题解</th>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0141</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle/">环形链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0141.%20%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">链表、双指针</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0142</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle-ii/">环形链表 II</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0142.%20%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%20II.md">Python</a></td>
+<td style="text-align:left">链表、双指针</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0160</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/intersection-of-two-linked-lists/">相交链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0160.%20%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">链表、双指针</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0019</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-nth-node-from-end-of-list/">删除链表的倒数第 N 个结点</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0019.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC%20N%20%E4%B8%AA%E7%BB%93%E7%82%B9.md">Python</a></td>
+<td style="text-align:left">链表、双指针</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0876</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/middle-of-the-linked-list/">链表的中间结点</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0876.%20%E9%93%BE%E8%A1%A8%E7%9A%84%E4%B8%AD%E9%97%B4%E7%BB%93%E7%82%B9.md">Python</a></td>
+<td style="text-align:left">链表、指针</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">剑指 Offer 22</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/">链表中倒数第k个节点</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/%E5%89%91%E6%8C%87%20Offer%2022.%20%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9.md">Python</a></td>
+<td style="text-align:left">链表、双指针</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0143</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reorder-list/">重排链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0143.%20%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">栈、递归、链表、双指针</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0002</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/add-two-numbers/">两数相加</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0002.%20%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0.md">Python</a></td>
+<td style="text-align:left">递归、链表、数学</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0445</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/add-two-numbers-ii/">两数相加 II</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0445.%20%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0%20II.md">Python</a></td>
+<td style="text-align:left">栈、链表、数学</td>
+<td style="text-align:left">中等</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="3-2-起点不一致的快慢指针"><a href="#3-2-起点不一致的快慢指针" class="headerlink" title="3.2 起点不一致的快慢指针"></a>3.2 起点不一致的快慢指针</h3><h4 id="3-2-1-算法简介"><a href="#3-2-1-算法简介" class="headerlink" title="3.2.1 算法简介"></a>3.2.1 算法简介</h4><p>&#8195;&#8195;两个指针从同一侧开始遍历链表，但是两个指针的起点不一样。 快指针 <code>fast</code> 比慢指针 <code>slow</code> 先走 <code>n</code> 步，直到快指针移动到链表尾端时为止。</p>
+<p><strong>求解步骤</strong></p>
+<ol>
+<li>使用两个指针 <code>slow</code>、<code>fast</code>。<code>slow</code>、<code>fast</code> 都指向链表的头节点，即：<code>slow = head</code>，<code>fast = head</code>。</li>
+<li>先将快指针向右移动 <code>n</code> 步。然后再同时向右移动快、慢指针。</li>
+<li>等到快指针移动到链表尾部（即 <code>fast == None</code>）时跳出循环体。</li>
+</ol>
+<p><strong>伪代码</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">slow，fast = head,head</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> n:</span><br><span class="line">    fast = fast.<span class="built_in">next</span></span><br><span class="line">    n -= <span class="number">1</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">while</span> fast:</span><br><span class="line">    fast = fast.<span class="built_in">next</span></span><br><span class="line">    slow = slow.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<p><strong>适用范围</strong>：主要用于<font color='deeppink'>找到链表中倒数第 k 个节点、删除链表倒数第 N 个节点等&lt;/font &gt;。</p>
+<h4 id="3-2-2-删除链表的倒数第-N-个结点"><a href="#3-2-2-删除链表的倒数第-N-个结点" class="headerlink" title="3.2.2 删除链表的倒数第 N 个结点"></a>3.2.2 删除链表的倒数第 N 个结点</h4><blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第 N 个结点 - 力扣（LeetCode）</a></p>
+</blockquote>
+<p>给定一个链表的头节点 <code>head</code>，要求删除链表的倒数第 <code>n</code> 个节点，并且返回链表的头节点。</p>
+<ul>
+<li>要求使用一次遍历实现。</li>
+<li>链表中结点的数目为 <code>sz</code>，其中 $1 \le sz \le 30$。</li>
+<li>$0 \le Node.val \le 100$。</li>
+<li>$1 \le n \le sz$。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>输入：head = [1,2,3,4,5], n = 2</li>
+<li>输出：[1,2,3,5]<br><img src="https://img-blog.csdnimg.cn/img_convert/295f29407affc9a16eed067b9c15e4db.jpeg#pic_center =400x" alt=""></li>
+</ul>
+<p><strong>解题思路：快慢指针</strong></p>
+<ul>
+<li>常规思路是遍历一遍链表，求出链表长度，再遍历一遍到对应位置，删除该位置上的节点。</li>
+<li>使用快慢指针可以实现一次遍历得到结果。思路就是让快指针先走 <code>n</code> 步，然后快慢指针同时右移，这样等快指针遍历到链表尾部的时候，慢指针就刚好遍历到了倒数第 <code>n</code> 个节点位置。将该位置上的节点删除即可。</li>
+<li>要删除的节点可能包含了头节点。我们可以考虑在遍历之前，新建一个头节点，让其指向原来的头节点。这样，最终如果删除的是头节点，则删除原头节点即可。返回结果的时候，可以直接返回新建头节点的下一位节点。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeNthFromEnd</span>(<span class="params">self, head: ListNode, n: <span class="built_in">int</span></span>) -&gt; ListNode:</span></span><br><span class="line">        newHead = ListNode(<span class="number">0</span>, head) <span class="comment"># val=0,next=head</span></span><br><span class="line">        fast = head</span><br><span class="line">        slow = newHead</span><br><span class="line">        <span class="keyword">while</span> n:</span><br><span class="line">            fast = fast.<span class="built_in">next</span></span><br><span class="line">            n -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> fast:</span><br><span class="line">            fast = fast.<span class="built_in">next</span></span><br><span class="line">            slow = slow.<span class="built_in">next</span></span><br><span class="line">        slow.<span class="built_in">next</span> = slow.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> newHead.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>时间复杂度</strong>：$O(n)$。</li>
+<li><strong>空间复杂度</strong>：$O(1)$。</li>
+</ul>
+<h3 id="3-3-步长不一致的快慢指针"><a href="#3-3-步长不一致的快慢指针" class="headerlink" title="3.3  步长不一致的快慢指针"></a>3.3  步长不一致的快慢指针</h3><h4 id="3-3-1-算法原理"><a href="#3-3-1-算法原理" class="headerlink" title="3.3.1 算法原理"></a>3.3.1 算法原理</h4><p>&#8195;&#8195;两个指针从同一侧开始遍历链表，两个指针的起点一样，但是步长不一致。例如，慢指针 <code>slow</code> 每次走 <code>1</code> 步，快指针 <code>fast</code> 每次走两步。直到快指针移动到链表尾端时为止。</p>
+<p><strong>求解步骤</strong></p>
+<ol>
+<li>使用两个指针 <code>slow</code>、<code>fast</code>。<code>slow</code>、<code>fast</code> 都指向链表的头节点。</li>
+<li>在循环体中将快、慢指针同时向右移动，但是快、慢指针的移动步长不一致。比如将慢指针每次移动 <code>1</code> 步，即 <code>slow = slow.next</code>。快指针每次移动 <code>2</code> 步，即 <code>fast = fast.next.next</code>。</li>
+<li>等到快指针移动到链表尾部（即 <code>fast == None</code>）时跳出循环体。</li>
+</ol>
+<p><strong>伪代码</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fast = head</span><br><span class="line">slow = head</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> fast <span class="keyword">and</span> fast.<span class="built_in">next</span>:</span><br><span class="line">    slow = slow.<span class="built_in">next</span></span><br><span class="line">    fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<p> <strong>适用范围</strong>：此算法适合<font color='deeppink'>寻找链表的中点、判断和检测链表是否有环、找到两个链表的交点等问题。&lt;/font &gt;</p>
+<h4 id="3-3-2-求链表的中间结点"><a href="#3-3-2-求链表的中间结点" class="headerlink" title="3.3.2  求链表的中间结点"></a>3.3.2  求链表的中间结点</h4><blockquote>
+<p>3.4.1 题目链接： <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/middle-of-the-linked-list/">876. 链表的中间结点 - 力扣（LeetCode）</a></p>
+</blockquote>
+<p>给定一个单链表的头节点 <code>head</code>，返回链表的中间节点。如果有两个中间节点，则返回第二个中间节点。</p>
+<ul>
+<li>给定链表的结点数介于 <code>1</code> 和 <code>100</code> 之间。</li>
+</ul>
+<p><strong>示例1</strong>：</p>
+<ul>
+<li>输入：[1,2,3,4,5]</li>
+<li>输出：此列表中的结点 3 (序列化形式：[3,4,5])</li>
+<li>解释：返回的结点值为 3 。</li>
+<li>注意，我们返回了一个 ListNode 类型的对象 ans，这样：<br><code>ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, 以及 ans.next.next.next = NULL</code>.</li>
+</ul>
+<p><strong>示例2</strong>：</p>
+<ul>
+<li>输入：[1,2,3,4,5,6]</li>
+<li>输出：此列表中的结点 4 (序列化形式：[4,5,6])</li>
+<li>解释：由于该列表有两个中间结点，值分别为 3 和 4，我们返回第二个结点。</li>
+</ul>
+<h5 id="3-3-2-1-单指针"><a href="#3-3-2-1-单指针" class="headerlink" title="3.3.2.1 单指针"></a>3.3.2.1 单指针</h5><p>&#8195;&#8195;先遍历一遍链表，统计一下节点个数为 <code>n</code>，再遍历到 <code>n / 2</code> 的位置，返回中间节点。其代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">middleNode</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span></span><br><span class="line">        n = <span class="number">0</span></span><br><span class="line">        curr = head</span><br><span class="line">        <span class="keyword">while</span> curr:</span><br><span class="line">            n += <span class="number">1</span></span><br><span class="line">            curr = curr.<span class="built_in">next</span></span><br><span class="line">        k = <span class="number">0</span></span><br><span class="line">        curr = head</span><br><span class="line">        <span class="keyword">while</span> k &lt; n // <span class="number">2</span>:</span><br><span class="line">            k += <span class="number">1</span></span><br><span class="line">            curr = curr.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> curr</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>时间复杂度</strong>：$O(n)$。</li>
+<li><strong>空间复杂度</strong>：$O(1)$。</li>
+</ul>
+<h5 id="3-3-2-2-快慢指针"><a href="#3-3-2-2-快慢指针" class="headerlink" title="3.3.2.2 快慢指针"></a>3.3.2.2 快慢指针</h5><p>使用步长不一致的快慢指针进行一次遍历找到链表的中间节点。具体做法如下：</p>
+<ol>
+<li>使用两个指针 <code>slow</code>、<code>fast</code>。<code>slow</code>、<code>fast</code> 都指向链表的头节点。</li>
+<li>在循环体中将快、慢指针同时向右移动。其中慢指针每次移动 <code>1</code> 步，即 <code>slow = slow.next</code>。快指针每次移动 <code>2</code> 步，即 <code>fast = fast.next.next</code>。</li>
+<li>等到快指针移动到链表尾部（即 <code>fast == Node</code>）时跳出循环体，此时 <code>slow</code> 指向链表中间位置。</li>
+<li>返回 <code>slow</code> 指针。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">middleNode</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span></span><br><span class="line">        fast = head</span><br><span class="line">        slow = head</span><br><span class="line">        <span class="keyword">while</span> fast <span class="keyword">and</span> fast.<span class="built_in">next</span>:</span><br><span class="line">            slow = slow.<span class="built_in">next</span></span><br><span class="line">            fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> slow</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>时间复杂度</strong>：$O(n)$。</li>
+<li><strong>空间复杂度</strong>：$O(1)$。</li>
+</ul>
+<h4 id="3-3-3-判断链表中是否含有环"><a href="#3-3-3-判断链表中是否含有环" class="headerlink" title="3.3.3 判断链表中是否含有环"></a>3.3.3 判断链表中是否含有环</h4><blockquote>
+<p>题目链接: <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle/">141. 环形链表 - 力扣（LeetCode）</a></p>
+</blockquote>
+<p>&#8195;&#8195;给定一个链表的头节点 <code>head</code>,判断链表中是否有环。如果有环则返回 <code>True</code>，否则返回 <code>False</code>。</p>
+<ul>
+<li>链表中节点的数目范围是 $[0, 10^4]$。</li>
+<li>$-10^5 \le Node.val \le 10^5$。</li>
+<li><code>pos</code> 为 <code>-1</code> 或者链表中的一个有效索引。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>输入：head = [3,2,0,-4], pos = 1</li>
+<li>输出：True</li>
+<li>解释：链表中有一个环，其尾部连接到第二个节点。<br><img src="https://img-blog.csdnimg.cn/img_convert/dbfb8d37f1e518946d12c3027e7d8b0d.png" alt=""><h5 id="3-3-3-1-哈希表"><a href="#3-3-3-1-哈希表" class="headerlink" title="3.3.3.1 哈希表"></a>3.3.3.1 哈希表</h5></li>
+</ul>
+<p>&#8195;&#8195;最简单的思路是遍历所有节点，每次遍历节点之前，使用哈希表判断该节点是否被访问过。如果过就说明存在环，如果没访问过则将该节点添加到哈希表中，继续遍历判断。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hasCycle</span>(<span class="params">self, head: ListNode</span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        nodeset = <span class="built_in">set</span>()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> head:</span><br><span class="line">            <span class="keyword">if</span> head <span class="keyword">in</span> nodeset:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            nodeset.add(head)</span><br><span class="line">            head = head.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>时间复杂度</strong>：$O(n)$。</li>
+<li><strong>空间复杂度</strong>：$O(n)$。</li>
+</ul>
+<h5 id="3-3-3-2-快慢指针（Floyd-判圈算法）"><a href="#3-3-3-2-快慢指针（Floyd-判圈算法）" class="headerlink" title="3.3.3.2 快慢指针（Floyd 判圈算法）"></a>3.3.3.2 快慢指针（Floyd 判圈算法）</h5><p>&#8195;&#8195;这种方法类似于在操场跑道跑步。两个人从同一位置同时出发，如果跑道有环（环形跑道），那么快的一方总能追上慢的一方。</p>
+<p>&#8195;&#8195;基于上边的想法，Floyd 用两个指针，一个慢指针（龟）每次前进一步，快指针（兔）指针每次前进两步（两步或多步效果是等价的）。如果两个指针在链表头节点以外的某一节点相遇（即相等）了，那么说明链表有环，否则，如果（快指针）到达了某个没有后继指针的节点时，那么说明没环。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hasCycle</span>(<span class="params">self, head: ListNode</span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        <span class="keyword">if</span> head == <span class="literal">None</span> <span class="keyword">or</span> head.<span class="built_in">next</span> == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        slow = head</span><br><span class="line">        fast = head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> slow != fast:</span><br><span class="line">            <span class="keyword">if</span> fast == <span class="literal">None</span> <span class="keyword">or</span> fast.<span class="built_in">next</span> == <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            slow = slow.<span class="built_in">next</span></span><br><span class="line">            fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>时间复杂度</strong>：$O(n)$。</li>
+<li><strong>空间复杂度</strong>：$O(1)$。   </li>
+</ul>
+<h4 id="3-3-4-求环形链表入环位置"><a href="#3-3-4-求环形链表入环位置" class="headerlink" title="3.3.4  求环形链表入环位置"></a>3.3.4  求环形链表入环位置</h4><blockquote>
+<p>题目链接:：142  <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle-ii/">环形链表 II</a></p>
+</blockquote>
+<p>&#8195;&#8195;给定一个链表的头节点 <code>head</code>，判断链表中是否有环，如果有环则返回入环的第一个节点，无环则返回 <code>None</code>。</p>
+<ul>
+<li>链表中节点的数目范围在范围 $[0, 10^4]$ 内。</li>
+<li>$-10^5 \le Node.val \le 10^5$。</li>
+<li><code>pos</code> 的值为 <code>-1</code> 或者链表中的一个有效索引。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>输入：head = [3,2,0,-4], pos = 1</li>
+<li>输出：返回索引为 1 的链表节点</li>
+<li>解释：链表中有一个环，其尾部连接到第二个节点。<br><img src="https://img-blog.csdnimg.cn/img_convert/ce72825fb3554578b0fb6a400054d2d8.png" alt=""></li>
+</ul>
+<h5 id="3-3-4-1-哈希表"><a href="#3-3-4-1-哈希表" class="headerlink" title="3.3.4.1 哈希表"></a>3.3.4.1 哈希表</h5><p>&#8195;&#8195;遍历链表中的每个节点，并将它记录下来；一旦遇到了此前遍历过的节点，就可以判定链表中存在环。借助哈希表可以很方便地实现。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">detectCycle</span>(<span class="params">self, head: <span class="type">Optional</span>[ListNode]</span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        se=<span class="built_in">set</span>()</span><br><span class="line">        cur=head</span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            <span class="keyword">if</span> cur <span class="keyword">not</span> <span class="keyword">in</span> se:</span><br><span class="line">                se.add(cur)</span><br><span class="line">                cur=cur.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> cur</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-3-4-2-快慢指针（Floyd-判圈算法）"><a href="#3-3-4-2-快慢指针（Floyd-判圈算法）" class="headerlink" title="3.3.4.2 快慢指针（Floyd 判圈算法）"></a>3.3.4.2 快慢指针（Floyd 判圈算法）</h5><ol>
+<li>利用两个指针，一个慢指针 <code>slow</code> 每次前进一步，快指针 <code>fast</code> 每次前进两步（两步或多步效果是等价的）。</li>
+<li>如果两个指针在链表头节点以外的某一节点相遇（即相等）了，那么说明链表有环。</li>
+<li>否则，如果（快指针）到达了某个没有后继指针的节点时，那么说明没环。</li>
+<li>如果有环，则再定义一个指针 <code>ans</code>，和慢指针一起每次移动一步，两个指针相遇的位置即为入口节点。</li>
+</ol>
+<p>这是因为：</p>
+<ul>
+<li><p>假设入环位置为 <code>A</code>，快慢指针在 <code>B</code> 点相遇，则相遇时慢指针走了 $a + b$ 步，快指针走了 $a + n(b+c) + b$ 步。</p>
+</li>
+<li><p>因为快指针总共走的步数是慢指针走的步数的两倍，即 $2(a + b) = a + n(b + c) + b$，所以可以推出：$a = c + (n-1)(b + c)$。</p>
+</li>
+<li><p>我们可以发现：从相遇点到入环点的距离 $c$ 加上 $n-1$ 圈的环长 $b + c$ 刚好等于从链表头部到入环点的距离。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">detectCycle</span>(<span class="params">self, head: <span class="type">Optional</span>[ListNode]</span>) -&gt; <span class="type">Optional</span>[ListNode]:</span>       </span><br><span class="line">        <span class="keyword">if</span> head==<span class="literal">None</span> <span class="keyword">or</span> head.<span class="built_in">next</span>==<span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="keyword">else</span>:            </span><br><span class="line">            slow,fast=head,head                       </span><br><span class="line">            <span class="keyword">while</span> fast <span class="keyword">and</span> fast.<span class="built_in">next</span>:                                                                               </span><br><span class="line">                slow=slow.<span class="built_in">next</span></span><br><span class="line">                fast=fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">                <span class="keyword">if</span> fast==slow: </span><br><span class="line">                    ans=head</span><br><span class="line">                    <span class="keyword">while</span> ans!=slow:</span><br><span class="line">                        ans,slow=ans.<span class="built_in">next</span>,slow.<span class="built_in">next</span></span><br><span class="line">                    <span class="keyword">return</span> slow</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>时间复杂度</strong>：$O(n)$。</li>
+<li><strong>空间复杂度</strong>：$O(1)$。</li>
+</ul>
+<h3 id="3-4-分离双指针"><a href="#3-4-分离双指针" class="headerlink" title="3.4 分离双指针"></a>3.4 分离双指针</h3><h4 id="3-4-1-算法原理"><a href="#3-4-1-算法原理" class="headerlink" title="3.4.1 算法原理"></a>3.4.1 算法原理</h4><p> <strong>分离双指针</strong>：两个指针分别属于不同的链表，两个指针分别在两个链表中移动。</p>
+<p><strong>求解步骤</strong></p>
+<ol>
+<li>使用两个指针 <code>left_1</code>、<code>left_2</code>。分别指向两个链表的头节点，即：<code>left_1 = list1</code>，<code>left_2 = list2</code>。</li>
+<li>当满足一定条件时，两个指针同时右移，即 <code>left_1 = left_1.next</code>、<code>left_2 = left_2.next</code>。</li>
+<li>当满足另外一定条件时，将 <code>left_1</code> 指针右移，即 <code>left_1 = left_1.next</code>。</li>
+<li>当满足其他一定条件时，将 <code>left_2</code> 指针右移，即 <code>left_2 = left_2.next</code>。</li>
+<li>当其中一个链表遍历完时或者满足其他特殊条件时跳出循环体。</li>
+</ol>
+<p><strong>伪代码模板</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">left_1 = list1</span><br><span class="line">left_2 = list2</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> left_1 <span class="keyword">and</span> left_2:</span><br><span class="line">    <span class="keyword">if</span> 一定条件 <span class="number">1</span>:</span><br><span class="line">        left_1 = left_1.<span class="built_in">next</span></span><br><span class="line">        left_2 = left_2.<span class="built_in">next</span></span><br><span class="line">    <span class="keyword">elif</span> 一定条件 <span class="number">2</span>:</span><br><span class="line">        left_1 = left_1.<span class="built_in">next</span></span><br><span class="line">    <span class="keyword">elif</span> 一定条件 <span class="number">3</span>:</span><br><span class="line">        left_2 = left_2.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<p><strong>适用范围</strong>：分离双指针一般用于有序链表合并等问题。</p>
+<h4 id="3-4-2-合并两个有序链表"><a href="#3-4-2-合并两个有序链表" class="headerlink" title="3.4.2 合并两个有序链表"></a>3.4.2 合并两个有序链表</h4><blockquote>
+<p>题目链接： <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/merge-two-sorted-lists/">21. 合并两个有序链表 - 力扣（LeetCode）</a></p>
+</blockquote>
+<p>给定两个升序链表的头节点 <code>list1</code> 和 <code>list2</code>，要求将其合并为一个升序链表。</p>
+<ul>
+<li>两个链表的节点数目范围是 $[0, 50]$。</li>
+<li>$-100 \le Node.val \le 100$。</li>
+<li><code>list1</code> 和 <code>list2</code> 均按 <strong>非递减顺序</strong> 排列</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>输入：list1 = [1,2,4], list2 = [1,3,4]</li>
+<li>输出：[1,1,2,3,4,4]<br><img src="https://img-blog.csdnimg.cn/img_convert/c7b6783dbd37070bd65b715c00f4ad66.jpeg#pic_center =400x" alt=""></li>
+</ul>
+<p>利用分离双指针，具体步骤如下：</p>
+<ol>
+<li>使用哑节点 <code>dummy_head</code> 构造一个头节点，并使用 <code>cur</code> 指向 <code>dummy_head</code> 用于遍历。</li>
+<li>然后判断 <code>list1</code> 和 <code>list2</code> 头节点的值，将较小的头节点加入到合并后的链表中。并向后移动该链表的头节点指针。</li>
+<li>然后重复上一步操作，直到两个链表中出现链表为空的情况。</li>
+<li>将剩余链表链接到合并后的链表中。</li>
+<li>将哑节点 <code>dummy_dead</code> 的下一个链节点 <code>dummy_head.next</code> 作为合并后有序链表的头节点返回。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeTwoLists</span>(<span class="params">self, list1: <span class="type">Optional</span>[ListNode], list2: <span class="type">Optional</span>[ListNode]</span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        dummy_head = ListNode(-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        cur = dummy_head</span><br><span class="line">        <span class="keyword">while</span> list1 <span class="keyword">and</span> list2:</span><br><span class="line">            <span class="keyword">if</span> list1.val &lt;= list2.val:</span><br><span class="line">                cur.<span class="built_in">next</span> = list1</span><br><span class="line">                list1 = list1.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur.<span class="built_in">next</span> = list2</span><br><span class="line">                list2 = list2.<span class="built_in">next</span></span><br><span class="line">            cur = cur.<span class="built_in">next</span></span><br><span class="line">		<span class="comment"># 合并后 l1 和 l2 最多只有一个还未被合并完，我们直接将链表末尾指向未合并完的链表即可</span></span><br><span class="line">        cur.<span class="built_in">next</span> = list1 <span class="keyword">if</span> list1 <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> list2</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dummy_head.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>时间复杂度</strong>：$O(n)$。</li>
+<li><strong>空间复杂度</strong>：$O(1)$。</li>
+</ul>
+<h4 id="3-4-3-相交链表"><a href="#3-4-3-相交链表" class="headerlink" title="3.4.3 相交链表"></a>3.4.3 相交链表</h4><blockquote>
+<p>题目链接： <a target="_blank" rel="noopener" href="https://algo.itcharge.cn/Solutions/0100-0199/intersection-of-two-linked-lists/">160. 相交链表- 力扣（LeetCode）</a></p>
+</blockquote>
+<p>&#8195;&#8195;给定两个链表 <code>listA</code>、<code>listB</code>。判断两个链表是否相交，相交则返回起始点，不相交则返回 <code>None</code>。<br><strong>示例：</strong></p>
+<ul>
+<li>输入：intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3</li>
+<li>输出：Intersected at ‘8’</li>
+<li>解释：<ul>
+<li>相交节点的值为 8 （注意，如果两个链表相交则不能为 0）。</li>
+<li>从各自的表头开始算起，链表 A 为 [4,1,8,4,5]，链表 B 为 [5,6,1,8,4,5]。</li>
+<li>在 A 中，相交节点前有 2 个节点；在 B 中，相交节点前有 3 个节点。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b82865bb7dd242542f1bf2012302c4d3.png#pic_center =500x" alt=""></p>
+<h5 id="3-4-3-1-哈希表"><a href="#3-4-3-1-哈希表" class="headerlink" title="3.4.3.1 哈希表"></a>3.4.3.1 哈希表</h5><p>判断两个链表是否相交，可以使用哈希集合存储链表节点。</p>
+<ol>
+<li>遍历链表 headA，并将其中的每个节点加入哈希集合中。</li>
+<li><p>遍历链表 headB，对于遍历到的每个节点，判断该节点是否在哈希集合中：</p>
+<ul>
+<li>如果当前节点不在哈希集合中，则继续遍历下一个节点；</li>
+<li>如果当前节点在哈希集合中，则后面的节点都在哈希集合中，即从当前节点开始的所有节点都在两个链表的相交部分，因此在链表 headB 中遍历到的第一个在哈希集合中的节点就是两个链表相交的节点，返回该节点。</li>
+<li>如果链表 headB 中的所有节点都不在哈希集合中，则两个链表不相交，返回 <code>null</code></li>
+</ul>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getIntersectionNode</span>(<span class="params">self, headA: ListNode, headB: ListNode</span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        se=<span class="built_in">set</span>()</span><br><span class="line">        </span><br><span class="line">        cur1=headA</span><br><span class="line">        cur2=headB</span><br><span class="line">        <span class="keyword">while</span> cur1:</span><br><span class="line">            se.add(cur1)</span><br><span class="line">            cur1=cur1.<span class="built_in">next</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">while</span> cur2:</span><br><span class="line">            <span class="keyword">if</span> cur2 <span class="keyword">in</span> se:</span><br><span class="line">                <span class="keyword">return</span> cur                          </span><br><span class="line">            cur2=cur2.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-4-3-2-分离双指针"><a href="#3-4-3-2-分离双指针" class="headerlink" title="3.4.3.2 分离双指针"></a>3.4.3.2 分离双指针</h5><p>使用双指针的方法，可以将空间复杂度降至 $O(1)$ ：           </p>
+<ul>
+<li>使用两个指针 <code>pA</code> 、<code>pB</code>，分别从链表 <code>listA</code>、链表 <code>listB</code> 的头节点开始遍历。</li>
+<li>直到<code>pA</code> 为空，将其指向<code>listB</code>的头结点，继续遍历</li>
+<li>直到<code>pB</code> 为空，将其指向<code>listA</code>的头结点，继续遍历</li>
+<li>当指针 <code>pA</code>和 <code>pB</code> 指向同一个节点或者都为空时，返回它们指向的节点或者 <code>null</code>。</li>
+</ul>
+<p>当两个链表相交时：<br><img src="https://img-blog.csdnimg.cn/7b27f6af274a4e30b0cc976bb0fac56b.png" alt="在这里插入图片描述"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getIntersectionNode</span>(<span class="params">self, headA: ListNode, headB: ListNode</span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> headA == <span class="literal">None</span> <span class="keyword">or</span> headB == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        pA = headA</span><br><span class="line">        pB = headB</span><br><span class="line">        <span class="keyword">while</span> pA != pB :</span><br><span class="line">            pA = pA.<span class="built_in">next</span> <span class="keyword">if</span> pA != <span class="literal">None</span> <span class="keyword">else</span> headB</span><br><span class="line">            pB = pB.<span class="built_in">next</span> <span class="keyword">if</span> pB != <span class="literal">None</span> <span class="keyword">else</span> headA</span><br><span class="line">        <span class="keyword">return</span> pA    </span><br></pre></td></tr></table></figure>
+<h2 id="四、链表排序"><a href="#四、链表排序" class="headerlink" title="四、链表排序"></a>四、链表排序</h2><p>&#8195;&#8195;此部分内容请参考<a target="_blank" rel="noopener" href="https://algo.itcharge.cn/02.Linked-List/02.Linked-List-Sort/01.Linked-List-Sort/">《算法通关手册》</a>   链表排序篇。</p>
+<h3 id="4-1-基础知识"><a href="#4-1-基础知识" class="headerlink" title="4.1 基础知识"></a>4.1 基础知识</h3><p>&#8195;&#8195;在数组排序中，常见的排序算法有：冒泡排序、选择排序、插入排序、希尔排序、归并排序、快速排序、堆排序、计数排序、桶排序、基数排序等。<br>&#8195;&#8195;而对于链表排序而言，因为链表不支持随机访问，访问链表后面的节点只能依靠 next 指针从头部顺序遍历，所以相对于数组排序问题来说，链表排序问题会更加复杂一点。</p>
+<ul>
+<li>适合链表的排序算法：<strong>冒泡排序</strong>、<strong>选择排序</strong>、<strong>插入排序</strong>、<strong>归并排序</strong>、<strong>快速排序</strong>、<strong>计数排序</strong>、<strong>桶排序</strong>、<strong>基数排序</strong>。</li>
+<li>重点掌握：<font color='deeppink'><strong>链表插入排序</strong>、<strong>链表归并排序</strong> &lt;/font &gt;。</li>
+<li>不适合链表的排序算法：<strong>希尔排序</strong>。</li>
+<li>可以用于链表排序但不建议使用的排序算法：<strong>堆排序</strong>。</li>
+</ul>
+<blockquote>
+<p>希尔排序为什么不适合链表排序？<br>&#8195;&#8195;<strong>希尔排序</strong>：希尔排序中经常涉及到对序列中第 <code>i + gap</code> 的元素进行操作，其中 <code>gap</code> 是希尔排序中当前的步长。而链表不支持随机访问的特性，导致这种操作不适合链表，因而希尔排序算法不适合进行链表排序。</p>
+<p>为什么不建议使用堆排序？<br>&#8195;&#8195;<strong>堆排序</strong>：堆排序所使用的最大堆 / 最小堆结构本质上是一棵完全二叉树。而完全二叉树适合采用顺序存储结构（数组）。因为数组存储的完全二叉树可以很方便的通过下标序号来确定父亲节点和孩子节点，并且可以极大限度的节省存储空间。<br>&#8195;&#8195;而链表用在存储完全二叉树的时候，因为不支持随机访问的特性，导致其寻找子节点和父亲节点会比较耗时，如果增加指向父亲节点的变量，又会浪费大量存储空间。所以堆排序算法不适合进行链表排序。<br>&#8195;&#8195;如果一定要对链表进行堆排序，则可以使用额外的数组空间表示堆结构。然后将链表中各个节点的值依次添加入堆结构中，对数组进行堆排序。排序后，再按照堆中元素顺序，依次建立链表节点，构建新的链表并返回新链表头节点。</p>
+</blockquote>
+<p>链表插入排序</p>
+<h3 id="4-2-链表插入排序"><a href="#4-2-链表插入排序" class="headerlink" title="4.2 链表插入排序"></a>4.2 链表插入排序</h3><p><strong>1. 算法步骤</strong>：</p>
+<ol>
+<li>先使用哑节点 <code>dummy_head</code> 构造一个指向 <code>head</code> 的指针，使得可以从 <code>head</code> 开始遍历。</li>
+<li>维护 <code>sorted_list</code> 为链表的已排序部分的最后一个节点，初始时，<code>sorted_list = head</code>。</li>
+<li>维护 <code>prev</code> 为插入元素位置的前一个节点，维护 <code>cur</code> 为待插入元素。初始时，<code>prev = head</code>，<code>cur = head.next</code>。</li>
+<li><p>比较 <code>sorted_list</code> 和 <code>cur</code> 的节点值。</p>
+<ul>
+<li>如果 <code>sorted_list.val &lt;= cur.val</code>，说明 <code>cur</code> 应该插入到 <code>sorted_list</code> 之后，则将 <code>sorted_list</code> 后移一位。</li>
+<li>如果 <code>sorted_list.val &gt; cur.val</code>，说明 <code>cur</code> 应该插入到 <code>head</code> 与 <code>sorted_list</code> 之间。则使用 <code>prev</code> 从 <code>head</code> 开始遍历，直到找到插入 <code>cur</code> 的位置的前一个节点位置。然后将 <code>cur</code> 插入。</li>
+</ul>
+</li>
+<li><p>令 <code>cur = sorted_list.next</code>，此时 <code>cur</code> 为下一个待插入元素。</p>
+</li>
+<li>重复 4、5 步骤，直到 <code>cur</code> 遍历结束为空。返回 <code>dummy_head</code> 的下一个节点。</li>
+</ol>
+<p><strong>2. 实现代码</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insertionSort</span>(<span class="params">self, head: ListNode</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> head <span class="keyword">or</span> <span class="keyword">not</span> head.<span class="built_in">next</span>:</span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        </span><br><span class="line">        dummy_head = ListNode(-<span class="number">1</span>)</span><br><span class="line">        dummy_head.<span class="built_in">next</span> = head</span><br><span class="line">        sorted_list = head</span><br><span class="line">        cur = head.<span class="built_in">next</span> </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            <span class="keyword">if</span> sorted_list.val &lt;= cur.val:</span><br><span class="line">                <span class="comment"># 将 cur 插入到 sorted_list 之后</span></span><br><span class="line">                sorted_list = sorted_list.<span class="built_in">next</span> </span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                prev = dummy_head</span><br><span class="line">                <span class="keyword">while</span> prev.<span class="built_in">next</span>.val &lt;= cur.val:</span><br><span class="line">                    prev = prev.<span class="built_in">next</span></span><br><span class="line">                <span class="comment"># 将 cur 到链表中间</span></span><br><span class="line">                sorted_list.<span class="built_in">next</span> = cur.<span class="built_in">next</span></span><br><span class="line">                cur.<span class="built_in">next</span> = prev.<span class="built_in">next</span></span><br><span class="line">                prev.<span class="built_in">next</span> = cur</span><br><span class="line">            cur = sorted_list.<span class="built_in">next</span> </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dummy_head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sortList</span>(<span class="params">self, head: <span class="type">Optional</span>[ListNode]</span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        <span class="keyword">return</span> self.insertionSort(head)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>时间复杂度</strong>：$O(n^2)$。</li>
+<li><strong>空间复杂度</strong>：$O(1)$。</li>
+</ul>
+<h3 id="4-3-链表归并排序"><a href="#4-3-链表归并排序" class="headerlink" title="4.3 链表归并排序"></a>4.3 链表归并排序</h3><p><strong>1. 算法步骤</strong></p>
+<ol>
+<li><strong>分割环节</strong>：找到链表中心链节点，从中心节点将链表断开，并递归进行分割。<ol>
+<li>使用快慢指针 <code>fast = head.next</code>、<code>slow = head</code>，让 <code>fast</code> 每次移动 <code>2</code> 步，<code>slow</code> 移动 <code>1</code> 步，移动到链表末尾，从而找到链表中心链节点，即 <code>slow</code>。</li>
+<li>从中心位置将链表从中心位置分为左右两个链表 <code>left_head</code> 和 <code>right_head</code>，并从中心位置将其断开，即 <code>slow.next = None</code>。</li>
+<li>对左右两个链表分别进行递归分割，直到每个链表中只包含一个链节点。</li>
+</ol>
+</li>
+<li><strong>归并环节</strong>：将递归后的链表进行两两归并，完成一遍后每个子链表长度加倍。重复进行归并操作，直到得到完整的链表。<ol>
+<li>使用哑节点 <code>dummy_head</code> 构造一个头节点，并使用 <code>cur</code> 指向 <code>dummy_head</code> 用于遍历。</li>
+<li>比较两个链表头节点 <code>left</code> 和 <code>right</code> 的值大小。将较小的头节点加入到合并后的链表中，并向后移动该链表的头节点指针。</li>
+<li>然后重复上一步操作，直到两个链表中出现链表为空的情况。</li>
+<li>将剩余链表插入到合并后的链表中。</li>
+<li>将哑节点 <code>dummy_dead</code> 的下一个链节点 <code>dummy_head.next</code> 作为合并后的头节点返回。</li>
+</ol>
+</li>
+</ol>
+<p><strong>2. 实现代码</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span>(<span class="params">self, left, right</span>):</span></span><br><span class="line">        <span class="comment"># 归并环节</span></span><br><span class="line">        dummy_head = ListNode(-<span class="number">1</span>)</span><br><span class="line">        cur = dummy_head</span><br><span class="line">        <span class="keyword">while</span> left <span class="keyword">and</span> right:</span><br><span class="line">            <span class="keyword">if</span> left.val &lt;= right.val:</span><br><span class="line">                cur.<span class="built_in">next</span> = left</span><br><span class="line">                left = left.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur.<span class="built_in">next</span> = right</span><br><span class="line">                right = right.<span class="built_in">next</span></span><br><span class="line">            cur = cur.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> left:</span><br><span class="line">            cur.<span class="built_in">next</span> = left</span><br><span class="line">        <span class="keyword">elif</span> right:</span><br><span class="line">            cur.<span class="built_in">next</span> = right</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> dummy_head.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeSort</span>(<span class="params">self, head: ListNode</span>):</span></span><br><span class="line">        <span class="comment"># 分割环节</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> head <span class="keyword">or</span> <span class="keyword">not</span> head.<span class="built_in">next</span>:</span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 快慢指针找到中心链节点</span></span><br><span class="line">        slow, fast = head, head.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">while</span> fast <span class="keyword">and</span> fast.<span class="built_in">next</span>:</span><br><span class="line">            slow = slow.<span class="built_in">next</span> </span><br><span class="line">            fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span> </span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 断开左右链节点</span></span><br><span class="line">        left_head, right_head = head, slow.<span class="built_in">next</span> </span><br><span class="line">        slow.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 归并操作</span></span><br><span class="line">        <span class="keyword">return</span> self.merge(self.mergeSort(left_head), self.mergeSort(right_head))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sortList</span>(<span class="params">self, head: <span class="type">Optional</span>[ListNode]</span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        <span class="keyword">return</span> self.mergeSort(head)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>时间复杂度</strong>：$O(n \times \log_2n)$。</li>
+<li><strong>空间复杂度</strong>：$O(1)$。</li>
+</ul>
+<h3 id="4-4-链表排序题目"><a href="#4-4-链表排序题目" class="headerlink" title="4.4 链表排序题目"></a>4.4 链表排序题目</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">题号</th>
+<th style="text-align:left">标题</th>
+<th style="text-align:left">题解</th>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0148</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sort-list/">排序链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0148.%20%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">链表、双指针、分治、排序、归并排序</td>
+<td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">0021</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/merge-two-sorted-lists/">合并两个有序链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0021.%20%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">递归、链表</td>
+<td style="text-align:left">简单</td>
+</tr>
+<tr>
+<td style="text-align:left">0023</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/merge-k-sorted-lists/">合并K个升序链表</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0023.%20%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8.md">Python</a></td>
+<td style="text-align:left">链表、分治、堆（优先队列）、归并排序</td>
+<td style="text-align:left">困难</td>
+</tr>
+<tr>
+<td style="text-align:left">0147</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/insertion-sort-list/">对链表进行插入排序</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/itcharge/LeetCode-Py/blob/main/Solutions/0147.%20%E5%AF%B9%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F.md">Python</a></td>
+<td style="text-align:left">链表、排序</td>
+<td style="text-align:left">中等</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="4-4-1-排序链表"><a href="#4-4-1-排序链表" class="headerlink" title="4.4.1 排序链表"></a>4.4.1 排序链表</h4><blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sort-list/">0148. 排序链表</a></p>
+</blockquote>
+<p>给定链表的头节点 <code>head</code>，请按照升序排列并返回排序后的链表。</p>
+<ul>
+<li>链表中节点的数目在范围 $[0, 5 * 10^4]$ 内。</li>
+<li>$-10^5 \le Node.val \le 10^5$。</li>
+</ul>
+<p>&#8195;&#8195;本题使用链表的冒泡排序、选择排序、插入排序、快速排序都会超时。使用桶排序、归并排序、计数排序则可以通过，基数排序只适用于非负数的情况。归并排序代码上面已给出，其它排序算法请参考<a target="_blank" rel="noopener" href="https://algo.itcharge.cn/02.Linked-List/02.Linked-List-Sort/01.Linked-List-Sort/">《算法通关手册》</a>    </p>
+<h4 id="4-4-2-合并K个升序链表"><a href="#4-4-2-合并K个升序链表" class="headerlink" title="4.4.2 合并K个升序链表"></a>4.4.2 合并K个升序链表</h4><blockquote>
+<p>题目链接：  <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/merge-k-sorted-lists/">023 合并K个升序链表</a> </p>
+</blockquote>
+<p>&#8195;&#8195;给定一个链表数组，每个链表都已经按照升序排列。要求将所有链表合并到一个升序链表中，返回合并后的链表。</p>
+<p>&#8195;&#8195;首先，何在 $O(n)$ 的时间代价以及 $O(1)$ 的空间代价里完成两个有序链表的合并？为了达到空间代价是 $O(1)$，我们的宗旨是「原地调整链表元素的<code>next</code>指针完成合并」，具体参考本文的《3.4.2 合并两个有序链表》。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeTwoLists</span>(<span class="params">self, list1: <span class="type">Optional</span>[ListNode], list2: <span class="type">Optional</span>[ListNode]</span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        dummy_head = ListNode(-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        cur = dummy_head</span><br><span class="line">        <span class="keyword">while</span> list1 <span class="keyword">and</span> list2:</span><br><span class="line">            <span class="keyword">if</span> list1.val &lt;= list2.val:</span><br><span class="line">                cur.<span class="built_in">next</span> = list1</span><br><span class="line">                list1 = list1.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur.<span class="built_in">next</span> = list2</span><br><span class="line">                list2 = list2.<span class="built_in">next</span></span><br><span class="line">            cur = cur.<span class="built_in">next</span></span><br><span class="line">		<span class="comment"># 合并后 l1 和 l2 最多只有一个还未被合并完，我们直接将链表末尾指向未合并完的链表即可</span></span><br><span class="line">        cur.<span class="built_in">next</span> = list1 <span class="keyword">if</span> list1 <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> list2</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dummy_head.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+<h5 id="4-4-2-1-顺序合并"><a href="#4-4-2-1-顺序合并" class="headerlink" title="4.4.2.1 顺序合并"></a>4.4.2.1 顺序合并</h5><p>&#8195;&#8195;我们可以想到一种最朴素的方法：用一个变量 <code>ans</code>来维护以及合并链表，第 <code>i</code> 次循环把第 <code>i</code> 个链表和 <code>ans</code>合并，答案保存到 <code>ans</code>中。</p>
+<p><img src="https://img-blog.csdnimg.cn/eb3ca867418a4c9dba955cd56f86eb80.png" alt="在这里插入图片描述"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, next=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.next = next</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeKLists</span>(<span class="params">self, lists: <span class="type">List</span>[<span class="type">Optional</span>[ListNode]]</span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(lists)==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span>                </span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            ans=lists[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> lists[<span class="number">1</span>:]:</span><br><span class="line">                ans=self.mergeTwoLists(ans,i)</span><br><span class="line">            <span class="keyword">return</span> ans</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeTwoLists</span>(<span class="params">self, list1: <span class="type">Optional</span>[ListNode], list2: <span class="type">Optional</span>[ListNode]</span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        dummy_head = ListNode(-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        cur = dummy_head</span><br><span class="line">        <span class="keyword">while</span> list1 <span class="keyword">and</span> list2:</span><br><span class="line">            <span class="keyword">if</span> list1.val &lt;= list2.val:</span><br><span class="line">                cur.<span class="built_in">next</span> = list1</span><br><span class="line">                list1 = list1.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur.<span class="built_in">next</span> = list2</span><br><span class="line">                list2 = list2.<span class="built_in">next</span></span><br><span class="line">            cur = cur.<span class="built_in">next</span></span><br><span class="line">		<span class="comment"># 合并后 l1 和 l2 最多只有一个还未被合并完，我们直接将链表末尾指向未合并完的链表即可</span></span><br><span class="line">        cur.<span class="built_in">next</span> = list1 <span class="keyword">if</span> list1 <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> list2</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dummy_head.<span class="built_in">next</span>    </span><br></pre></td></tr></table></figure>
+<h5 id="4-4-2-2-分治合并"><a href="#4-4-2-2-分治合并" class="headerlink" title="4.4.2.2 分治合并"></a>4.4.2.2 分治合并</h5><p>&#8195;&#8195;分而治之的思想。将链表数组不断二分，转为规模为二分之一的子问题，然后再进行归并排序。<br><img src="https://img-blog.csdnimg.cn/0ca3685d8cff48c0971924a210850cd9.png" alt="在这里插入图片描述"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span>(<span class="params">self, lists: <span class="type">List</span>[ListNode], left: <span class="built_in">int</span>, right: <span class="built_in">int</span></span>) -&gt; ListNode:</span></span><br><span class="line">        <span class="keyword">if</span> left == right:</span><br><span class="line">            <span class="keyword">return</span> lists[left]</span><br><span class="line">        mid = left + (right - left) // <span class="number">2</span></span><br><span class="line">        node_left = self.merge_sort(lists, left, mid)</span><br><span class="line">        node_right = self.merge_sort(lists, mid + <span class="number">1</span>, right)</span><br><span class="line">        <span class="keyword">return</span> self.merge(node_left, node_right)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span>(<span class="params">self, a: ListNode, b: ListNode</span>) -&gt; ListNode:</span></span><br><span class="line">        root = ListNode(-<span class="number">1</span>)</span><br><span class="line">        cur = root</span><br><span class="line">        <span class="keyword">while</span> a <span class="keyword">and</span> b:</span><br><span class="line">            <span class="keyword">if</span> a.val &lt; b.val:</span><br><span class="line">                cur.<span class="built_in">next</span> = a</span><br><span class="line">                a = a.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur.<span class="built_in">next</span> = b</span><br><span class="line">                b = b.<span class="built_in">next</span></span><br><span class="line">            cur = cur.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">if</span> a:</span><br><span class="line">            cur.<span class="built_in">next</span> = a</span><br><span class="line">        <span class="keyword">if</span> b:</span><br><span class="line">            cur.<span class="built_in">next</span> = b</span><br><span class="line">        <span class="keyword">return</span> root.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeKLists</span>(<span class="params">self, lists: <span class="type">List</span>[ListNode]</span>) -&gt; ListNode:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> lists:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        size = <span class="built_in">len</span>(lists)</span><br><span class="line">        <span class="keyword">return</span> self.merge_sort(lists, <span class="number">0</span>, size - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/af35828c23c64ab184b9f7a191133d0f.png" alt="在这里插入图片描述"></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">zhxnlp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zhxnlp.github.io/2023/02/24/数据结构与算法/LeetCode练习三：链表/">https://zhxnlp.github.io/2023/02/24/数据结构与算法/LeetCode练习三：链表/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zhxnlp.github.io">zhxnlpのBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/leetcode/">leetcode</a><a class="post-meta__tags" href="/tags/Linked-List/">Linked List</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2023/03/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode%E7%BB%83%E4%B9%A0%E5%9B%9B%EF%BC%9A%E6%A0%88/"><i class="fa fa-chevron-left">  </i><span>leetcode练习四：栈</span></a></div><div class="next-post pull-right"><a href="/2023/02/13/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode%E7%BB%83%E4%B9%A0%E4%BA%8C%EF%BC%9A%E6%8E%92%E5%BA%8F/"><span>leetcode练习二：排序</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-blog.csdnimg.cn/ffe1f736be4548dc9101388503288e4d.png)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2023 By zhxnlp</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
