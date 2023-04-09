@@ -50,7 +50,9 @@
 <blockquote>
 <p>knn1 0.873 (0.030)<br>knn3 0.889 (0.038)<br>knn5 0.895 (0.031)<br>knn7 0.899 (0.035)<br>knn9 0.900 (0.033)<br>hard_voting 0.902 (0.034）</p>
 </blockquote>
-<p><img src="https://img-blog.csdnimg.cn/546a2624da1c48eba1431876e835f8b7.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA6K-75Lmm5LiN6KeJ5bey5pil5rex77yB,size_8,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>显然投票的效果略大于任何一个基模型。</p>
+<p><img src="https://img-blog.csdnimg.cn/546a2624da1c48eba1431876e835f8b7.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA6K-75Lmm5LiN6KeJ5bey5pil5rex77yB,size_8,color_FFFFFF,t_70,g_se,x_16" alt=""></p>
+<p><img src="http://static.runoob.com/images/runoob-logo.png" alt=""> </p>
+<p>显然投票的效果略大于任何一个基模型。</p>
 <p>通过箱形图我们可以看到硬投票方法对交叉验证整体预测结果分布带来的提升。</p>
 <h3 id="1-3-bagging的原理分析"><a href="#1-3-bagging的原理分析" class="headerlink" title="1.3 bagging的原理分析"></a>1.3 bagging的原理分析</h3><p>Voting法希望各个模型之间具有较大的差异性，而在实际操作中的模型却往往是同质的，故考虑是通过不同的采样增加模型的差异性。&lt;/font &gt;</p>
 <p>自助采样(bootstrap)：有放回的从数据集中进行采样。<br>Bagging思想的实质是：通过Bootstrap 的方式对全样本数据集进行抽样得到抽样子集，对不同的子集使用同一种基本模型进行拟合，然后投票得出最终的预测。Bagging主要通过降低方差的方式减少预测误差</p>
